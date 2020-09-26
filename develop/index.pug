@@ -253,10 +253,17 @@ html
             | [iOS の場合]
             ol
               li
-                | 次のコマンドで ionic のビルドを実行してください。
+                | [初回のみ]
+                br
+                | 次のコマンドを実行してください。
                 .box1
                   | cd ../bnan
                   br
+                  | ionic cap add ios
+                br
+              li
+                | 次のコマンドで ionic のビルドを実行してください。
+                .box1
                   | ./build_ios.sh
                 br
               li
@@ -270,12 +277,19 @@ html
             | [Android の場合]
             ol
               li
+                | [初回のみ]
+                br
+                | 次のコマンドを実行してください。
+                .box1
+                  | cd ../bnan
+                  br
+                  | ionic cap add android
+                br
+              li
                 | 次のコマンドで ionic のビルドを実行してください。
                 br
                 | （iOSのビルドとの違いは、Googleフォントを配置する点です。）
                 .box1
-                  | cd ../bnan
-                  br
                   | ./build_android.sh
                 br
               li
