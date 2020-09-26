@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="base">
+    <ion-item>
+      <ion-label position="stacked">タイトル</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <div class="frame">
+      <ion-item>
+        <ion-textarea
+          rows="13"
+          placeholder="テキスト"
+          [(ngModel)]="text"
+        ></ion-textarea>
+      </ion-item>
+    </div>
+    <ion-segment style="margin-top: 6px" mode="ios" [(ngModel)]="vertical">
+      <ion-segment-button value="1">
+        <ion-label>横書き表示</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label>縦書き表示</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-item>
+      <ion-label>フォントサイズ</ion-label>
+      <ion-select interface="popover" [(ngModel)]="sz">
+        <ion-select-option value="14">14pt</ion-select-option>
+        <ion-select-option value="16">16pt</ion-select-option>
+        <ion-select-option value="18">18pt</ion-select-option>
+        <ion-select-option value="20">20pt</ion-select-option>
+        <ion-select-option value="22">22pt</ion-select-option>
+        <ion-select-option value="24">24pt</ion-select-option>
+        <ion-select-option value="26">26pt</ion-select-option>
+        <ion-select-option value="28">28pt</ion-select-option>
+        <ion-select-option value="30">30pt</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" (click)="save()">
+      <ion-icon slot="start" name="save"></ion-icon>保存・更新する
+    </ion-button>
+    <ion-button *ngIf="showDelete" expand="block" (click)="back()">
+      <ion-icon slot="start" name="arrow-redo"></ion-icon
+      >保存しないで表示画面に戻る
+    </ion-button>
+    <ion-button expand="block" (click)="slash()">
+      <ion-icon slot="start" name="code-slash"></ion-icon>句読点に/を挿入する
+    </ion-button>
+    <ion-button expand="block" (click)="copy()">
+      <ion-icon slot="start" name="exit"></ion-icon>クリップボードにコピーする
+    </ion-button>
+    <ion-button expand="block" (click)="paste()">
+      <ion-icon slot="start" name="enter"></ion-icon
+      >クリップボードからペーストする
+    </ion-button>
+    <ion-button
+      *ngIf="showDelete"
+      expand="block"
+      color="tertiary"
+      (click)="delete()"
+    >
+      <ion-icon slot="start" name="trash"></ion-icon>文書を削除する
+    </ion-button>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>

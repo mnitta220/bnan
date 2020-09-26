@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button style="margin-top: 13px; margin-left: 12px" (click)="addDoc()"
+    >文書登録</ion-button
+  >
+  <ion-list style="max-width: 800px">
+    <ion-item
+      *ngFor="let d of docs; let i = index"
+      [button]="true"
+      (click)="selectDoc(i)"
+    >
+      <ion-label>{{d.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <p><br /><br /><br /><br /><br /><br /></p>
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ログ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="usage">
+    <p>
+      <ion-button (click)="clear()">Clear</ion-button>&nbsp;
+      <ion-button (click)="copy()">Copy</ion-button>&nbsp;
+      <ion-button (click)="initialize()">Initialize</ion-button>
+    </p>
+    <div style="max-width: 800px">
+      <div *ngFor="let l of logs; let i = index">
+        <div style="border: solid 1px">{{l}}</div>
+      </div>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>

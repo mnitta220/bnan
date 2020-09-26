@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>文書一覧画面</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="usage">
+    <p>このアプリでは、暗記したい文章を「文書」として登録します。</p>
+    <p>
+      画面左上の&nbsp;<img
+        src="assets/png/fig06.png"
+        width="27px"
+        height="27px"
+        style="border: solid 1px gray"
+      />&nbsp;をタップして、メニュー画面で「文書一覧」をタップすると、文書一覧画面が表示されます。
+    </p>
+    <p>
+      <img
+        src="assets/png/fig03.png"
+        style="border: solid 1px gray; padding: 1px"
+      />
+    </p>
+    <p>
+      文書一覧画面では、登録済みの文書が一覧表示されます。初期状態では、「サンプル文書」が登録されています。
+    </p>
+    <p>
+      一覧から文書を選択すると、<a
+        routerLink="/usage-view"
+        routerLinkActive="current"
+        >文書表示画面</a
+      >
+      に遷移します。
+    </p>
+    <p>
+      「文書登録」ボタンを押すと、<a
+        routerLink="/usage-doc"
+        routerLinkActive="current"
+        >文書登録画面</a
+      >
+      に遷移します。
+    </p>
+    <p><br /><br /></p>
+    <table class="fTbl">
+      <tr>
+        <td>
+          <a routerLink="/usage" routerLinkActive="current">&lt; 使い方</a>
+        </td>
+        <td style="text-align: right">
+          <a routerLink="/usage-doc" routerLinkActive="current"
+            >文書登録画面 &gt;</a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>

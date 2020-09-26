@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>このアプリについて</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="usage">
+    <h1>文章暗記</h1>
+    <h2>Version {{version}}</h2>
+    <p><br /></p>
+    <hr />
+    <h2>■ 連絡先</h2>
+    <p>
+      このアプリについて、ご質問、ご意見、ご要望、不具合報告などがございましたら、作者(新田
+      雅浩)の次のメールアドレスにメールをお送りください。
+    </p>
+    <p>
+      メールアドレス:<br />
+      <a href="mailto:mnitta220@gmail.com?subject=文章暗記について"
+        >mnitta220@gmail.com</a
+      >
+    </p>
+    <p>
+      不具合報告を送られる場合は、詳しい現象と、 <br />お使いの機種〔&nbsp;<span
+        style="border: solid 1px #aaa; color: black; background-color: #eee"
+        >&nbsp;{{device}}&nbsp;</span
+      >&nbsp;〕、 <br />OS〔&nbsp;<span
+        style="border: solid 1px #aaa; color: black; background-color: #eee"
+        >&nbsp;{{os}}&nbsp;</span
+      >&nbsp;〕、 <br />このアプリのバージョン〔&nbsp;<span
+        style="border: solid 1px #aaa; color: black; background-color: #eee"
+        >&nbsp;{{version}}&nbsp;</span
+      >&nbsp;〕 <br />をお知らせください。
+    </p>
+    <p><br /><br /></p>
+    <hr />
+    <h2>■ データ初期化</h2>
+    <ion-button (click)="initialize()">データ初期化</ion-button>
+    <br />（このボタンを押すと、登録された文書がすべて削除され、初期状態に戻ります。<br /><br /><br />
+    <hr />
+    <p>
+      Copyright &copy; 2020 Masahiro Nitta. All rights reserved<a
+        routerLink="/log"
+        routerLinkActive="current"
+        style="text-decoration: none"
+        >.</a
+      >
+    </p>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>

@@ -1,0 +1,123 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>文書表示画面</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="usage">
+    <p>文書表示画面は、文書が表示されます。</p>
+    <p><br /></p>
+    <p>
+      <img
+        src="assets/png/fig01.png"
+        style="border: solid 1px gray; padding: 1px"
+      />
+    </p>
+    <hr />
+    <h2>本文／目次</h2>
+    <p>
+      「目次」を選択すると、目次が表示されます。目次には、テキストに見出しとして入力された行が表示されます。
+    </p>
+    <p>
+      「本文」を選択すると、本文が表示されます。本文として表示されるのは、「目次」で選択中の見出しから、次の見出しの前までです。
+    </p>
+    <p>たとえば、次のようなテキストが入力されていたとします。</p>
+    <div class="source">
+      # 第１章 あいうえお<br />本文かきくけこ。<br /># 第２章 さしすせそ<br />本文たちつてと。
+    </div>
+    <p>
+      この場合、目次には「第１章 あいうえお」と「第２章
+      さしすせそ」が表示されます。
+    </p>
+    <p>
+      目次で「第１章
+      あいうえお」を選択すると、テキスト欄に「本文かきくけこ。」が表示されます。
+    </p>
+    <p>
+      目次で「第２章
+      さしすせそ」を選択すると、テキスト欄に「本文たちつてと。」が表示されます。
+    </p>
+    <p><br /></p>
+    <hr />
+    <h2>全表示／黒塗り</h2>
+    <p>「全表示」を選択すると、本文が黒塗りしないで表示されます。</p>
+    <p>「黒塗り」を選択すると、本文が黒塗りで表示されます。</p>
+    <p>
+      テキスト欄は、横書き表示なら左右に、縦書き表示なら上下に、指でスクロールすることができます。スクロールバーを動かすことでもスクロールできます。
+    </p>
+    <p><br /></p>
+    <hr />
+    <h2>ツールボタン</h2>
+    <div class="btns">
+      <table>
+        <tr>
+          <td style="width: 46px">
+            <img src="assets/png/btn03.png" width="32px" height="32px" />
+          </td>
+          <td>
+            〔黒塗り〕<br />黒塗りの区切りを、次の「/」に移動します。<br />テキスト欄をタップすることによっても、次に移動します。
+          </td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn04.png" width="31px" height="31px" /></td>
+          <td>〔黒塗り〕<br />黒塗りの区切りを、前の「/」に移動します。</td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn01.png" width="31px" height="31px" /></td>
+          <td>
+            〔黒塗り〕<br />黒塗りの区切りを、次の1文字または1単語に移動します。
+          </td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn07.png" width="31px" height="31px" /></td>
+          <td>本文の末尾に移動します。</td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn08.png" width="31px" height="31px" /></td>
+          <td>本文の先頭に移動します。</td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn09.png" width="31px" height="31px" /></td>
+          <td>
+            テキスト欄の高さを大きくします。<br />適度な高さに調整してください。
+          </td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn10.png" width="31px" height="31px" /></td>
+          <td>テキスト欄の高さを小さくします。</td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      ※
+      黒塗り表示の時に、テキスト欄をダブルタップすると、黒塗りの区切りが、その位置に移動します。
+    </p>
+    <p><br /></p>
+    <hr />
+    <h2>「更新・変更する」ボタン</h2>
+    <p>「更新・変更する」ボタンを押すと、文書登録画面に遷移します。</p>
+    <p><br /><br /></p>
+    <hr />
+    <p>文章を暗記するコツは、次の３つです。</p>
+    <ol>
+      <li>文章を適度な長さに分ける。</li>
+      <li>文章を頭の中でイメージ化する。</li>
+      <li>覚えるまで何度も繰り返す。</li>
+    </ol>
+    <p><br /></p>
+    <table class="fTbl">
+      <tr>
+        <td>
+          <a routerLink="/usage-doc" routerLinkActive="current"
+            >&lt; 文書登録画面</a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>

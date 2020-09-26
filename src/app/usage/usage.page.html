@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>使い方</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="usage">
+    <p>
+      このアプリは、暗記したい文章がある時に、それを暗記できるようにサポートします。
+    </p>
+    <p>
+      たとえば、古典、経典、<ruby>
+        詩歌
+        <rt>しいか</rt> </ruby
+      >、スピーチ原稿、台本などの文章を、暗記・<ruby>
+        暗誦
+        <rt>あんしょう</rt> </ruby
+      >したい時に、このアプリを使ってトレーニングすることができます。
+    </p>
+    <p>試験勉強にもお使いいただけます。</p>
+    <p>
+      このアプリでは、登録された文章が黒塗りで表示されます。黒塗りの位置を、先頭から末尾まで、少しずつ移動しながら暗記していきます。
+    </p>
+    <p><br /></p>
+    <hr />
+    <h3>《目次》</h3>
+    <ul>
+      <li>
+        <a routerLink="/usage-list" routerLinkActive="current">文書一覧画面</a>
+      </li>
+      <li>
+        <a routerLink="/usage-doc" routerLinkActive="current">文書登録画面</a>
+      </li>
+      <li>
+        <a routerLink="/usage-view" routerLinkActive="current">文書表示画面</a>
+      </li>
+    </ul>
+    <p></p>
+    <table class="fTbl">
+      <tr>
+        <td style="text-align: right">
+          <a routerLink="/usage-list" routerLinkActive="current"
+            >文書一覧画面 &gt;</a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p>&nbsp;</p>
+</ion-content>
