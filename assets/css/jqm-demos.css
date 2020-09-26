@@ -79,6 +79,10 @@
 .jqm-demos .jqm-content > h1,
 .jqm-demos .jqm-content > h2,
 .jqm-demos .jqm-content > h3,
+.jqm-demos .jqm-content > h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 350;
+}
 .jqm-demos .jqm-content > p,
 .jqm-demos .jqm-content > ul li,
 .jqm-demos .jqm-content > a {
@@ -95,7 +99,7 @@
   border-bottom: 1px solid #ddd;
   font-size: 1.6em;
   padding-bottom: 0.2em;
-  margin: 0 0 0.7375em;
+  margin: 1em 0 0.7em;
 }
 .jqm-demos .jqm-content > h2 > a {
   text-decoration: none;
@@ -104,7 +108,13 @@
   color: black;
   background-color: transparent;
   font-size: 1.3em;
-  margin: 0 0 1em;
+  margin: 1em 0 0.5em;
+}
+.jqm-demos .jqm-content > h4 {
+  color: black;
+  background-color: transparent;
+  font-size: 1.2em;
+  margin: 0.8em 0 0.5em;
 }
 .jqm-demos .jqm-content > p {
   font-size: 1.1em;
@@ -113,10 +123,14 @@
 .jqm-demos .jqm-content > ul:not(.jqm-list) li {
   font-size: 1.1em;
   line-height: 1.4;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
 }
 .jqm-demos .jqm-content > ol:not(.jqm-list) li {
   font-size: 1.1em;
   line-height: 1.4;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
 }
 .jqm-demos .jqm-content > p {
   margin: 0 0 0.6em;

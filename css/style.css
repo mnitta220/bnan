@@ -1,24 +1,17 @@
 @charset "UTF-8";
 
+/*
 a {
   font-weight: 500 !important;
 }
-/*
-@-ms-viewport {
-  width: device-width;
-}
 */
 
-/*
-a:visited,
-a:link {
-  color: blue !important;
+h2 > a {
+  font-weight: 500 !important;
 }
-a:hover,
-a:active {
-  color: red !important;
+li > a {
+  font-weight: 500 !important;
 }
-*/
 
 .base {
   max-width: 720px;
@@ -66,6 +59,7 @@ a:active {
   margin: 4px 0;
   overflow: auto;
   white-space: nowrap;
+  font-weight: 300;
 }
 
 .box2 {
@@ -74,4 +68,5 @@ a:active {
   background-color: #f0f0f0;
   margin: 4px 0;
   overflow: auto;
+  font-weight: 300;
 }
