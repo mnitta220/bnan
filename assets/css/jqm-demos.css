@@ -29,7 +29,6 @@
   left: 0.4em;
   margin: 0;
   color: #666;
-  font-family: "Open Sans", sans-serif;
   font-weight: 300;
   font-size: 2em;
   text-transform: uppercase;
@@ -61,33 +60,18 @@
 .jqm-demos .jqm-footer p {
   font-size: 0.8em;
   color: #999;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
   margin: 0 1.25em 1.25em;
 }
 .jqm-demos .jqm-footer p:first-child {
   font-size: 1em;
+  font-weight: normal;
   color: #666;
-  font-weight: 400;
   margin: 1.1em 1em 1.8em;
 }
 
 /* Content */
 .jqm-demos .jqm-content {
   padding-top: 5.5em;
-}
-.jqm-demos .jqm-content > h1,
-.jqm-demos .jqm-content > h2,
-.jqm-demos .jqm-content > h3,
-.jqm-demos .jqm-content > h4 {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 350;
-}
-.jqm-demos .jqm-content > p,
-.jqm-demos .jqm-content > ul li,
-.jqm-demos .jqm-content > a {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
 }
 .jqm-demos .jqm-content > h1 {
   font-size: 2em;
@@ -100,6 +84,7 @@
   font-size: 1.6em;
   padding-bottom: 0.2em;
   margin: 1em 0 0.7em;
+  font-weight: 400;
 }
 .jqm-demos .jqm-content > h2 > a {
   text-decoration: none;
@@ -109,12 +94,14 @@
   background-color: transparent;
   font-size: 1.3em;
   margin: 1em 0 0.5em;
+  font-weight: 400;
 }
 .jqm-demos .jqm-content > h4 {
   color: black;
   background-color: transparent;
   font-size: 1.2em;
   margin: 0.8em 0 0.5em;
+  font-weight: 400;
 }
 .jqm-demos .jqm-content > p {
   font-size: 1.1em;
@@ -123,14 +110,10 @@
 .jqm-demos .jqm-content > ul:not(.jqm-list) li {
   font-size: 1.1em;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
 }
 .jqm-demos .jqm-content > ol:not(.jqm-list) li {
   font-size: 1.1em;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
 }
 .jqm-demos .jqm-content > p {
   margin: 0 0 0.6em;
@@ -145,14 +128,7 @@
 .jqm-demos .jqm-content > a,
 .jqm-demos .jqm-content > p a,
 .jqm-demos .jqm-content > ul:not(.jqm-list) li a {
-  font-weight: 400;
   text-decoration: none;
-}
-.jqm-demos .jqm-content strong {
-  font-weight: 700;
-}
-.jqm-demos .jqm-content > p strong {
-  font-weight: 400;
 }
 
 /* Homepage */
@@ -172,7 +148,6 @@
   border: 1px solid #eee;
   -webkit-border-radius: 0.3125em;
   border-radius: 0.3125em;
-  font-family: "Open Sans", sans-serif;
 }
 .jqm-block-content h3 {
   font-size: 1.5em;
@@ -184,7 +159,6 @@
 }
 .jqm-block-content p {
   font-size: 1.1em;
-  font-weight: 300;
   line-height: 1.4;
   margin: 0.7em 0;
 }
@@ -192,7 +166,6 @@
   margin-bottom: 0;
 }
 .jqm-block-content a:link {
-  font-weight: 300;
   text-decoration: none;
 }
 
@@ -222,8 +195,6 @@
 .jqm-demos .jqm-list .ui-btn,
 .jqm-demos .jqm-list .ui-btn:visited,
 .jqm-demos .jqm-list .ui-li-divider {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
   text-shadow: none !important;
 }
 .jqm-demos .jqm-list .ui-btn:hover,
@@ -289,7 +260,6 @@
 .jqm-list .jqm-search-results-keywords {
   padding: 0.46857em 0 0;
   font-size: 0.8em;
-  font-weight: 300;
   color: #999;
   display: block;
   text-overflow: ellipsis;
@@ -301,18 +271,15 @@
 }
 .jqm-search-results-highlight {
   color: #3388cc;
-  font-weight: 400;
 }
 .ui-btn-active .jqm-search-results-highlight {
   color: #fff;
-  font-weight: 300;
 }
 
 /* Quick links */
 .jqm-demos .jqm-content .jqm-deeplink {
   display: block;
   color: #999;
-  font-weight: 300;
   border-top: 1px solid #eee;
   text-align: right;
   padding-top: 0.2em;
@@ -337,8 +304,6 @@
 .jqm-demos .jqm-content .jqm-view-source-link:hover,
 .jqm-demos .jqm-content .jqm-view-source-link:active {
   color: #3eb249;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
   margin: 2em 0 1.5em 1em;
 }
 .jqm-demos .jqm-content .jqm-view-source-link.ui-btn-active:link {
@@ -347,7 +312,6 @@
 
 @media (min-width: 60em) {
   .jqm-demos .jqm-header h2 {
-    /*padding: 1em 0 0.7em;*/
     padding: 8px 0 6px 0;
     margin: 0 1em 0 1em;
     text-align: left;
@@ -447,7 +411,7 @@
   .jqm-search-panel {
     width: 26em;
     right: -26em;
-    z-index: 1003; /* Puts the panel on top of the dismiss modal which is not adjusted to custom width */
+    z-index: 1003;
   }
   .jqm-search-panel.ui-panel-animate.ui-panel-position-right {
     -webkit-transform: translate3d(26em, 0, 0);
@@ -472,10 +436,6 @@
 }
 .jqm-view-source .ui-collapsible-set {
   margin: 0;
-}
-.jqm-view-source .ui-collapsible-heading .ui-btn {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
 }
 .jqm-view-source .ui-collapsible-heading .ui-btn-inner {
   padding: 0.4em;
@@ -599,7 +559,6 @@
   box-sizing: content-box;
   font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier,
     monospace;
-  font-weight: normal;
   font-style: normal;
   font-size: 14px;
   min-height: inherit;
@@ -615,9 +574,6 @@
 }
 .syntaxhighlighter.source {
   overflow: hidden;
-}
-.syntaxhighlighter .bold {
-  font-weight: bold;
 }
 .syntaxhighlighter .italic {
   font-style: italic;
@@ -727,7 +683,6 @@
   color: #e0e8ff;
 }
 .syntaxhighlighter .script {
-  font-weight: bold;
   color: #b43d3d;
   background-color: none;
 }

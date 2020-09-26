@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>開発情報 - 文章暗記</title>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <link rel="stylesheet" href="../css/themes/default/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="../assets/css/jqm-demos.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -36,7 +35,7 @@
            を使用しています。この開発言語は&nbsp;<a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> です。
         </p>
         <p>アプリの主要な機能は、登録されたテキストを指示に従って表示することです。<br>入力されたテキストを解析して、黒塗り、横書き／縦書き、目次表示、ルビ振りなどの描画を行います。これらの解析と描画を、<a href="https://www.rust-lang.org/" target="_blank">Rust</a> という開発言語でプログラミングしています。<br>テキストの解析結果は、<a href="https://developer.mozilla.org/ja/docs/WebAssembly" target="_blank">WebAssembly</a> によって、HTMLの<a href="http://defghi1977.html.xdomain.jp/tech/canvasMemo/canvasMemo.htm" target="_blank">canvas要素に描画</a>しています。</p>
-        <p>次の画像の、赤枠で囲った部分が canvasになっており、その描画処理を WebAssembly で行っています。</p>
+        <p>次の画像の、赤枠内が canvasになっており、その描画処理を WebAssembly で行っています。</p>
         <p><img class="img1" src="../img/fig04.png" width="260px"></p>
         <p>このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。<br>
           <bt></bt>
