@@ -214,12 +214,6 @@ html
                 a(href="https://ionicframework.com/" target="_blank") Ionic Framework
               li
                 a(href="https://www.rust-lang.org/" target="_blank") Rust
-              li
-                a(href="https://apps.apple.com/jp/app/xcode/id497799835?mt=12" target="_blank") XCode
-                |  (iOSの場合)
-              li
-                a(href="https://developer.android.com/studio" target="_blank") Android Studio
-                |  (Androidの場合)
             br
           li
             | 「文章暗記」用のディレクトリを作成し、そのディレクトリにリポジトリを
@@ -252,55 +246,28 @@ html
               | ionic build --prod
             br
           li
-            | [iOS の場合]
-            ol
-              li
-                | [初回のみ]
-                br
-                | 次のコマンドを実行してください。
-                .box1
-                  | cd ../bnan
-                  br
-                  | ionic cap add ios
-                br
-              li
-                | 次のコマンドで ionic のビルドを実行してください。
-                .box1
-                  | ./build_ios.sh
-                br
-              li
-                | 次のコマンドで XCode を起動してください。
-                .box1
-                  | npx cap open ios
-                | （シミュレーターや実機での動作確認方法については、ionicのドキュメントをご参照ください。）
-                br
-                br
+            | 次のコマンドを実行すると、Webブラウザが起動して、「文章暗記」の画面が表示されます。
+            .box1
+              | ionic serve
+            | 起動したブラウザが Safari で、メニューの選択がうまくできない場合は、他のブラウザで実行してください。
+            .box1
+              | [Google Chrome の場合]
+              br
+              | ionic serve --browser="google chrome"
+              br
+              | [Firefox の場合]
+              br
+              | ionic serve --browser="firefox"
+            br
           li
-            | [Android の場合]
-            ol
-              li
-                | [初回のみ]
-                br
-                | 次のコマンドを実行してください。
-                .box1
-                  | cd ../bnan
-                  br
-                  | ionic cap add android
-                br
-              li
-                | 次のコマンドで ionic のビルドを実行してください。
-                br
-                | （iOSのビルドとの違いは、Googleフォントを配置する点です。）
-                .box1
-                  | ./build_android.sh
-                br
-              li
-                | 次のコマンドで Android Studio を起動してください。
-                .box1
-                  | npx cap open android
-                | （シミュレーターや実機での動作確認方法については、ionicのドキュメントをご参照ください。）
-                br
-                br
+            | iOS の場合は&nbsp;
+            a(href="https://apps.apple.com/jp/app/xcode/id497799835?mt=12" target="_blank") XCode
+            |  で、Android の場合は&nbsp;
+            a(href="https://developer.android.com/studio" target="_blank") Android Studio
+            |  で、ビルド、動作確認、配布を行います。
+            br
+            | その方法については、ionicのドキュメントや書籍などをご参照ください。
+        br
         p
         .box2
           | ※ 不具合や改善点を見つけられた場合は、作者にご連絡いただければ幸いです。
