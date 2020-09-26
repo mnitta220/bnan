@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>開発情報 - 文章暗記</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="../css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../assets/css/jqm-demos.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+  </head>
+  <body>
+    <div class="jqm-demos" data-role="page" data-quicklinks="true">
+      <div class="jqm-header" data-role="header">
+        <h2><a href="../" title="jQuery Mobile Demos home"><img src="../img/icon3.png"></a></h2>
+        <p>開発情報</p><a class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left" href="#">Menu</a>
+      </div>
+      <div class="ui-content jqm-content" role="main">
+        <p>このページには、アプリの開発者向けに、「<a href="https://mnitta220.github.io/bnan/">文章暗記</a>」の開発情報を記述します。<br><br></p>
+        <h2>ソースコード</h2>
+        <p>
+          次の２つの
+          GitHubリポジトリで、「文章暗記」のソースコードを公開しています。
+        </p>
+        <ul class="jqm-demos">
+          <li>文章暗記 ionic プロジェクト<br><a href="https://github.com/mnitta220/bnan" target="_blank">https://github.com/mnitta220/bnan</a></li>
+          <li>文章暗記 WebAssembly プロジェクト<br><a href="https://github.com/mnitta220/bnanw" target="_blank">https://github.com/mnitta220/bnanw</a></li>
+        </ul>
+        <p>ionic, TypeScript, WebAssembly, Rust などをお使いになる技術者の方に、サンプルプロジェクトとしてご参照いただけるかと思います。<br><br></p>
+        <h2>アプリの構成</h2>
+        <p>このアプリは、ionic(TypeScript) と WebAssembly(Rust) が連携する構成で作られています。</p>
+        <p>アプリのフレームワークとして、「<a href="https://ionicframework.com/" target="_blank">Ionic Framework</a>」(＋<a href="https://angular.io/" target="_blank">Angular</a>)
+           を使用しています。この開発言語は&nbsp;<a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> です。
+        </p>
+        <p>アプリの主要な機能は、登録されたテキストを指示に従って表示することです。<br>入力されたテキストを解析して、黒塗り、横書き／縦書き、目次表示、ルビ振りなどの描画を行います。これらの解析と描画を、<a href="https://www.rust-lang.org/" target="_blank">Rust</a> という開発言語でプログラミングしています。<br>テキストの解析結果は、<a href="https://developer.mozilla.org/ja/docs/WebAssembly" target="_blank">WebAssembly</a> によって、HTMLの<a href="http://defghi1977.html.xdomain.jp/tech/canvasMemo/canvasMemo.htm" target="_blank">canvas要素に描画</a>しています。</p>
+        <p>次の画像の、赤枠で囲った部分が canvasになっており、その描画処理を WebAssembly で行っています。</p>
+        <p><img class="img1" src="../img/fig04.png" width="260px"></p>
+        <p>このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。<br>
+          <bt></bt>
+        </p>
+        <h2><a href="https://github.com/mnitta220/bnan" target="_blank">文章暗記 ionic プロジェクト</a></h2>
+        <h3>IndexedDB</h3>
+        <p>アプリで登録された文書のデータは、<a href="https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API" target="_blank">IndexedDB</a> に保持します。TypeScript で IndexedDB
+           を操作するためのライブラリとして、<a href="https://dexie.org/" target="_blank">Dexie.js</a> を使用しています。
+        </p>
+        <p>次のソースで、Dexie.js による IndexedDB の定義をしています。<br><a href="https://github.com/mnitta220/bnan/blob/master/src/app/common/idb.ts" target="_blank">/src/app/common/idb.ts</a></p>
+        <p>テーブルの内容は、次の通りです。</p>
+        <table class="tb1">
+          <tr>
+            <th>テーブル</th>
+            <th>内容</th>
+          </tr>
+          <tr>
+            <td>Doc</td>
+            <td>文書のタイトルなどの基本情報を保持する。</td>
+          </tr>
+          <tr>
+            <td>Contents</td>
+            <td>文書の行単位の情報を保持する。</td>
+          </tr>
+        </table>
+        <p>たとえば、1つの文書の中に10行あった場合、Docが1レコード、Contentsが10レコード作成されます。<br>文書が更新された場合、バージョン番号が1加算され、旧バージョンのContentsをすべて削除して、新バージョンのContentsを出力します。</p><br>
+        <h3>Tips</h3>
+        <ul class="jqm-demos">
+          <li>表示される広告は、<a href="https://admob.google.com/intl/ja_ALL/home/" target="_blank">AdMob</a> から配信されています。ionic で AdMob
+             を使用するためのライブラリとして、<a href="https://www.npmjs.com/package/@rdlabo/capacitor-admob" target="_blank">@rdlabo/capacitor-admob</a> を使用しています。
+          </li>
+          <li>広告解除のアプリ内課金を行うためのライブラリとして、<a href="https://github.com/j3k0/cordova-plugin-purchase" target="_blank">Cordova Purchase Plugin</a> を使用しています。</li>
+        </ul><br>
+        <h2><a href="https://github.com/mnitta220/bnanw" target="_blank">文章暗記 WebAssembly プロジェクト</a></h2>
+        <p>Rust と WebAssembly の橋渡しをするためのライブラリとして、<a href="https://github.com/rustwasm/wasm-bindgen" target="_blank">wasm-bindgen</a> を使用しています。</p>
+        <p>
+          ionic の TypeScript から WebAssembly
+          のコードを呼び出すエントリポイントは、<br><a href="https://github.com/mnitta220/bnanw/blob/master/src/lib.rs" target="_blank">/src/lib.rs</a><br>にあります。<br>lib.rs 内の以下の関数がエントリポイントになっています。
+        </p>
+        <table class="tb1">
+          <tr>
+            <th>関数</th>
+            <th>処理名／イベント内容</th>
+          </tr>
+          <tr>
+            <td>ping</td>
+            <td>疎通確認</td>
+          </tr>
+          <tr>
+            <td>load_font</td>
+            <td>Googleフォントロード処理</td>
+          </tr>
+          <tr>
+            <td>set_doc</td>
+            <td>文書をセットする</td>
+          </tr>
+          <tr>
+            <td>set_source</td>
+            <td>文書の行をセットする</td>
+          </tr>
+          <tr>
+            <td>draw_doc</td>
+            <td>文書を表示する</td>
+          </tr>
+          <tr>
+            <td>resize</td>
+            <td>キャンバスサイズが変更された</td>
+          </tr>
+          <tr>
+            <td>contents_change</td>
+            <td>本文/目次が切り替えられた</td>
+          </tr>
+          <tr>
+            <td>touch_start</td>
+            <td>タッチが開始された</td>
+          </tr>
+          <tr>
+            <td>touch_move</td>
+            <td>タッチが移動された</td>
+          </tr>
+          <tr>
+            <td>touch_end</td>
+            <td>タッチが終了した</td>
+          </tr>
+          <tr>
+            <td>mode_change</td>
+            <td>黒塗りモードが変更された</td>
+          </tr>
+          <tr>
+            <td>black_step</td>
+            <td>ツールボタンが押された</td>
+          </tr>
+        </table>
+        <p>ほとんどの関数は、ユーザーの操作によるイベントの発生を通知するために実行されます。</p><br>
+        <h3>Tips</h3>
+        <ul class="jqm-demos">
+          <li>Androidのスマホ、タブレットには、明朝体(セリフ体)のフォントが入っていません。このため、アプリ内にフォントのファイルを持たせ、そのフォントで文字を描画しています。「<a href="https://fonts.google.com/" target="_blank">Google Fonts</a>」で配布されている「<a href="https://fonts.google.com/specimen/Noto+Serif+JP" target="_blank">Noto Serif JP</a>」というフォントの「NotoSerifJP-Regular.otf」というファイルを、次の場所に入れています。<br>/resources/NotoSerifJP-Regular.otf<br>Androidのビルド時に、このファイルを<br>/src/assets/font/<br>にコピーしてアプリと一緒に配布し、アプリの実行時に読み込んでいます。<br>iOSには、明朝体(セリフ体)のフォントが入っているので、アプリ内に「NotoSerifJP-Regular.otf」を入れていません。</li>
+        </ul><br>
+        <h2>開発手順</h2>
+        <p>「文章暗記」のリポジトリをご自分のPCに複製して、開発を行う手順は次の通りです。</p>
+        <ol class="jqm-demos">
+          <li>以下のツールの中で、インストールされていないものがあれば、インストールしてください。
+            <ul>
+              <li><a href="https://git-scm.com/" target="_blank">git</a></li>
+              <li><a href="https://nodejs.org/ja/" target="_blank">Node.js</a></li>
+              <li><a href="https://ionicframework.com/" target="_blank">Ionic Framework</a></li>
+              <li><a href="https://www.rust-lang.org/" target="_blank">Rust</a></li>
+              <li><a href="https://apps.apple.com/jp/app/xcode/id497799835?mt=12" target="_blank">XCode</a> (iOSの場合)</li>
+              <li><a href="https://developer.android.com/studio" target="_blank">Android Studio</a> (Androidの場合)</li>
+            </ul><br>
+          </li>
+          <li>
+            「文章暗記」用のディレクトリを作成し、そのディレクトリにリポジトリを
+            git clone してください。
+            <div class="box1">mkdir bnan<br>cd bnan<br>git clone https://github.com/mnitta220/bnan<br>git clone https://github.com/mnitta220/bnanw</div><br>
+          </li>
+          <li>次のコマンドで、WebAssembly のビルドを実行してください。
+            <div class="box1">cd bnanw<br>./build.sh</div><br>
+          </li>
+          <li>[初回のみ]<br>次のコマンドを実行してください。
+            <div class="box1">cd ../bnan<br>npm install</div><br>
+          </li>
+          <li>[iOS の場合]
+            <ol>
+              <li>次のコマンドで ionic のビルドを実行してください。
+                <div class="box1">cd ../bnan<br>./build_ios.sh</div><br>
+              </li>
+              <li>次のコマンドで XCode を起動してください。
+                <div class="box1">npx cap open ios</div>（シミュレーターや実機での動作確認方法については、ionicのドキュメントをご参照ください。）<br><br>
+              </li>
+            </ol>
+          </li>
+          <li>[Android の場合]
+            <ol>
+              <li>次のコマンドで ionic のビルドを実行してください。<br>（iOSのビルドとの違いは、Googleフォントを配置する点です。）
+                <div class="box1">cd ../bnan<br>./build_android.sh</div><br>
+              </li>
+              <li>次のコマンドで Android Studio を起動してください。
+                <div class="box1">npx cap open android</div>（シミュレーターや実機での動作確認方法については、ionicのドキュメントをご参照ください。）<br><br>
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p></p>
+        <div class="box2">※ 不具合や改善点を見つけられた場合は、作者にご連絡いただければ幸いです。</div><br><br>
+      </div>
+      <div class="jqm-navmenu-panel" data-role="panel" data-position="left" data-display="overlay" data-theme="a">
+        <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+          <li data-filtertext="demos homepage" data-icon="home"><a href=".././">Home</a></li>
+          <li data-filtertext="introduction overview getting started"><a href="../develop/" data-ajax="false">開発情報</a></li>
+        </ul>
+      </div>
+      <div class="jqm-footer" data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <p>Copyright © 2020 Masahiro Nitta.  -&nbsp;<a href="../privacy/" data-ajax="false">Privacy</a></p>
+        <p></p>
+      </div>
+      <div class="jqm-search-panel" data-role="panel" data-position="right" data-display="overlay" data-theme="a">
+        <div class="jqm-search">
+          <ul class="jqm-list" data-filter-placeholder="Search demos..." data-filter-reveal="true">
+            <li data-filtertext="demos homepage" data-icon="home"><a href=".././">Home</a></li>
+            <li data-filtertext="introduction overview getting started"><a href="../develop/" data-ajax="false">開発情報</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
