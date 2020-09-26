@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-//import { ToastController } from "@ionic/angular";
 import { Plugins } from "@capacitor/core";
 import { Define } from "../common/define";
 import { BnanService } from "../common/bnan.service";
@@ -20,11 +19,7 @@ export class DocInfoPage implements OnInit {
   vertical = "1";
   showDelete = false;
 
-  constructor(
-    private router: Router,
-    //private tc: ToastController,
-    private bs: BnanService
-  ) {}
+  constructor(private router: Router, private bs: BnanService) {}
 
   ngOnInit() {}
 
@@ -64,7 +59,7 @@ export class DocInfoPage implements OnInit {
         return;
       }
 
-      if (this.text.length == 0) {
+      if (this.text.trim().length == 0) {
         alert("テキストを入力してください。");
         return;
       }
@@ -83,14 +78,14 @@ export class DocInfoPage implements OnInit {
       if (this.bs.setting.curDoc == null || this.bs.setting.curDoc.id == -1) {
         await this.bs.newDoc(
           this.name,
-          this.text,
+          this.format(),
           this.vertical == "2" ? Define.MODE_V : Define.MODE_H,
           parseInt(this.sz)
         );
       } else {
         await this.bs.updateDoc(
           this.name,
-          this.text,
+          this.format(),
           this.vertical == "2" ? Define.MODE_V : Define.MODE_H,
           parseInt(this.sz)
         );
@@ -111,7 +106,6 @@ export class DocInfoPage implements OnInit {
         string: this.text,
       })
         .then(() => window.alert("クリップボードにコピーしました。"))
-        //.then(() => this.copyToast())
         .catch((error) => {
           alert(`${error.message}`);
         });
@@ -121,18 +115,6 @@ export class DocInfoPage implements OnInit {
     }
   }
 
-  /*
-  async copyToast() {
-    const toast = await this.tc.create({
-      color: "dark",
-      message: "クリップボードにコピーしました。",
-      duration: 2000,
-    });
-
-    toast.present();
-  }
-  */
-
   paste() {
     try {
       this.pasteText();
@@ -140,6 +122,27 @@ export class DocInfoPage implements OnInit {
       this.bs.logs.push("DocInfoPage.paste Error! " + e);
       this.router.navigate(["/error"]);
     }
+  }
+
+  format(): string {
+    let newText = "";
+    const lines = this.text.split("\n");
+    let first = true;
+
+    for (let l of lines) {
+      if (first) {
+        first = false;
+      } else {
+        newText += "\n";
+      }
+
+      if (l.length == 0 || l == " ") {
+      } else {
+        newText += l;
+      }
+    }
+
+    return newText;
   }
 
   async pasteText() {
@@ -184,7 +187,7 @@ export class DocInfoPage implements OnInit {
       const lines = this.text.split("\n");
 
       for (let l of lines) {
-        if (l.length == 0) {
+        if (l.length == 0 || l == " ") {
           newText += "\n";
         } else {
           addSlash = false;

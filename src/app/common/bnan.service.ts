@@ -98,6 +98,8 @@ export class BnanService {
     this.setting.height = Define.INIT_HEIGHT;
 
     await this.updateSetting();
+    this.showCurrent = false;
+    this.currentName = "";
   }
 
   async getPlatform() {
@@ -345,6 +347,8 @@ export class BnanService {
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.curText = text;
+      this.contents = Define.CON_TEXT;
+      this.mode = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
         alert(error);
