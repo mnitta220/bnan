@@ -6,10 +6,8 @@
           <ion-list-header>文章暗記</ion-list-header>
           <ion-menu-toggle auto-hide="false">
             <ion-item
-              (click)="selectedIndex = 0"
+              (click)="menuClick(0)"
               routerDirection="root"
-              routerLink="/doc-list"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 0"
@@ -20,10 +18,8 @@
             </ion-item>
             <ion-item
               *ngIf="showCurrent"
-              (click)="selectedIndex = 1"
+              (click)="menuClick(1)"
               routerDirection="root"
-              routerLink="/doc-view"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 1"
@@ -37,10 +33,8 @@
             </ion-item>
             <hr class="hr1" />
             <ion-item
-              (click)="selectedIndex = 2"
+              (click)="menuClick(2)"
               routerDirection="root"
-              routerLink="/usage"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 2"
@@ -50,10 +44,8 @@
               <ion-label>使い方</ion-label>
             </ion-item>
             <ion-item
-              (click)="selectedIndex = 3"
+              (click)="menuClick(3)"
               routerDirection="root"
-              routerLink="/usage-list"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 3"
@@ -64,10 +56,8 @@
               <ion-label>文書一覧画面</ion-label>
             </ion-item>
             <ion-item
-              (click)="selectedIndex = 4"
+              (click)="menuClick(4)"
               routerDirection="root"
-              routerLink="/usage-doc"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 4"
@@ -78,10 +68,8 @@
               <ion-label>文書登録画面</ion-label>
             </ion-item>
             <ion-item
-              (click)="selectedIndex = 5"
+              (click)="menuClick(5)"
               routerDirection="root"
-              routerLink="/usage-view"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 5"
@@ -93,10 +81,8 @@
             </ion-item>
             <hr class="hr1" />
             <ion-item
-              (click)="selectedIndex = 6"
+              (click)="menuClick(6)"
               routerDirection="root"
-              routerLink="/unlock"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 6"
@@ -106,10 +92,8 @@
               <ion-label>広告の解除</ion-label>
             </ion-item>
             <ion-item
-              (click)="selectedIndex = 7"
+              (click)="menuClick(7)"
               routerDirection="root"
-              routerLink="/about"
-              routerLinkActive="current"
               lines="none"
               detail="false"
               [class.selected]="selectedIndex == 7"

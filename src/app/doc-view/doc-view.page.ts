@@ -71,10 +71,12 @@ export class DocViewPage implements OnInit {
   ionViewWillEnter() {
     try {
       //console.log("***DocViewPage.ionViewWillEnter1");
+      if (this.bs.setting == null || this.bs.setting.curDoc == null) {
+        return;
+      }
+
       this.bs.selectedIndex = Define.PG_VIEW;
       this.title = this.bs.setting.curDoc.title;
-      //this.contents = "0";
-      //this.mode = "1";
 
       this.toolbarElement = this.toolbar.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;

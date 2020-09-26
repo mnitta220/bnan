@@ -29,6 +29,8 @@ export class BnanService {
   frWidth: number;
   contents = Define.CON_TEXT;
   mode = Define.KURO_ALL;
+  showCurrent = false;
+  currentName = "";
 
   adOption: AdOptions = {
     adId: "",
@@ -69,11 +71,15 @@ export class BnanService {
     } catch (e) {}
 
     if (ret == null || ret.value == null) {
-      //console.log("***getSetting2");
       await this.initSetting();
     } else {
-      //console.log("***getSetting3");
       this.setting = JSON.parse(ret.value);
+
+      if (this.setting.curDoc != null && this.setting.curDoc.id != -1) {
+        this.showCurrent = true;
+        this.currentName = this.setting.curDoc.title;
+      }
+
       this._idb = new AppDatabase();
     }
 
@@ -228,6 +234,8 @@ export class BnanService {
       });
 
       await this.updateSetting();
+      this.showCurrent = true;
+      this.currentName = this.setting.curDoc.title;
     } catch (e) {
       throw Error(e);
     }
@@ -278,6 +286,8 @@ export class BnanService {
       this.mode = Define.KURO_ALL;
 
       await this.updateSetting();
+      this.showCurrent = true;
+      this.currentName = this.setting.curDoc.title;
     } catch (e) {
       throw Error(e);
     }
@@ -345,6 +355,8 @@ export class BnanService {
       await this._idb.contents
         .where({ docId: this.setting.curDoc.id, ver: oldVer })
         .delete();
+      this.showCurrent = true;
+      this.currentName = this.setting.curDoc.title;
     } catch (e) {
       throw Error(e);
     }
@@ -367,6 +379,8 @@ export class BnanService {
 
       this.setting.curDoc = null;
       this.curText = "";
+      this.showCurrent = false;
+      this.currentName = "";
 
       await this.updateSetting();
     } catch (e) {

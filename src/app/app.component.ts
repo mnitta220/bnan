@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
 
 @Component({
@@ -10,68 +12,18 @@ import { BnanService } from "./common/bnan.service";
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  //public selectedIndex = 0;
-  public appPages = [
-    {
-      title: "文書一覧",
-      url: "/doc-list",
-      icon: "list",
-      indent: false,
-    },
-    {
-      title: "使い方",
-      url: "/usage",
-      icon: "leaf",
-      indent: false,
-    },
-    {
-      title: "文書一覧画面",
-      url: "/usage-list",
-      icon: "leaf",
-      indent: true,
-    },
-    {
-      title: "文書登録画面",
-      url: "/usage-doc",
-      icon: "leaf",
-      indent: true,
-    },
-    {
-      title: "文書表示画面",
-      url: "/usage-view",
-      icon: "leaf",
-      indent: true,
-    },
-    {
-      title: "広告の解除",
-      url: "/unlock",
-      icon: "card",
-      indent: false,
-    },
-    {
-      title: "このアプリについて",
-      url: "/about",
-      icon: "information-circle",
-      indent: false,
-    },
-  ];
-
   @Input()
   set showCurrent(p: boolean) {}
 
   get showCurrent() {
-    try {
-      return this.bs.setting.curDoc != null && this.bs.setting.curDoc.id != -1;
-    } catch (e) {
-      return false;
-    }
+    return this.bs.showCurrent;
   }
 
   @Input()
   set currentName(name: string) {}
 
   get currentName() {
-    return this.bs.setting.curDoc.title;
+    return this.bs.currentName;
   }
 
   @Input()
@@ -87,6 +39,7 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private router: Router,
     private bs: BnanService
   ) {
     this.initializeApp();
@@ -99,14 +52,37 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    /*
-    const path = window.location.pathname.split("folder/")[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(
-        (page) => page.title.toLowerCase() === path.toLowerCase()
-      );
+  ngOnInit() {}
+
+  menuClick(idx: number) {
+    //console.log("***menuClick: idx=" + idx);
+    switch (idx) {
+      case Define.PG_LIST:
+        this.router.navigate(["/doc-list"]);
+        break;
+      case Define.PG_VIEW:
+        this.router.navigate(["/doc-view"]);
+        break;
+      case Define.PG_USAGE:
+        this.router.navigate(["/usage"]);
+        break;
+      case Define.PG_USAGE_LIST:
+        this.router.navigate(["/usage-list"]);
+        break;
+      case Define.PG_USAGE_DOC:
+        this.router.navigate(["/usage-doc"]);
+        break;
+      case Define.PG_USAGE_VIEW:
+        this.router.navigate(["/usage-view"]);
+        break;
+      case Define.PG_UNLOCK:
+        this.router.navigate(["/unlock"]);
+        break;
+      case Define.PG_ABOUT:
+        this.router.navigate(["/about"]);
+        break;
+      default:
+        this.router.navigate(["/doc-list"]);
     }
-    */
   }
 }

@@ -11,9 +11,11 @@ export class UsagePage implements OnInit {
   constructor(private bs: BnanService) {}
 
   ngOnInit() {
-    if (this.bs.setting.showUsage == false) {
-      this.bs.setting.showUsage = true;
-      this.bs.updateSetting();
+    if (this.bs.setting != null) {
+      if (this.bs.setting.showUsage == false) {
+        this.bs.setting.showUsage = true;
+        this.bs.updateSetting();
+      }
     }
   }
 
