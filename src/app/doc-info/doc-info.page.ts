@@ -126,6 +126,7 @@ export class DocInfoPage implements OnInit {
 
   format(): string {
     let newText = "";
+    this.text = this.text.replace("\r\n", "\n");
     const lines = this.text.split("\n");
     let first = true;
 
@@ -187,7 +188,7 @@ export class DocInfoPage implements OnInit {
       const lines = this.text.split("\n");
 
       for (let l of lines) {
-        if (l.length == 0 || l == " ") {
+        if (l.length == 0 || l == " " || l == "\r") {
           newText += "\n";
         } else {
           addSlash = false;
