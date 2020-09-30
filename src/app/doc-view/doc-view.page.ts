@@ -21,6 +21,7 @@ export class DocViewPage implements OnInit {
   private canvasElement: any;
   private toolbarElement: any;
   title = "文書";
+  private retryCnt: number;
 
   stF = {
     color: "white",
@@ -60,6 +61,8 @@ export class DocViewPage implements OnInit {
 
   ngOnInit() {
     this.screenOrientation.onChange().subscribe(() => {
+      this.retryCnt = 0;
+
       setTimeout(() => {
         this.resize();
       }, 1000);
@@ -91,6 +94,7 @@ export class DocViewPage implements OnInit {
       this.canvasElement.height = this.bs.setting.height;
       this.stCv.width = `${this.bs.frWidth}px`;
       this.stCv.height = `${this.bs.setting.height}px`;
+      this.retryCnt = 0;
       this.draw();
     } catch (e) {
       this.bs.logs.push("DocViewPage.ionViewWillEnter Error! " + e);
@@ -99,6 +103,7 @@ export class DocViewPage implements OnInit {
   }
 
   async draw() {
+    //console.log("***draw1 this.retryCnt=" + this.retryCnt);
     try {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
       const darkMode = prefersDark.matches;
@@ -113,11 +118,22 @@ export class DocViewPage implements OnInit {
       (await this.bs.wasm).draw_doc(
         this.bs.frWidth,
         this.bs.setting.height,
-        darkMode
+        darkMode,
+        this.bs.isAndroid
       );
 
       this.changeDetectorRef.detectChanges();
     } catch (e) {
+      if (this.retryCnt < 2) {
+        this.retryCnt++;
+
+        setTimeout(() => {
+          this.draw();
+        }, 800);
+
+        return;
+      }
+
       this.bs.logs.push("DocViewPage.draw Error! " + e);
       this.router.navigate(["/error"]);
     }
@@ -143,6 +159,16 @@ export class DocViewPage implements OnInit {
 
       this.changeDetectorRef.detectChanges();
     } catch (e) {
+      if (this.retryCnt < 2) {
+        this.retryCnt++;
+
+        setTimeout(() => {
+          this.resize();
+        }, 800);
+
+        return;
+      }
+
       this.bs.logs.push("DocViewPage.resize Error! " + e);
       this.router.navigate(["/error"]);
     }
