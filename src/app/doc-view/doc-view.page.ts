@@ -313,6 +313,7 @@ export class DocViewPage implements OnInit {
         case "fp": // 枠拡大
           this.bs.setting.height += 30;
           await this.bs.updateSetting();
+          this.retryCnt = 0;
           await this.resize();
           break;
 
@@ -320,6 +321,7 @@ export class DocViewPage implements OnInit {
           if (this.bs.setting.height > 300) {
             this.bs.setting.height -= 30;
             await this.bs.updateSetting();
+            this.retryCnt = 0;
             await this.resize();
           }
           break;
