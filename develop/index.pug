@@ -10,8 +10,8 @@ html
     script(src="../js/jquery.js")
     script(src="../assets/js/index.js")
     script(src="../js/jquery.mobile-1.4.5.min.js")
-  body
-    .jqm-demos(data-role="page" data-quicklinks="true")
+  body#ui-page-top
+    .jqm-demos(data-role="page")
       .jqm-header(data-role="header")
         h2
           a(href="../" title="jQuery Mobile Demos home")
@@ -24,9 +24,21 @@ html
           | このページには、アプリの開発者向けに、「
           a(href="https://mnitta220.github.io/bnan/") 文章暗記
           | 」の開発情報を記述します。
-          br
-          br
-        h2 ソースコード
+        br
+        ul
+          li
+            a(href="#c1") ソースコード
+          li
+            a(href="#c2") アプリの構成
+          li
+            a(href="#c3") 文章暗記 ionic プロジェクト
+          li
+            a(href="#c4") 文章暗記 WebAssembly プロジェクト
+          li
+            a(href="#c5") 開発手順
+        br
+        hr
+        h2#c1 ソースコード
         p
           | 次の２つの
           | GitHubリポジトリで、「文章暗記」のソースコードを公開しています。
@@ -41,9 +53,11 @@ html
             a(href="https://github.com/mnitta220/bnanw" target="_blank") https://github.com/mnitta220/bnanw
         p
           | ionic, TypeScript, WebAssembly, Rust をお使いになる技術者の方に、サンプルプロジェクトとしてご参照いただけるかと思います。
-          br
-          br
-        h2 アプリの構成
+        br
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
+        hr
+        h2#c2 アプリの構成
         p
           | このアプリは、ionic(TypeScript) と WebAssembly(Rust) が連携する構成で作られています。
         p
@@ -75,9 +89,11 @@ html
           | このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。
           br
           | TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。
-          br
-          bt
-        h2
+        br
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
+        hr
+        h2#c3
           a(href="https://github.com/mnitta220/bnan" target="_blank") 文章暗記 ionic プロジェクト
         h3 IndexedDB
         p
@@ -110,6 +126,13 @@ html
         h3 Tips
         ul.jqm-demos
           li
+            a(href="https://github.com/mnitta220/bnan/blob/master/package.json" target="_blank") package.json
+            | ファイルの "dependencies" に、
+            br
+            | "bnanw": "file:../bnanw/pkg"
+            br
+            | と設定することによって(32行目)、「文章暗記 WebAssembly プロジェクト」を参照しています。
+          li
             | 表示される広告は、
             a(href="https://admob.google.com/intl/ja_ALL/home/" target="_blank") AdMob
             |  から配信されています。ionic で AdMob
@@ -121,7 +144,10 @@ html
             a(href="https://github.com/j3k0/cordova-plugin-purchase" target="_blank") Cordova Purchase Plugin
             |  を使用しています。
         br
-        h2
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
+        hr
+        h2#c4
           a(href="https://github.com/mnitta220/bnanw" target="_blank") 文章暗記 WebAssembly プロジェクト
         p
           | Rust と WebAssembly の橋渡しをするためのライブラリとして、
@@ -198,7 +224,10 @@ html
             br
             | iOSには、明朝体(セリフ体)のフォントが入っているので、アプリ内に「NotoSerifJP-Regular.otf」を入れていません。
         br
-        h2 開発手順
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
+        hr
+        h2#c5 開発手順
         p
           | 「文章暗記」のリポジトリをご自分のPCに複製して、開発を行う手順は次の通りです。
         ol.jqm-demos
@@ -231,7 +260,7 @@ html
             .box1
               | cd bnanw
               br
-              | ./build.sh
+              | wasm-pack build
             br
           li
             | [初回のみ]
@@ -270,6 +299,8 @@ html
         p
         .box2
           | ※ 不具合や改善点を見つけられた場合は、作者にご連絡いただければ幸いです。
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
         br
         br
       .jqm-navmenu-panel(data-role="panel" data-position="left" data-display="overlay" data-theme="a")

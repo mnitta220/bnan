@@ -11,8 +11,8 @@ html
     script(src="../js/jquery.js")
     script(src="../assets/js/index.js")
     script(src="../js/jquery.mobile-1.4.5.min.js")
-  body
-    .jqm-demos(data-role="page" data-quicklinks="true")
+  body#ui-page-top
+    .jqm-demos(data-role="page")
       .jqm-header(data-role="header")
         h2
           a(href="../" title="jQuery Mobile Demos home")
@@ -47,6 +47,8 @@ html
           | 2020 年 9 月 22 日
           br
           | 新田 雅浩
+        br
+        a(href="#ui-page-top" class="jqm-deeplink ui-icon-carat-u ui-alt-icon") Top
         p  
         p
       .jqm-navmenu-panel(data-role="panel" data-position="left" data-display="overlay" data-theme="a")

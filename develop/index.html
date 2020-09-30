@@ -11,15 +11,23 @@
     <script src="../assets/js/index.js"></script>
     <script src="../js/jquery.mobile-1.4.5.min.js"></script>
   </head>
-  <body>
-    <div class="jqm-demos" data-role="page" data-quicklinks="true">
+  <body id="ui-page-top">
+    <div class="jqm-demos" data-role="page">
       <div class="jqm-header" data-role="header">
         <h2><a href="../" title="jQuery Mobile Demos home"><img src="../img/icon3.png"></a></h2>
         <p>開発情報</p><a class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left" href="#">Menu</a>
       </div>
       <div class="ui-content jqm-content" role="main">
-        <p>このページには、アプリの開発者向けに、「<a href="https://mnitta220.github.io/bnan/">文章暗記</a>」の開発情報を記述します。<br><br></p>
-        <h2>ソースコード</h2>
+        <p>このページには、アプリの開発者向けに、「<a href="https://mnitta220.github.io/bnan/">文章暗記</a>」の開発情報を記述します。</p><br>
+        <ul>
+          <li><a href="#c1">ソースコード</a></li>
+          <li><a href="#c2">アプリの構成</a></li>
+          <li><a href="#c3">文章暗記 ionic プロジェクト</a></li>
+          <li><a href="#c4">文章暗記 WebAssembly プロジェクト</a></li>
+          <li><a href="#c5">開発手順</a></li>
+        </ul><br>
+        <hr>
+        <h2 id="c1">ソースコード</h2>
         <p>
           次の２つの
           GitHubリポジトリで、「文章暗記」のソースコードを公開しています。
@@ -28,8 +36,9 @@
           <li>文章暗記 ionic プロジェクト<br><a href="https://github.com/mnitta220/bnan" target="_blank">https://github.com/mnitta220/bnan</a></li>
           <li>文章暗記 WebAssembly プロジェクト<br><a href="https://github.com/mnitta220/bnanw" target="_blank">https://github.com/mnitta220/bnanw</a></li>
         </ul>
-        <p>ionic, TypeScript, WebAssembly, Rust をお使いになる技術者の方に、サンプルプロジェクトとしてご参照いただけるかと思います。<br><br></p>
-        <h2>アプリの構成</h2>
+        <p>ionic, TypeScript, WebAssembly, Rust をお使いになる技術者の方に、サンプルプロジェクトとしてご参照いただけるかと思います。</p><br><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
+        <hr>
+        <h2 id="c2">アプリの構成</h2>
         <p>このアプリは、ionic(TypeScript) と WebAssembly(Rust) が連携する構成で作られています。</p>
         <p>アプリのフレームワークとして、「<a href="https://ionicframework.com/" target="_blank">Ionic Framework</a>」(＋<a href="https://angular.io/" target="_blank">Angular</a>)
            を使用しています。この開発言語は&nbsp;<a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> です。
@@ -37,10 +46,9 @@
         <p>アプリの主要な機能は、登録されたテキストを指示に従って表示することです。<br>入力されたテキストを解析して、黒塗り、横書き／縦書き、目次表示、ルビ振りなどの描画を行います。これらの解析と描画を、<a href="https://www.rust-lang.org/" target="_blank">Rust</a> という開発言語でプログラミングしています。<br>テキストの解析結果は、<a href="https://developer.mozilla.org/ja/docs/WebAssembly" target="_blank">WebAssembly</a> によって、HTMLの<a href="http://defghi1977.html.xdomain.jp/tech/canvasMemo/canvasMemo.htm" target="_blank">canvas要素に描画</a>しています。</p>
         <p>次の画像の、赤枠内が canvasになっており、その描画処理を WebAssembly で行っています。</p>
         <p><img class="img1" src="../img/fig04.png" width="260px"></p>
-        <p>このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。<br>
-          <bt></bt>
-        </p>
-        <h2><a href="https://github.com/mnitta220/bnan" target="_blank">文章暗記 ionic プロジェクト</a></h2>
+        <p>このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。</p><br><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
+        <hr>
+        <h2 id="c3"><a href="https://github.com/mnitta220/bnan" target="_blank">文章暗記 ionic プロジェクト</a></h2>
         <h3>IndexedDB</h3>
         <p>アプリで登録された文書のデータは、<a href="https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API" target="_blank">IndexedDB</a> に保持します。TypeScript で IndexedDB
            を操作するためのライブラリとして、<a href="https://dexie.org/" target="_blank">Dexie.js</a> を使用しています。
@@ -64,12 +72,14 @@
         <p>たとえば、1つの文書の中に10行あった場合、Docが1レコード、Contentsが10レコード作成されます。<br>文書が更新された場合、バージョン番号を1加算し、旧バージョンのContentsをすべて削除して、新バージョンのContentsを出力します。</p><br>
         <h3>Tips</h3>
         <ul class="jqm-demos">
+          <li><a href="https://github.com/mnitta220/bnan/blob/master/package.json" target="_blank">package.json</a>ファイルの "dependencies" に、<br>"bnanw": "file:../bnanw/pkg"<br>と設定することによって(32行目)、「文章暗記 WebAssembly プロジェクト」を参照しています。</li>
           <li>表示される広告は、<a href="https://admob.google.com/intl/ja_ALL/home/" target="_blank">AdMob</a> から配信されています。ionic で AdMob
              を使用するためのライブラリとして、<a href="https://www.npmjs.com/package/@rdlabo/capacitor-admob" target="_blank">@rdlabo/capacitor-admob</a> を使用しています。
           </li>
           <li>広告解除のアプリ内課金を行うためのライブラリとして、<a href="https://github.com/j3k0/cordova-plugin-purchase" target="_blank">Cordova Purchase Plugin</a> を使用しています。</li>
-        </ul><br>
-        <h2><a href="https://github.com/mnitta220/bnanw" target="_blank">文章暗記 WebAssembly プロジェクト</a></h2>
+        </ul><br><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
+        <hr>
+        <h2 id="c4"><a href="https://github.com/mnitta220/bnanw" target="_blank">文章暗記 WebAssembly プロジェクト</a></h2>
         <p>Rust と WebAssembly の橋渡しをするためのライブラリとして、<a href="https://github.com/rustwasm/wasm-bindgen" target="_blank">wasm-bindgen</a> を使用しています。</p>
         <p>
           ionic の TypeScript から WebAssembly
@@ -133,8 +143,9 @@
         <h3>Tips</h3>
         <ul class="jqm-demos">
           <li>Androidのスマホ、タブレットには、明朝体(セリフ体)のフォントが入っていません。このため、アプリ内にフォントのファイルを持たせ、そのフォントで文字を描画しています。「<a href="https://fonts.google.com/" target="_blank">Google Fonts</a>」で配布されている「<a href="https://fonts.google.com/specimen/Noto+Serif+JP" target="_blank">Noto Serif JP</a>」というフォントの「NotoSerifJP-Regular.otf」というファイルを、次の場所に入れています。<br>/resources/NotoSerifJP-Regular.otf<br>Androidのビルド時に、このファイルを<br>/src/assets/font/<br>にコピーしてアプリと一緒に配布し、アプリの実行時に読み込んでいます。<br>iOSには、明朝体(セリフ体)のフォントが入っているので、アプリ内に「NotoSerifJP-Regular.otf」を入れていません。</li>
-        </ul><br>
-        <h2>開発手順</h2>
+        </ul><br><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
+        <hr>
+        <h2 id="c5">開発手順</h2>
         <p>「文章暗記」のリポジトリをご自分のPCに複製して、開発を行う手順は次の通りです。</p>
         <ol class="jqm-demos">
           <li>以下のツールの中で、インストールされていないものがあれば、インストールしてください。
@@ -151,7 +162,7 @@
             <div class="box1">mkdir bnan<br>cd bnan<br>git clone https://github.com/mnitta220/bnan<br>git clone https://github.com/mnitta220/bnanw</div><br>
           </li>
           <li>次のコマンドで、WebAssembly のビルドを実行してください。
-            <div class="box1">cd bnanw<br>./build.sh</div><br>
+            <div class="box1">cd bnanw<br>wasm-pack build</div><br>
           </li>
           <li>[初回のみ]<br>次のコマンドを実行してください。
             <div class="box1">cd ../bnan<br>npm install<br>ionic build --prod</div><br>
@@ -163,7 +174,7 @@
           <li>iOS の場合は&nbsp;<a href="https://apps.apple.com/jp/app/xcode/id497799835?mt=12" target="_blank">XCode</a> で、Android の場合は&nbsp;<a href="https://developer.android.com/studio" target="_blank">Android Studio</a> で、パッケージング、動作確認、配布を行います。<br>その方法については、ionicのドキュメントや書籍などをご参照ください。</li>
         </ol><br>
         <p></p>
-        <div class="box2">※ 不具合や改善点を見つけられた場合は、作者にご連絡いただければ幸いです。</div><br><br>
+        <div class="box2">※ 不具合や改善点を見つけられた場合は、作者にご連絡いただければ幸いです。</div><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a><br><br>
       </div>
       <div class="jqm-navmenu-panel" data-role="panel" data-position="left" data-display="overlay" data-theme="a">
         <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
