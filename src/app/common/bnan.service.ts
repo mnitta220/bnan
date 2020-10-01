@@ -112,10 +112,16 @@ export class BnanService {
         this.touchDevice = true;
         this.adShow = !this.setting.admob;
 
-        if (this.adShow) {
-          AdMob.initialize();
-          this.adOption.adId = Define.AD_ID_IOS;
-          AdMob.showBanner(this.adOption);
+        try {
+          if (this.adShow) {
+            //AdMob.initialize();
+            this.adOption.adId = Define.AD_ID_IOS;
+            AdMob.showBanner(this.adOption);
+          } else {
+            AdMob.removeBanner();
+          }
+        } catch (e) {
+          this.logs.push("AdMob Error! " + e);
         }
         break;
 
@@ -124,10 +130,16 @@ export class BnanService {
         this.touchDevice = true;
         this.adShow = !this.setting.admob;
 
-        if (this.adShow) {
-          AdMob.initialize();
-          this.adOption.adId = Define.AD_ID_ANDROID;
-          AdMob.showBanner(this.adOption);
+        try {
+          if (this.adShow) {
+            //AdMob.initialize();
+            this.adOption.adId = Define.AD_ID_ANDROID;
+            AdMob.showBanner(this.adOption);
+          } else {
+            AdMob.removeBanner();
+          }
+        } catch (e) {
+          this.logs.push("AdMob Error! " + e);
         }
 
         // Androidの場合、Googleフォントを使用する。
@@ -444,14 +456,14 @@ export class BnanService {
 
         if (this.isIos) {
           this.adShow = true;
-          AdMob.initialize();
+          //AdMob.initialize();
           this.adOption.adId = Define.AD_ID_IOS;
           AdMob.showBanner(this.adOption);
         }
 
         if (this.isAndroid) {
           this.adShow = true;
-          AdMob.initialize();
+          //AdMob.initialize();
           this.adOption.adId = Define.AD_ID_ANDROID;
           AdMob.showBanner(this.adOption);
         }

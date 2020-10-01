@@ -10,14 +10,16 @@ import { BnanService } from "../common/bnan.service";
 export class InitPage implements OnInit {
   constructor(private router: Router, private bs: BnanService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     try {
       setTimeout(() => {
         this.load().catch((e) => {
           this.bs.logs.push("InitPage.load Error! " + e);
           this.router.navigate(["/error"]);
         });
-      }, 1000);
+      }, 1500);
     } catch (e) {
       this.bs.logs.push("InitPage.ngOnInit Error! " + e);
       this.router.navigate(["/error"]);

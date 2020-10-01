@@ -5,6 +5,7 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
+import { Plugins } from "@capacitor/core";
 
 @Component({
   selector: "app-root",
@@ -43,6 +44,12 @@ export class AppComponent implements OnInit {
     private bs: BnanService
   ) {
     this.initializeApp();
+
+    Plugins.AdMob.initialize(
+      platform.is("ios")
+        ? "ca-app-pub-8702281442049419~7480487935"
+        : "ca-app-pub-8702281442049419~2779659749"
+    );
   }
 
   initializeApp() {
