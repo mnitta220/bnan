@@ -7,6 +7,8 @@ import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
 import { Plugins } from "@capacitor/core";
 
+const { AdMob } = Plugins;
+
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -45,11 +47,7 @@ export class AppComponent implements OnInit {
   ) {
     this.initializeApp();
 
-    Plugins.AdMob.initialize(
-      platform.is("ios")
-        ? "ca-app-pub-8702281442049419~7480487935"
-        : "ca-app-pub-8702281442049419~2779659749"
-    );
+    AdMob.initialize();
   }
 
   initializeApp() {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-import { AdOptions, AdSize, AdPosition } from "@rdlabo/capacitor-admob";
+import { AdOptions, AdSize, AdPosition } from "@capacitor-community/admob";
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
@@ -117,6 +117,16 @@ export class BnanService {
             //AdMob.initialize();
             this.adOption.adId = Define.AD_ID_IOS;
             AdMob.showBanner(this.adOption);
+
+            // Subscibe Banner Event Listener
+            AdMob.addListener("onAdLoaded", (info: boolean) => {
+              console.log("Banner Ad Loaded");
+            });
+
+            // Get Banner Size
+            AdMob.addListener("onAdSize", (info: boolean) => {
+              console.log(info);
+            });
           } else {
             AdMob.removeBanner();
           }
@@ -135,6 +145,16 @@ export class BnanService {
             //AdMob.initialize();
             this.adOption.adId = Define.AD_ID_ANDROID;
             AdMob.showBanner(this.adOption);
+
+            // Subscibe Banner Event Listener
+            AdMob.addListener("onAdLoaded", (info: boolean) => {
+              console.log("Banner Ad Loaded");
+            });
+
+            // Get Banner Size
+            AdMob.addListener("onAdSize", (info: boolean) => {
+              console.log(info);
+            });
           } else {
             AdMob.removeBanner();
           }
