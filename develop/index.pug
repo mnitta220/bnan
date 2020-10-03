@@ -85,7 +85,7 @@ html
         p
           img.img1(src="../img/fig04.png" width="260px")
         p
-          | このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。
+          | このような構成としたのは、テキストの解析と描画を、高速に行いたいからです。
           br
           | TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。
         br
@@ -138,7 +138,8 @@ html
             a(href="https://www.npmjs.com/package/@capacitor-community/admob" target="_blank") @capacitor-community/admob
             |  を使用しています。
             br
-            | （現在、表示されるはずのバナー広告が表示されないという問題があります。）
+            span(style="font-size: 11pt")
+              | （現在、表示されるはずのバナー広告が表示されないという問題があります。）
           li
             | 広告解除のアプリ内課金を行うためのライブラリとして、
             a(href="https://github.com/j3k0/cordova-plugin-purchase" target="_blank") Cordova Purchase Plugin

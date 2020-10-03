@@ -46,7 +46,7 @@
         <p>アプリの主要な機能は、登録されたテキストを指示に従って表示することです。<br>入力されたテキストを解析して、黒塗り、横書き／縦書き、目次表示、ルビ振りなどの描画を行います。これらの解析と描画を、<a href="https://www.rust-lang.org/" target="_blank">Rust</a> という開発言語でプログラミングしています。<br>テキストの解析結果は、<a href="https://developer.mozilla.org/ja/docs/WebAssembly" target="_blank">WebAssembly</a> によって、HTMLの<a href="http://defghi1977.html.xdomain.jp/tech/canvasMemo/canvasMemo.htm" target="_blank">canvas要素に描画</a>しています。</p>
         <p>次の画像の、赤枠内が canvasになっており、その描画処理を WebAssembly で行っています。</p>
         <p><img class="img1" src="../img/fig04.png" width="260px"></p>
-        <p>このような構成としたのは、テキストの解析と描画には、高速な処理が必要となるからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。</p><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
+        <p>このような構成としたのは、テキストの解析と描画を、高速に行いたいからです。<br>TypeScript(JavaScript) のようなスクリプト言語は、開発の容易さでは優れていますが、負荷が掛かる重たい処理には向いていません。WebAssembly + Rust ならば、高速な処理が可能です。</p><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
         <hr>
         <h2 id="c3"><a href="https://github.com/mnitta220/bnan" target="_blank">文章暗記 ionic プロジェクト</a></h2>
         <h3>IndexedDB</h3>
@@ -74,7 +74,7 @@
         <ul class="jqm-demos">
           <li><a href="https://github.com/mnitta220/bnan/blob/master/package.json" target="_blank">package.json</a>ファイルの "dependencies" に、<br>"bnanw": "file:../bnanw/pkg"<br>と設定することによって(32行目)、「文章暗記 WebAssembly プロジェクト」が出力した WebAssembly のコードを参照しています。</li>
           <li>表示されるバナー広告は、<a href="https://admob.google.com/intl/ja_ALL/home/" target="_blank">AdMob</a> から配信されています。ionic で AdMob
-             を使用するためのライブラリとして、<a href="https://www.npmjs.com/package/@capacitor-community/admob" target="_blank">@capacitor-community/admob</a> を使用しています。<br>（現在、表示されるはずのバナー広告が表示されないという問題があります。）
+             を使用するためのライブラリとして、<a href="https://www.npmjs.com/package/@capacitor-community/admob" target="_blank">@capacitor-community/admob</a> を使用しています。<br><span style="font-size: 11pt">（現在、表示されるはずのバナー広告が表示されないという問題があります。）</span>
           </li>
           <li>広告解除のアプリ内課金を行うためのライブラリとして、<a href="https://github.com/j3k0/cordova-plugin-purchase" target="_blank">Cordova Purchase Plugin</a> を使用しています。</li>
         </ul><br><a class="jqm-deeplink ui-icon-carat-u ui-alt-icon" href="#ui-page-top">Top</a>
