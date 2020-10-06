@@ -128,6 +128,7 @@ export class UnlockPage implements OnInit {
         }
 
         if (restored) {
+          this.admob = true;
           window.alert("購入が復元しました。");
         }
       });
@@ -201,6 +202,7 @@ export class UnlockPage implements OnInit {
       }
 
       this.bs.bought(p.id).then(() => {
+        this.admob = true;
         window.alert("購入が完了しました。");
         /*
         this.tc
