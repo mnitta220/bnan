@@ -47,7 +47,11 @@ export class AppComponent implements OnInit {
   ) {
     this.initializeApp();
 
-    AdMob.initialize();
+    const options = {
+      requestTrackingAuthorization: false,
+    };
+
+    AdMob.initialize(options);
   }
 
   initializeApp() {
