@@ -33,6 +33,10 @@
 
 <img src="img/iphone112.png" width="220">
 
+#### [暗記学習での利用例]
+
+<img src="img/iphone115.png" width="220">
+
 ### ■ 文書登録画面
 
 <img src="img/iphone113.png" width="220">
@@ -51,7 +55,7 @@
 
 ## Google Play (Android 向け)
 
-近日中にリリースします。
+[Android 向け紹介ページ](https://play.google.com/store/apps/details?id=com.github.mnitta220.bnan)
 
 ---
 
