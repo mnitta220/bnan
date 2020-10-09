@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-import { AdOptions, AdSize, AdPosition } from "@rdlabo/capacitor-admob";
+import { AdOptions, AdSize, AdPosition } from "@capacitor-community/admob";
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
