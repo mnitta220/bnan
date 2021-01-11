@@ -65,11 +65,6 @@ const routes: Routes = [
         (m) => m.UsageViewPageModule
       ),
   },
-  {
-    path: "unlock",
-    loadChildren: () =>
-      import("./unlock/unlock.module").then((m) => m.UnlockPageModule),
-  },
 ];
 
 @NgModule({

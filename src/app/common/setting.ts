@@ -5,5 +5,5 @@ export class Setting {
   showUsage: boolean = false;
   curDoc: Doc = null;
   height: number;
-  admob: boolean = false;
+  //admob: boolean = false;
 }

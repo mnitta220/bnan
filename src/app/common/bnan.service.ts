@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-import { AdOptions, AdSize, AdPosition } from "@capacitor-community/admob";
+//import { AdOptions, AdSize, AdPosition } from "@capacitor-community/admob";
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
@@ -25,20 +25,20 @@ export class BnanService {
   isElectron = false;
   isMac = false;
   isWin = false;
-  adShow = false;
+  //adShow = false;
   frWidth: number;
   contents = Define.CON_TEXT;
   mode = Define.KURO_ALL;
   showCurrent = false;
   currentName = "";
-
+/*
   adOption: AdOptions = {
     adId: "",
     adSize: AdSize.BANNER,
     position: AdPosition.BOTTOM_CENTER,
     margin: 0,
   };
-
+*/
   constructor() {}
 
   async getSetting() {
@@ -110,8 +110,9 @@ export class BnanService {
       case "ios":
         this.isIos = true;
         this.touchDevice = true;
-        this.adShow = !this.setting.admob;
+        //this.adShow = !this.setting.admob;
 
+        /*
         try {
           if (this.adShow) {
             //AdMob.initialize();
@@ -133,13 +134,15 @@ export class BnanService {
         } catch (e) {
           this.logs.push("AdMob Error! " + e);
         }
+        */
         break;
 
       case "android":
         this.isAndroid = true;
         this.touchDevice = true;
-        this.adShow = !this.setting.admob;
+        //this.adShow = !this.setting.admob;
 
+        /*
         try {
           if (this.adShow) {
             //AdMob.initialize();
@@ -161,6 +164,7 @@ export class BnanService {
         } catch (e) {
           this.logs.push("AdMob Error! " + e);
         }
+        */
 
         // Androidの場合、Googleフォントを使用する。
         (await this.wasm).load_font();
@@ -441,60 +445,6 @@ export class BnanService {
     } catch (e) {
       throw Error(e);
     }
-  }
-
-  async bought(p: string) {
-    //this.logs.push("***bought1");
-    switch (p) {
-      case Define.ADMOB:
-        if (this.setting.admob) {
-          return;
-        }
-
-        this.setting.admob = true;
-        this.adShow = false;
-        AdMob.removeBanner();
-        break;
-
-      default:
-        return;
-    }
-
-    await this.updateSetting();
-    this.logs.push("***BnanService.bought. product=" + p);
-  }
-
-  async canceled(p: string) {
-    //this.logs.push("***canceled");
-    switch (p) {
-      case Define.ADMOB:
-        if (this.setting.admob == false) {
-          return;
-        }
-
-        this.setting.admob = false;
-
-        if (this.isIos) {
-          this.adShow = true;
-          //AdMob.initialize();
-          this.adOption.adId = Define.AD_ID_IOS;
-          AdMob.showBanner(this.adOption);
-        }
-
-        if (this.isAndroid) {
-          this.adShow = true;
-          //AdMob.initialize();
-          this.adOption.adId = Define.AD_ID_ANDROID;
-          AdMob.showBanner(this.adOption);
-        }
-        break;
-
-      default:
-        return;
-    }
-
-    await this.updateSetting();
-    this.logs.push("***BnanService.canceled. product=" + p);
   }
 
   async dropAll() {

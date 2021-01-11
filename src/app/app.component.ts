@@ -86,9 +86,6 @@ export class AppComponent implements OnInit {
       case Define.PG_USAGE_VIEW:
         this.router.navigate(["/usage-view"]);
         break;
-      case Define.PG_UNLOCK:
-        this.router.navigate(["/unlock"]);
-        break;
       case Define.PG_ABOUT:
         this.router.navigate(["/about"]);
         break;
