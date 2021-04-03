@@ -16,18 +16,21 @@ import { BnanService } from "../common/bnan.service";
   styleUrls: ["./doc-view.page.scss"],
 })
 export class DocViewPage implements OnInit {
-  @ViewChild("cv1") canvas: any;
+  @ViewChild("cv1") canvas1: any;
+  @ViewChild("cv2") canvas2: any;
   @ViewChild("tb1") toolbar: any;
-  private canvasElement: any;
+  private canvasElement1: any;
   private toolbarElement: any;
   title = "文書";
+  wbname = "白板";
   private retryCnt: number;
+  private darkMode = false;
 
   stF = {
     color: "white",
   };
 
-  stCv = {
+  stCv1 = {
     width: "100%",
     height: `${Define.INIT_HEIGHT}px`,
     overflow: "hidden",
@@ -39,7 +42,7 @@ export class DocViewPage implements OnInit {
     private screenOrientation: ScreenOrientation,
     public changeDetectorRef: ChangeDetectorRef,
     private bs: BnanService
-  ) {}
+  ) { }
 
   @Input()
   set contents(contents: string) {
@@ -60,6 +63,9 @@ export class DocViewPage implements OnInit {
   }
 
   ngOnInit() {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+    this.darkMode = prefersDark.matches;
+    this.wbname = this.darkMode ? "黒板" : "白板";
     this.screenOrientation.onChange().subscribe(() => {
       this.retryCnt = 0;
 
@@ -83,17 +89,17 @@ export class DocViewPage implements OnInit {
 
       this.toolbarElement = this.toolbar.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
-      this.canvasElement = this.canvas.nativeElement;
-      let ct = this.canvasElement.getContext("2d");
+      this.canvasElement1 = this.canvas1.nativeElement;
+      let ct = this.canvasElement1.getContext("2d");
 
       if (!ct) {
         throw new Error("Canvas.getContext failed.");
       }
 
-      this.canvasElement.width = this.bs.frWidth;
-      this.canvasElement.height = this.bs.setting.height;
-      this.stCv.width = `${this.bs.frWidth}px`;
-      this.stCv.height = `${this.bs.setting.height}px`;
+      this.canvasElement1.width = this.bs.frWidth;
+      this.canvasElement1.height = this.bs.setting.height;
+      this.stCv1.width = `${this.bs.frWidth}px`;
+      this.stCv1.height = `${this.bs.setting.height}px`;
       this.retryCnt = 0;
       this.draw();
     } catch (e) {
@@ -105,20 +111,20 @@ export class DocViewPage implements OnInit {
   async draw() {
     //console.log("***draw1 this.retryCnt=" + this.retryCnt);
     try {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-      const darkMode = prefersDark.matches;
+      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      //const darkMode = prefersDark.matches;
       this.toolbarElement = this.toolbar.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
-      this.canvasElement = this.canvas.nativeElement;
-      this.canvasElement.width = this.bs.frWidth;
-      this.canvasElement.height = this.bs.setting.height;
-      this.stCv.width = `${this.bs.frWidth}px`;
-      this.stCv.height = `${this.bs.setting.height}px`;
+      this.canvasElement1 = this.canvas1.nativeElement;
+      this.canvasElement1.width = this.bs.frWidth;
+      this.canvasElement1.height = this.bs.setting.height;
+      this.stCv1.width = `${this.bs.frWidth}px`;
+      this.stCv1.height = `${this.bs.setting.height}px`;
 
       (await this.bs.wasm).draw_doc(
         this.bs.frWidth,
         this.bs.setting.height,
-        darkMode,
+        this.darkMode,
         this.bs.isAndroid
       );
 
@@ -141,20 +147,20 @@ export class DocViewPage implements OnInit {
 
   async resize() {
     try {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-      const darkMode = prefersDark.matches;
+      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      //const darkMode = prefersDark.matches;
       this.toolbarElement = this.toolbar.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
-      this.canvasElement = this.canvas.nativeElement;
-      this.canvasElement.width = this.bs.frWidth;
-      this.canvasElement.height = this.bs.setting.height;
-      this.stCv.width = `${this.bs.frWidth}px`;
-      this.stCv.height = `${this.bs.setting.height}px`;
+      this.canvasElement1 = this.canvas1.nativeElement;
+      this.canvasElement1.width = this.bs.frWidth;
+      this.canvasElement1.height = this.bs.setting.height;
+      this.stCv1.width = `${this.bs.frWidth}px`;
+      this.stCv1.height = `${this.bs.setting.height}px`;
 
       (await this.bs.wasm).resize(
         this.bs.frWidth,
         this.bs.setting.height,
-        darkMode
+        this.darkMode,
       );
 
       this.changeDetectorRef.detectChanges();
@@ -180,7 +186,22 @@ export class DocViewPage implements OnInit {
 
   async contents_change() {
     try {
-      (await this.bs.wasm).contents_change(this.contents == "0" ? false : true);
+      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      //const darkMode = prefersDark.matches;
+      let height: number;
+      if (this.contents == "2") {
+        if (this.bs.isIos) {
+          height = window.innerHeight - 224;
+        } else {
+          height = window.innerHeight - 165;
+        }
+      } else {
+        height = this.bs.setting.height;
+      }
+      this.canvasElement1.height = height;
+      this.stCv1.height = `${height}px`;
+
+      (await this.bs.wasm).tab_change(parseInt(this.contents), this.bs.frWidth, height, this.darkMode);
     } catch (e) {
       this.bs.logs.push("DocViewPage.contents_change Error! " + e);
       this.router.navigate(["/error"]);
@@ -214,7 +235,7 @@ export class DocViewPage implements OnInit {
 
   async startDrawing(ev) {
     try {
-      let canvasPosition = this.canvasElement.getBoundingClientRect();
+      let canvasPosition = this.canvasElement1.getBoundingClientRect();
 
       (await this.bs.wasm).touch_start(
         ev.pageX - canvasPosition.x,
@@ -227,28 +248,32 @@ export class DocViewPage implements OnInit {
   }
 
   mouseMove(ev) {
-    if (this.bs.touchDevice == false) {
-      ev.preventDefault();
-      this.moving(ev);
-    }
+    try {
+      if (this.bs.touchDevice == false) {
+        ev.preventDefault();
+        this.moving(ev);
+      }
+    } catch (e) { }
   }
 
   touchMove(ev) {
-    if (this.bs.touchDevice == true) {
-      ev.preventDefault();
-      this.moving(ev.touches[0]);
-    }
+    try {
+      if (this.bs.touchDevice == true) {
+        ev.preventDefault();
+        this.moving(ev.touches[0]);
+      }
+    } catch (e) { }
   }
 
   async moving(ev) {
     try {
-      let canvasPosition = this.canvasElement.getBoundingClientRect();
+      let canvasPosition = this.canvasElement1.getBoundingClientRect();
 
       (await this.bs.wasm).touch_move(
         ev.pageX - canvasPosition.x,
         ev.pageY - canvasPosition.y
       );
-    } catch (e) {}
+    } catch (e) { }
   }
 
   mouseUp(ev) {
@@ -339,5 +364,17 @@ export class DocViewPage implements OnInit {
       this.bs.logs.push("DocViewPage.change Error! " + e);
       this.router.navigate(["/error"]);
     }
+  }
+
+  async strokeBack() {
+    try {
+      (await this.bs.wasm).stroke_back();
+    } catch (e) { }
+  }
+
+  async strokeClear() {
+    try {
+      (await this.bs.wasm).stroke_clear();
+    } catch (e) { }
   }
 }

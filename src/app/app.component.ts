@@ -5,9 +5,6 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
-import { Plugins } from "@capacitor/core";
-
-const { AdMob } = Plugins;
 
 @Component({
   selector: "app-root",
@@ -16,14 +13,14 @@ const { AdMob } = Plugins;
 })
 export class AppComponent implements OnInit {
   @Input()
-  set showCurrent(p: boolean) {}
+  set showCurrent(p: boolean) { }
 
   get showCurrent() {
     return this.bs.showCurrent;
   }
 
   @Input()
-  set currentName(name: string) {}
+  set currentName(name: string) { }
 
   get currentName() {
     return this.bs.currentName;
@@ -51,9 +48,6 @@ export class AppComponent implements OnInit {
     const options = {
       requestTrackingAuthorization: false,
     };
-
-    AdMob.initialize(options);
-    //AdMob.initialize();
   }
 
   initializeApp() {
@@ -63,7 +57,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   menuClick(idx: number) {
     //console.log("***menuClick: idx=" + idx);

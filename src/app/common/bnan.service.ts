@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-//import { AdOptions, AdSize, AdPosition } from "@capacitor-community/admob";
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
 
-const { Storage, AdMob, Device } = Plugins;
+const { Storage, Device } = Plugins;
 const SETTING_KEY = "bnan";
 
 @Injectable({
@@ -25,21 +24,13 @@ export class BnanService {
   isElectron = false;
   isMac = false;
   isWin = false;
-  //adShow = false;
   frWidth: number;
-  contents = Define.CON_TEXT;
+  contents = Define.TAB_TEXT;
   mode = Define.KURO_ALL;
   showCurrent = false;
   currentName = "";
-/*
-  adOption: AdOptions = {
-    adId: "",
-    adSize: AdSize.BANNER,
-    position: AdPosition.BOTTOM_CENTER,
-    margin: 0,
-  };
-*/
-  constructor() {}
+
+  constructor() { }
 
   async getSetting() {
     //console.log("***getSetting");
@@ -68,7 +59,7 @@ export class BnanService {
 
     try {
       ret = await Storage.get({ key: SETTING_KEY });
-    } catch (e) {}
+    } catch (e) { }
 
     if (ret == null || ret.value == null) {
       await this.initSetting();
@@ -110,61 +101,11 @@ export class BnanService {
       case "ios":
         this.isIos = true;
         this.touchDevice = true;
-        //this.adShow = !this.setting.admob;
-
-        /*
-        try {
-          if (this.adShow) {
-            //AdMob.initialize();
-            this.adOption.adId = Define.AD_ID_IOS;
-            AdMob.showBanner(this.adOption);
-
-            // Subscibe Banner Event Listener
-            AdMob.addListener("onAdLoaded", (info: boolean) => {
-              console.log("Banner Ad Loaded");
-            });
-
-            // Get Banner Size
-            AdMob.addListener("onAdSize", (info: boolean) => {
-              console.log(info);
-            });
-          } else {
-            AdMob.removeBanner();
-          }
-        } catch (e) {
-          this.logs.push("AdMob Error! " + e);
-        }
-        */
         break;
 
       case "android":
         this.isAndroid = true;
         this.touchDevice = true;
-        //this.adShow = !this.setting.admob;
-
-        /*
-        try {
-          if (this.adShow) {
-            //AdMob.initialize();
-            this.adOption.adId = Define.AD_ID_ANDROID;
-            AdMob.showBanner(this.adOption);
-
-            // Subscibe Banner Event Listener
-            AdMob.addListener("onAdLoaded", (info: boolean) => {
-              console.log("Banner Ad Loaded");
-            });
-
-            // Get Banner Size
-            AdMob.addListener("onAdSize", (info: boolean) => {
-              console.log(info);
-            });
-          } else {
-            AdMob.removeBanner();
-          }
-        } catch (e) {
-          this.logs.push("AdMob Error! " + e);
-        }
-        */
 
         // Androidの場合、Googleフォントを使用する。
         (await this.wasm).load_font();
@@ -262,7 +203,7 @@ export class BnanService {
       }
 
       this.setting.curDoc.dt = AppDatabase.getDt();
-      this.contents = Define.CON_TEXT;
+      this.contents = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
@@ -320,7 +261,7 @@ export class BnanService {
 
       this.setting.curDoc = doc;
       this.curText = text;
-      this.contents = Define.CON_TEXT;
+      this.contents = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this.updateSetting();
@@ -383,7 +324,7 @@ export class BnanService {
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.curText = text;
-      this.contents = Define.CON_TEXT;
+      this.contents = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
@@ -450,10 +391,10 @@ export class BnanService {
   async dropAll() {
     try {
       await AppDatabase.deleteDb();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       await Storage.clear();
-    } catch (e) {}
+    } catch (e) { }
   }
 }
