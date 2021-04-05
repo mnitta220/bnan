@@ -18,7 +18,8 @@ import { BnanService } from "../common/bnan.service";
 export class DocViewPage implements OnInit {
   @ViewChild("cv1") canvas1: any;
   @ViewChild("cv2") canvas2: any;
-  @ViewChild("tb1") toolbar: any;
+  //@ViewChild("seg1") seg1: any;
+  @ViewChild("tb1") tb1: any;
   private canvasElement1: any;
   private toolbarElement: any;
   title = "文書";
@@ -87,7 +88,7 @@ export class DocViewPage implements OnInit {
       this.bs.selectedIndex = Define.PG_VIEW;
       this.title = this.bs.setting.curDoc.title;
 
-      this.toolbarElement = this.toolbar.nativeElement;
+      this.toolbarElement = this.tb1.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
       let ct = this.canvasElement1.getContext("2d");
@@ -113,7 +114,7 @@ export class DocViewPage implements OnInit {
     try {
       //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
       //const darkMode = prefersDark.matches;
-      this.toolbarElement = this.toolbar.nativeElement;
+      this.toolbarElement = this.tb1.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
       this.canvasElement1.width = this.bs.frWidth;
@@ -149,17 +150,29 @@ export class DocViewPage implements OnInit {
     try {
       //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
       //const darkMode = prefersDark.matches;
-      this.toolbarElement = this.toolbar.nativeElement;
+
+      this.toolbarElement = this.tb1.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
       this.canvasElement1.width = this.bs.frWidth;
-      this.canvasElement1.height = this.bs.setting.height;
+
+      let height: number;
+      if (this.contents == "2") {
+        if (this.bs.isIos) {
+          height = window.innerHeight - 224;
+        } else {
+          height = window.innerHeight - 165;
+        }
+      } else {
+        height = this.bs.setting.height;
+      }
+      this.canvasElement1.height = height;
+      this.stCv1.height = `${height}px`;
       this.stCv1.width = `${this.bs.frWidth}px`;
-      this.stCv1.height = `${this.bs.setting.height}px`;
 
       (await this.bs.wasm).resize(
         this.bs.frWidth,
-        this.bs.setting.height,
+        height,
         this.darkMode,
       );
 
@@ -202,6 +215,12 @@ export class DocViewPage implements OnInit {
       this.stCv1.height = `${height}px`;
 
       (await this.bs.wasm).tab_change(parseInt(this.contents), this.bs.frWidth, height, this.darkMode);
+
+      if (this.contents != "2") {
+        setTimeout(() => {
+          this.resize();
+        }, 800);
+      }
     } catch (e) {
       this.bs.logs.push("DocViewPage.contents_change Error! " + e);
       this.router.navigate(["/error"]);

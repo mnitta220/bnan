@@ -119,7 +119,7 @@ export class AppDatabase extends Dexie {
         }
       });
 
-      /*
+      /** */
       // テスト用
       doc = new Doc(
         "銀河鉄道の夜", // title
@@ -340,7 +340,7 @@ export class AppDatabase extends Dexie {
           seq++;
         }
       });
-      */
+      /**/
     } catch (e) {
       throw Error("AppDatabase.loadSample error: " + e);
     }
@@ -349,7 +349,7 @@ export class AppDatabase extends Dexie {
   static async deleteDb() {
     try {
       await Dexie.delete(DB_NAME);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   static getDt(): string {
