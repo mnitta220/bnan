@@ -26,6 +26,7 @@ export class DocViewPage implements OnInit {
   wbname = "白板";
   private retryCnt: number;
   private darkMode = false;
+  private cheight = 0;
 
   stF = {
     color: "white",
@@ -169,6 +170,7 @@ export class DocViewPage implements OnInit {
       this.canvasElement1.height = height;
       this.stCv1.height = `${height}px`;
       this.stCv1.width = `${this.bs.frWidth}px`;
+      this.cheight = height;
 
       (await this.bs.wasm).resize(
         this.bs.frWidth,
@@ -216,7 +218,7 @@ export class DocViewPage implements OnInit {
 
       (await this.bs.wasm).tab_change(parseInt(this.contents), this.bs.frWidth, height, this.darkMode);
 
-      if (this.contents != "2") {
+      if (this.contents != "2" && height != this.cheight) {
         setTimeout(() => {
           this.resize();
         }, 800);

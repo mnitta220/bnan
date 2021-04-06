@@ -17,12 +17,14 @@ export class UsageViewPage implements OnInit {
     margin: "0 2px 3px 2px",
   };
   */
+  isIos = false;
 
-  constructor(private router: Router, private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
+    this.isIos = this.bs.isIos;
     try {
       this.bs.selectedIndex = Define.PG_USAGE_VIEW;
       /*
