@@ -8,9 +8,9 @@ import { BnanService } from "../common/bnan.service";
   styleUrls: ["./init.page.scss"],
 })
 export class InitPage implements OnInit {
-  constructor(private router: Router, private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     try {

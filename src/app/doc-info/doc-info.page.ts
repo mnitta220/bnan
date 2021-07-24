@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Plugins } from "@capacitor/core";
+import { Clipboard } from '@capacitor/clipboard';
 import { Define } from "../common/define";
 import { BnanService } from "../common/bnan.service";
-
-const { Clipboard } = Plugins;
 
 @Component({
   selector: "app-doc-info",
@@ -19,9 +17,9 @@ export class DocInfoPage implements OnInit {
   vertical = "1";
   showDelete = false;
 
-  constructor(private router: Router, private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.bs.selectedIndex = Define.PG_LIST;

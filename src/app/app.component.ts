@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@capacitor/splash-screen";
-//import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
 
@@ -37,8 +36,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    //private splashScreen: SplashScreen,
-    //private statusBar: StatusBar,
     private router: Router,
     private bs: BnanService
   ) {
@@ -52,7 +49,6 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      //this.statusBar.styleDefault();
       SplashScreen.hide();
     });
   }
@@ -60,7 +56,6 @@ export class AppComponent implements OnInit {
   ngOnInit() { }
 
   menuClick(idx: number) {
-    //console.log("***menuClick: idx=" + idx);
     switch (idx) {
       case Define.PG_LIST:
         this.router.navigate(["/doc-list"]);
@@ -86,5 +81,9 @@ export class AppComponent implements OnInit {
       default:
         this.router.navigate(["/doc-list"]);
     }
+  }
+
+  zoomText(val: number) {
+    this.bs.zoomText(val);
   }
 }

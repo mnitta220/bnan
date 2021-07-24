@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-//import { Plugins } from "@capacitor/core";
 import { Device } from '@capacitor/device';
 import { Storage } from '@capacitor/storage';
+import { TextZoom, SetOptions } from '@capacitor/text-zoom';
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
 
-//const { Storage, Device } = Plugins;
 const SETTING_KEY = "bnan";
 
 @Injectable({
@@ -74,6 +73,13 @@ export class BnanService {
       }
 
       this._idb = new AppDatabase();
+
+      if (typeof this.setting.zoom !== "undefined") {
+        var options: SetOptions = {
+          value: this.setting.zoom
+        }
+        TextZoom.set(options)
+      }
     }
 
     await this.getPlatform();
@@ -89,6 +95,7 @@ export class BnanService {
     this.setting = new Setting();
     this.setting.version = Define.VERSION;
     this.setting.height = Define.INIT_HEIGHT;
+    this.setting.zoom = 1;
 
     await this.updateSetting();
     this.showCurrent = false;
@@ -389,5 +396,24 @@ export class BnanService {
     try {
       await Storage.clear();
     } catch (e) { }
+  }
+
+  zoomText(val: number) {
+    if (typeof this.setting.zoom === "undefined") {
+      this.setting.zoom = 1;
+    }
+
+    this.setting.zoom += val;
+    if (this.setting.zoom < 0.8) {
+      this.setting.zoom = 0.8;
+    } else if (this.setting.zoom > 5) {
+      this.setting.zoom = 5;
+    }
+    var options: SetOptions = {
+      value: this.setting.zoom
+    }
+    TextZoom.set(options)
+
+    this.updateSetting();
   }
 }

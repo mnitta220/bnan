@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Plugins } from "@capacitor/core";
+import { Device } from '@capacitor/device';
 import { Define } from "../common/define";
 import { BnanService } from "../common/bnan.service";
-
-const { Device } = Plugins;
 
 @Component({
   selector: "app-about",
@@ -16,7 +14,7 @@ export class AboutPage implements OnInit {
   device = "";
   os = "";
 
-  constructor(private router: Router, private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
   ngOnInit() {
     this.getDev();

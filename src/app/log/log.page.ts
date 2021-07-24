@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 //import { ToastController } from "@ionic/angular";
-import { Plugins } from "@capacitor/core";
+import { Clipboard } from '@capacitor/clipboard';
 import { BnanService } from "../common/bnan.service";
-
-const { Clipboard } = Plugins;
 
 @Component({
   selector: "app-log",
@@ -11,9 +9,9 @@ const { Clipboard } = Plugins;
   styleUrls: ["./log.page.scss"],
 })
 export class LogPage implements OnInit {
-  constructor(/*private tc: ToastController,*/ private bs: BnanService) {}
+  constructor(/*private tc: ToastController,*/ private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.logs.push("LogPage.ionViewWillEnter");
