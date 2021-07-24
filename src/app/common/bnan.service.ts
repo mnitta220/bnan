@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Plugins } from "@capacitor/core";
+//import { Plugins } from "@capacitor/core";
+import { Device } from '@capacitor/device';
+import { Storage } from '@capacitor/storage';
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
 
-const { Storage, Device } = Plugins;
+//const { Storage, Device } = Plugins;
 const SETTING_KEY = "bnan";
 
 @Injectable({
@@ -109,15 +111,6 @@ export class BnanService {
 
         // Androidの場合、Googleフォントを使用する。
         (await this.wasm).load_font();
-        break;
-
-      case "electron":
-        this.isElectron = true;
-        let os: string = info.operatingSystem.toLowerCase();
-
-        if (os.startsWith("mac")) {
-          this.isMac = true;
-        }
         break;
     }
   }

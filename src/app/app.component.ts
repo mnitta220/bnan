@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { SplashScreen } from "@capacitor/splash-screen";
+//import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Define } from "./common/define";
 import { BnanService } from "./common/bnan.service";
 
@@ -37,8 +37,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
+    //private splashScreen: SplashScreen,
+    //private statusBar: StatusBar,
     private router: Router,
     private bs: BnanService
   ) {
@@ -52,8 +52,8 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      //this.statusBar.styleDefault();
+      SplashScreen.hide();
     });
   }
 

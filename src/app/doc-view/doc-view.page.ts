@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { Router } from "@angular/router";
-import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
+//import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
 import { Define } from "../common/define";
 import { BnanService } from "../common/bnan.service";
 
@@ -41,7 +41,7 @@ export class DocViewPage implements OnInit {
 
   constructor(
     private router: Router,
-    private screenOrientation: ScreenOrientation,
+    //private screenOrientation: ScreenOrientation,
     public changeDetectorRef: ChangeDetectorRef,
     private bs: BnanService
   ) { }
@@ -68,6 +68,7 @@ export class DocViewPage implements OnInit {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
     this.darkMode = prefersDark.matches;
     this.wbname = this.darkMode ? "黒板" : "白板";
+    /*
     this.screenOrientation.onChange().subscribe(() => {
       this.retryCnt = 0;
 
@@ -77,6 +78,7 @@ export class DocViewPage implements OnInit {
     });
 
     this.screenOrientation.unlock();
+    */
   }
 
   ionViewWillEnter() {
