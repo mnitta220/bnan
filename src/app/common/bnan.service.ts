@@ -30,6 +30,8 @@ export class BnanService {
   mode = Define.KURO_ALL;
   showCurrent = false;
   currentName = "";
+  disableZoomDown = true;
+  disableZoomUp = true;
 
   constructor() { }
 
@@ -74,11 +76,17 @@ export class BnanService {
 
       this._idb = new AppDatabase();
 
-      if (typeof this.setting.zoom !== "undefined") {
+      const info = await Device.getInfo();
+      if (info.platform == "ios" || info.platform == "android") {
+        if (typeof this.setting.zoom !== "undefined") {
+          this.setting.zoom = 1;
+        }
         var options: SetOptions = {
           value: this.setting.zoom
         }
         TextZoom.set(options)
+        this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
+        this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
       }
     }
 
@@ -95,7 +103,17 @@ export class BnanService {
     this.setting = new Setting();
     this.setting.version = Define.VERSION;
     this.setting.height = Define.INIT_HEIGHT;
-    this.setting.zoom = 1;
+
+    const info = await Device.getInfo();
+    if (info.platform == "ios" || info.platform == "android") {
+      this.setting.zoom = 1;
+      var options: SetOptions = {
+        value: this.setting.zoom
+      }
+      TextZoom.set(options)
+      this.disableZoomDown = false;
+      this.disableZoomUp = false;
+    }
 
     await this.updateSetting();
     this.showCurrent = false;
@@ -404,15 +422,18 @@ export class BnanService {
     }
 
     this.setting.zoom += val;
-    if (this.setting.zoom < 0.8) {
-      this.setting.zoom = 0.8;
-    } else if (this.setting.zoom > 5) {
-      this.setting.zoom = 5;
+    if (this.setting.zoom < Define.ZOOM_MIN) {
+      this.setting.zoom = Define.ZOOM_MIN;
+    } else if (this.setting.zoom > Define.ZOOM_MAX) {
+      this.setting.zoom = Define.ZOOM_MAX;
     }
     var options: SetOptions = {
       value: this.setting.zoom
     }
     TextZoom.set(options)
+    console.log("****zoomText value=" + options.value);
+    this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
+    this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
 
     this.updateSetting();
   }

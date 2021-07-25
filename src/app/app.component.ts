@@ -34,6 +34,16 @@ export class AppComponent implements OnInit {
     return this.bs.selectedIndex;
   }
 
+  @Input()
+  get disableZoomUp(): boolean {
+    return this.bs.disableZoomUp;
+  }
+
+  @Input()
+  get disableZoomDown(): boolean {
+    return this.bs.disableZoomDown;
+  }
+
   constructor(
     private platform: Platform,
     private router: Router,
