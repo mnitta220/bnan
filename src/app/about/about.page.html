@@ -9,22 +9,22 @@
 
 <ion-content>
   <div class="usage">
-    <h1>文章暗記</h1>
-    <h2>Version {{version}}</h2>
+    <h1 [ngStyle]="bs.styleUsageH1">文章暗記</h1>
+    <h2 [ngStyle]="bs.styleUsageH2">Version {{version}}</h2>
     <p><br /></p>
-    <hr />
-    <h2>■ 連絡先</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">■ 連絡先</h2>
+    <p [ngStyle]="bs.styleUsageP">
       このアプリについて、ご質問、ご意見、ご要望、不具合報告などがございましたら、作者(新田
       雅浩)の次のメールアドレスにメールをお送りください。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       メールアドレス:<br />
       <a href="mailto:mnitta220@gmail.com?subject=文章暗記について"
         >mnitta220@gmail.com</a
       >
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       不具合報告を送られる場合は、詳しい現象と、 <br />お使いの機種〔&nbsp;<span
         style="border: solid 1px #aaa; color: black; background-color: #eee"
         >&nbsp;{{device}}&nbsp;</span
@@ -37,12 +37,17 @@
       >&nbsp;〕 <br />をお知らせください。
     </p>
     <p><br /><br /></p>
-    <hr />
-    <h2>■ データ初期化</h2>
-    <ion-button (click)="initialize()">データ初期化</ion-button>
-    <br />（このボタンを押すと、登録された文書がすべて削除され、初期状態に戻ります。<br /><br /><br />
-    <hr />
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">■ データ初期化</h2>
+    <ion-button [ngStyle]="bs.styleBtn" (click)="initialize()"
+      >データ初期化</ion-button
+    >
+    <p [ngStyle]="bs.styleUsageP">
+      （このボタンを押すと、登録された文書がすべて削除され、初期状態に戻ります。）
+    </p>
+    <br /><br />
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <p [ngStyle]="bs.styleUsageP">
       Copyright &copy; 2021 Masahiro Nitta. All rights reserved<a
         routerLink="/log"
         routerLinkActive="current"

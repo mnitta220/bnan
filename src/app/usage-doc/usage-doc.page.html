@@ -9,7 +9,7 @@
 
 <ion-content>
   <div class="usage">
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       文書登録画面では、文書の登録・更新を行います。特殊な表記方法でテキストを入力することによって、<a
         routerLink="/usage-view"
         routerLinkActive="current"
@@ -18,38 +18,44 @@
       での表示方法を指定します。
     </p>
     <p><br /></p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       <img
         src="assets/png/fig02.png"
         style="border: solid 1px gray; padding: 1px"
       />
     </p>
-    <hr />
-    <h2>表記方法</h2>
-    <p>このアプリ用の特殊な表記のルールを以下に記述します。</p>
-    <p>「サンプル文書」で、入力例をご覧いただけます。</p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">表記方法</h2>
+    <p [ngStyle]="bs.styleUsageP">
+      このアプリ用の特殊な表記のルールを以下に記述します。
+    </p>
+    <p [ngStyle]="bs.styleUsageP">
+      「サンプル文書」で、入力例をご覧いただけます。
+    </p>
     <p><br /></p>
-    <h3>■ 区切り</h3>
-    <p>
+    <h3 [ngStyle]="bs.styleUsageH3">■ 区切り</h3>
+    <p [ngStyle]="bs.styleUsageP">
       文中に「/」(スラッシュ)を入力すると、文書表示画面で黒塗り表示した際に、その位置が黒塗りの区切りとなります。
     </p>
-    <p>例：</p>
+    <p [ngStyle]="bs.styleUsageP">例：</p>
     <div class="source">
       カムパネルラが手をあげました。/それから四、五人手をあげました。/
     </div>
-    <p>と入力すると、黒塗りの区切りが「/」の位置になります。</p>
+    <p [ngStyle]="bs.styleUsageP">
+      と入力すると、黒塗りの区切りが「/」の位置になります。
+    </p>
     <div class="source">
       カムパネルラが手をあげました。<span
         style="background-color: #484848; color: #484848"
         >それから四、五人手をあげました。</span
       >
     </div>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       「/」は区切り文字として認識され、文書表示画面には表示されません。スラッシュを表示させたい場合は、「//」と２つ続けて入力すると、１つのスラッシュが表示されます。
     </p>
     <p><br /></p>
-    <h3>■ 見出し</h3>
-    <p>
+    <h3 [ngStyle]="bs.styleUsageH3">■ 見出し</h3>
+    <p [ngStyle]="bs.styleUsageP">
       見出しをつけるには、行頭に「#」記号を付けます。見出しは６段階まで設定することができます。見出しをつけると、文書の区切りとなり、目次に表示されます。見出しは、文書表示画面で黒塗り表示されません。
     </p>
     <div class="source"># 見出し1</div>
@@ -59,13 +65,13 @@
     <div class="source">##### 見出し5</div>
     <div class="source">###### 見出し6</div>
     <p><br /></p>
-    <h3>■ ルビ</h3>
-    <p>
+    <h3 [ngStyle]="bs.styleUsageH3">■ ルビ</h3>
+    <p [ngStyle]="bs.styleUsageP">
       漢字にルビ（ふりがな）を振るには、漢字の次に「《」を入力してルビを入力し、その次に「》」を入力します。
     </p>
-    <p>例：</p>
+    <p [ngStyle]="bs.styleUsageP">例：</p>
     <div class="source">宮沢《みやざわ》賢治《けんじ》</div>
-    <p>と入力すると、</p>
+    <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
       <ruby>
         宮沢
@@ -75,14 +81,14 @@
         <rt>けんじ</rt>
       </ruby>
     </div>
-    <p>と表示されます。</p>
+    <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
 
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       漢字が続いている箇所でルビを振る文字を限定するには、限定する箇所の前に、「｜」（全角縦棒）または「|」（半角縦棒）を入力します。
     </p>
-    <p>例：</p>
+    <p [ngStyle]="bs.styleUsageP">例：</p>
     <div class="source">石川｜啄木《たくぼく》</div>
-    <p>と入力すると、</p>
+    <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
       石川
       <ruby>
@@ -90,102 +96,118 @@
         <rt>たくぼく</rt>
       </ruby>
     </div>
-    <p>と表示されます。</p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
+    <p [ngStyle]="bs.styleUsageP">
       「《」、「》」、「｜」、「|」は制御用の文字として認識され、文書表示画面には表示されません。これらを表示させたい場合は、２つ続けて「《《」、「》》」、「｜｜」、「||」と入力すると、１つ表示されます。
     </p>
     <p><br /></p>
-    <h3>■ 中寄せ</h3>
-    <p>行頭に「《》」があれば、その行は中寄せとなります。</p>
-    <p>例：</p>
+    <h3 [ngStyle]="bs.styleUsageH3">■ 中寄せ</h3>
+    <p [ngStyle]="bs.styleUsageP">
+      行頭に「《》」があれば、その行は中寄せとなります。
+    </p>
+    <p [ngStyle]="bs.styleUsageP">例：</p>
     <div class="source">《》 中寄せ</div>
-    <p>と入力すると、</p>
+    <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
       <p style="text-align: center">中寄せ</p>
     </div>
-    <p>と表示されます。</p>
+    <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
     <p><br /></p>
-    <h3>■ 右寄せ、下寄せ</h3>
-    <p>
+    <h3 [ngStyle]="bs.styleUsageH3">■ 右寄せ、下寄せ</h3>
+    <p [ngStyle]="bs.styleUsageP">
       行頭に「》」があれば、その行は、横書き表示なら右寄せ、縦書き表示なら下寄せとなります。
     </p>
-    <p>例：</p>
+    <p [ngStyle]="bs.styleUsageP">例：</p>
     <div class="source">》右寄せ</div>
-    <p>と入力すると、</p>
+    <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
       <p style="text-align: right">右寄せ</p>
     </div>
-    <p>と表示されます。</p>
+    <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
     <p><br /><br /></p>
-    <hr />
-    <h2>タイトル</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">タイトル</h2>
+    <p [ngStyle]="bs.styleUsageP">
       タイトル欄に文書の名前を入力してください。このタイトルが文書一覧画面で一覧表示されます。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>テキスト</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">テキスト</h2>
+    <p [ngStyle]="bs.styleUsageP">
       テキスト欄に文書のテキストを、上記の表記方法に従って入力してください。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       この欄にテキストを直接入力するのではなく、テキストエディタ、ワープロソフト、メモアプリなどでテキストファイルを作成して保存しておき、下記の「クリップボードからペーストする」ボタンでこの欄に貼り付けて登録することをお勧めします。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>横書き表示／縦書き表示</h2>
-    <p>「横書き表示」にすると、文書表示画面で横書き表示されます。</p>
-    <p>「縦書き表示」にすると、文書表示画面で縦書き表示されます。</p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">横書き表示／縦書き表示</h2>
+    <p [ngStyle]="bs.styleUsageP">
+      「横書き表示」にすると、文書表示画面で横書き表示されます。
+    </p>
+    <p [ngStyle]="bs.styleUsageP">
+      「縦書き表示」にすると、文書表示画面で縦書き表示されます。
+    </p>
     <p><br /></p>
-    <hr />
-    <h2>フォントサイズ</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">フォントサイズ</h2>
+    <p [ngStyle]="bs.styleUsageP">
       文書表示画面で表示する文字の大きさを、「14pt」〜「30pt」の範囲で選択してください。適度な大きさに調整してください。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「保存・更新する」ボタン</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">「保存・更新する」ボタン</h2>
+    <p [ngStyle]="bs.styleUsageP">
       「保存・更新する」ボタンを押すと、入力した内容が保存され、文書表示画面に遷移します。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「保存しないで表示画面に戻る」ボタン</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">「保存しないで表示画面に戻る」ボタン</h2>
+    <p [ngStyle]="bs.styleUsageP">
       「保存しないで表示画面に戻る」ボタンを押すと、入力した内容を保存しないで、文書表示画面に戻ります。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「句読点に/を挿入する」ボタン</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">「句読点に/を挿入する」ボタン</h2>
+    <p [ngStyle]="bs.styleUsageP">
       「句読点に/を挿入する」ボタンを押すと、テキストの「、」、「。」、改行の次に、「/」が挿入されます。黒塗りの区切り位置を入力する手間を省くことができます。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「クリップボードにコピーする」ボタン</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">「クリップボードにコピーする」ボタン</h2>
+    <p [ngStyle]="bs.styleUsageP">
       「クリップボードにコピーする」ボタンを押すと、テキストがクリップボードにコピーされます。他のアプリにペースト（貼り付け）することができます。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「クリップボードからペーストする」ボタン</h2>
-    <p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">
+      「クリップボードからペーストする」ボタン
+    </h2>
+    <p [ngStyle]="bs.styleUsageP">
       「クリップボードからペーストする」ボタンを押すと、他のアプリでコピーしたテキストがテキスト欄にペースト（貼り付け）されます。
     </p>
     <p><br /></p>
-    <hr />
-    <h2>「文書を削除する」ボタン</h2>
-    <p>「文書を削除する」ボタンを押すと、文書が削除されます。</p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">「文書を削除する」ボタン</h2>
+    <p [ngStyle]="bs.styleUsageP">
+      「文書を削除する」ボタンを押すと、文書が削除されます。
+    </p>
     <p><br /></p>
     <table class="fTbl">
       <tr>
         <td>
-          <a routerLink="/usage-list" routerLinkActive="current"
+          <a
+            [ngStyle]="bs.styleUsageLiA"
+            routerLink="/usage-list"
+            routerLinkActive="current"
             >&lt; 文書一覧画面</a
           >
         </td>
         <td style="text-align: right">
-          <a routerLink="/usage-view" routerLinkActive="current"
+          <a
+            [ngStyle]="bs.styleUsageLiA"
+            routerLink="/usage-view"
+            routerLinkActive="current"
             >文書表示画面 &gt;</a
           >
         </td>

@@ -13,9 +13,9 @@ export class DocListPage implements OnInit {
   title = "文書一覧";
   docs: IDoc[] = [];
 
-  constructor(private router: Router, private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     try {
@@ -34,7 +34,8 @@ export class DocListPage implements OnInit {
   }
 
   addDoc() {
-    this.bs.setting.curDoc = null;
+    //this.bs.setting.curDoc = null;
+    this.bs.isNewDoc = true;
     this.router.navigate(["/doc-info"]);
   }
 

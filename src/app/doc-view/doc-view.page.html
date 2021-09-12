@@ -15,14 +15,14 @@
       [(ngModel)]="contents"
       (ionChange)="contentsChanged()"
     >
-      <ion-segment-button value="0">
-        <ion-label>本文</ion-label>
+      <ion-segment-button [ngStyle]="bs.styleBtn" value="0">
+        <ion-label [ngStyle]="bs.styleInput">本文</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="1">
-        <ion-label>目次</ion-label>
+      <ion-segment-button [ngStyle]="bs.styleBtn" value="1">
+        <ion-label [ngStyle]="bs.styleInput">目次</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="2">
-        <ion-label>{{ wbname }}</ion-label>
+      <ion-segment-button [ngStyle]="bs.styleBtn" value="2">
+        <ion-label [ngStyle]="bs.styleInput">{{ wbname }}</ion-label>
       </ion-segment-button>
     </ion-segment>
     <ion-segment
@@ -32,11 +32,11 @@
       [(ngModel)]="mode"
       (ionChange)="modeChanged()"
     >
-      <ion-segment-button value="1">
-        <ion-label>全表示</ion-label>
+      <ion-segment-button [ngStyle]="bs.styleBtn" value="1">
+        <ion-label [ngStyle]="bs.styleInput">全表示</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="2">
-        <ion-label>黒塗り</ion-label>
+      <ion-segment-button [ngStyle]="bs.styleBtn" value="2">
+        <ion-label [ngStyle]="bs.styleInput">黒塗り</ion-label>
       </ion-segment-button>
     </ion-segment>
     <canvas
@@ -56,54 +56,56 @@
           <ion-icon
             *ngIf="contents == '0' && mode == '2'"
             name="caret-forward"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('1')"
           ></ion-icon>
           <ion-icon
             *ngIf="contents == '0' && mode == '2'"
             name="caret-back"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('2')"
           ></ion-icon>
           <ion-icon
             *ngIf="contents == '0' && mode == '2'"
             name="chevron-forward"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('3')"
           ></ion-icon>
           <ion-icon
             name="play-skip-forward"
-            class="tb2"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn2"
             (click)="pushed('4')"
           ></ion-icon>
           <ion-icon
             name="play-skip-back"
-            class="tb2"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn2"
             (click)="pushed('5')"
           ></ion-icon>
           <ion-icon
             name="add-circle-outline"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fp')"
           ></ion-icon>
           <ion-icon
             name="remove-circle-outline"
-            [ngStyle]="stF"
+            [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fm')"
           ></ion-icon>
         </div>
-        <ion-button expand="block" (click)="change()">
+        <ion-button [ngStyle]="bs.styleBtn" expand="block" (click)="change()">
           <ion-icon slot="start" name="create"></ion-icon>&nbsp;更新・変更する
         </ion-button>
       </div>
       <section *ngIf="contents == '2'">
-        <ion-button style="width: calc(50% - 5px)" (click)="strokeBack()"
+        <ion-button
+          [ngStyle]="bs.styleBtn"
+          style="width: calc(50% - 5px)"
+          (click)="strokeBack()"
           ><ion-icon slot="start" name="arrow-undo-outline"></ion-icon
           >&nbsp;戻す</ion-button
         >
         <ion-button
+          [ngStyle]="bs.styleBtn"
           style="width: calc(50% - 5px); padding-left: 3px"
           (click)="strokeClear()"
           ><ion-icon slot="start" name="scan-outline"></ion-icon

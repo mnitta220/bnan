@@ -28,7 +28,7 @@ export class DocInfoPage implements OnInit {
 
   setDoc() {
     try {
-      if (this.bs.setting.curDoc == null || this.bs.setting.curDoc.id == -1) {
+      if (this.bs.isNewDoc) {
         this.title = "新規文書";
         this.name = "";
         this.text = "";

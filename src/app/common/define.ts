@@ -16,6 +16,6 @@ export class Define {
   static PG_USAGE_DOC = 4; // 使い方 文書登録画面
   static PG_USAGE_VIEW = 5; // 使い方 文書表示画面
   static PG_ABOUT = 6; // このアプリについて
-  static ZOOM_MIN = 0.8;
-  static ZOOM_MAX = 4;
+  static ZOOM_MIN = 0;
+  static ZOOM_MAX = 6;
 }

@@ -9,8 +9,10 @@
 
 <ion-content>
   <div class="usage">
-    <p>このアプリでは、暗記したい文章を「文書」として登録します。</p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
+      このアプリでは、暗記したい文章を「文書」として登録します。
+    </p>
+    <p [ngStyle]="bs.styleUsageP">
       画面左上の&nbsp;<img
         src="assets/png/fig06.png"
         width="27px"
@@ -18,16 +20,16 @@
         style="border: solid 1px gray"
       />&nbsp;をタップして、メニュー画面で「文書一覧」をタップすると、文書一覧画面が表示されます。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       <img
         src="assets/png/fig03.png"
         style="border: solid 1px gray; padding: 1px"
       />
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       文書一覧画面では、登録済みの文書が一覧表示されます。初期状態では、「サンプル文書」が登録されています。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       一覧から文書を選択すると、<a
         routerLink="/usage-view"
         routerLinkActive="current"
@@ -35,7 +37,7 @@
       >
       に遷移します。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       「文書登録」ボタンを押すと、<a
         routerLink="/usage-doc"
         routerLinkActive="current"
@@ -47,10 +49,18 @@
     <table class="fTbl">
       <tr>
         <td>
-          <a routerLink="/usage" routerLinkActive="current">&lt; 使い方</a>
+          <a
+            [ngStyle]="bs.styleUsageLiA"
+            routerLink="/usage"
+            routerLinkActive="current"
+            >&lt; 使い方</a
+          >
         </td>
         <td style="text-align: right">
-          <a routerLink="/usage-doc" routerLinkActive="current"
+          <a
+            [ngStyle]="bs.styleUsageLiA"
+            routerLink="/usage-doc"
+            routerLinkActive="current"
             >文書登録画面 &gt;</a
           >
         </td>

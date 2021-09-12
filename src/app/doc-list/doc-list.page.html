@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-button style="margin-top: 13px; margin-left: 12px" (click)="addDoc()"
+  <ion-button
+    style="margin-top: 13px; margin-left: 12px"
+    [ngStyle]="bs.styleBtn"
+    (click)="addDoc()"
     >文書登録</ion-button
   >
   <ion-list style="max-width: 800px">
     <ion-item
       *ngFor="let d of docs; let i = index"
+      [ngStyle]="bs.styleInput"
       [button]="true"
       (click)="selectDoc(i)"
     >

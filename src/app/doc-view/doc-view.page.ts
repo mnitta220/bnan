@@ -382,6 +382,7 @@ export class DocViewPage implements OnInit {
 
   change() {
     try {
+      this.bs.isNewDoc = false;
       this.router.navigate(["/doc-info"]);
     } catch (e) {
       this.bs.logs.push("DocViewPage.change Error! " + e);

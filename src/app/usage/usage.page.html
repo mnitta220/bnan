@@ -9,10 +9,10 @@
 
 <ion-content>
   <div class="usage">
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       このアプリは、暗記したい文章がある時に、それを暗記できるようにサポートします。
     </p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">
       たとえば、古典、経典、<ruby>
         詩歌
         <rt>しいか</rt> </ruby
@@ -21,35 +21,56 @@
         <rt>あんしょう</rt> </ruby
       >したい時に、このアプリを使ってトレーニングすることができます。
     </p>
-    <p>試験勉強にもお使いいただけます。</p>
-    <p>
+    <p [ngStyle]="bs.styleUsageP">試験勉強にもお使いいただけます。</p>
+    <p [ngStyle]="bs.styleUsageP">
       このアプリでは、登録された文章が黒塗りで表示されます。黒塗りの位置を、先頭から末尾まで、少しずつ移動しながら暗記していきます。
     </p>
-    <p>
-      <a routerLink="/usage-view" routerLinkActive="current"
+    <p [ngStyle]="bs.styleUsageP">
+      <a
+        [ngStyle]="bs.styleUsageLiA"
+        routerLink="/usage-view"
+        routerLinkActive="current"
         >「<ruby>白板<rt>はくばん</rt></ruby
         >」画面</a
       >では、暗記したい文章を、手を動かして書くことにより、より確実に暗記できるようになります。
     </p>
     <p><br /></p>
-    <hr />
-    <h3>《目次》</h3>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h3 [ngStyle]="bs.styleUsageH3">《目次》</h3>
     <ul>
       <li>
-        <a routerLink="/usage-list" routerLinkActive="current">文書一覧画面</a>
+        <a
+          [ngStyle]="bs.styleUsageLiA"
+          routerLink="/usage-list"
+          routerLinkActive="current"
+          >文書一覧画面</a
+        >
       </li>
       <li>
-        <a routerLink="/usage-doc" routerLinkActive="current">文書登録画面</a>
+        <a
+          [ngStyle]="bs.styleUsageLiA"
+          routerLink="/usage-doc"
+          routerLinkActive="current"
+          >文書登録画面</a
+        >
       </li>
       <li>
-        <a routerLink="/usage-view" routerLinkActive="current">文書表示画面</a>
+        <a
+          [ngStyle]="bs.styleUsageLiA"
+          routerLink="/usage-view"
+          routerLinkActive="current"
+          >文書表示画面</a
+        >
       </li>
     </ul>
     <p></p>
     <table class="fTbl">
       <tr>
         <td style="text-align: right">
-          <a routerLink="/usage-list" routerLinkActive="current"
+          <a
+            [ngStyle]="bs.styleUsageLiA"
+            routerLink="/usage-list"
+            routerLinkActive="current"
             >文書一覧画面 &gt;</a
           >
         </td>
