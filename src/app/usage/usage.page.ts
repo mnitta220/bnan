@@ -8,7 +8,7 @@ import { BnanService } from "../common/bnan.service";
   styleUrls: ["./usage.page.scss"],
 })
 export class UsagePage implements OnInit {
-  constructor(private bs: BnanService) { }
+  constructor(public bs: BnanService) { }
 
   ngOnInit() {
     if (this.bs.setting != null) {

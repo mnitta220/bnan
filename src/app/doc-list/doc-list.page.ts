@@ -13,7 +13,7 @@ export class DocListPage implements OnInit {
   title = "文書一覧";
   docs: IDoc[] = [];
 
-  constructor(private router: Router, private bs: BnanService) { }
+  constructor(private router: Router, public bs: BnanService) { }
 
   ngOnInit() { }
 

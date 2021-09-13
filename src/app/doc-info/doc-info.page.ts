@@ -17,7 +17,7 @@ export class DocInfoPage implements OnInit {
   vertical = "1";
   showDelete = false;
 
-  constructor(private router: Router, private bs: BnanService) { }
+  constructor(private router: Router, public bs: BnanService) { }
 
   ngOnInit() { }
 

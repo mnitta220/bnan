@@ -8,9 +8,9 @@ import { BnanService } from "../common/bnan.service";
   styleUrls: ["./usage-list.page.scss"],
 })
 export class UsageListPage implements OnInit {
-  constructor(private bs: BnanService) {}
+  constructor(public bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.bs.selectedIndex = Define.PG_USAGE_LIST;

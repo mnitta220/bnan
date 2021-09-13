@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { Router } from "@angular/router";
-//import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
 import { Define } from "../common/define";
 import { BnanService } from "../common/bnan.service";
 
@@ -18,7 +17,6 @@ import { BnanService } from "../common/bnan.service";
 export class DocViewPage implements OnInit {
   @ViewChild("cv1") canvas1: any;
   @ViewChild("cv2") canvas2: any;
-  //@ViewChild("seg1") seg1: any;
   @ViewChild("tb1") tb1: any;
   private canvasElement1: any;
   private toolbarElement: any;
@@ -41,9 +39,8 @@ export class DocViewPage implements OnInit {
 
   constructor(
     private router: Router,
-    //private screenOrientation: ScreenOrientation,
     public changeDetectorRef: ChangeDetectorRef,
-    private bs: BnanService
+    public bs: BnanService
   ) { }
 
   @Input()
@@ -68,22 +65,10 @@ export class DocViewPage implements OnInit {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
     this.darkMode = prefersDark.matches;
     this.wbname = this.darkMode ? "黒板" : "白板";
-    /*
-    this.screenOrientation.onChange().subscribe(() => {
-      this.retryCnt = 0;
-
-      setTimeout(() => {
-        this.resize();
-      }, 1000);
-    });
-
-    this.screenOrientation.unlock();
-    */
   }
 
   ionViewWillEnter() {
     try {
-      //console.log("***DocViewPage.ionViewWillEnter1");
       if (this.bs.setting == null || this.bs.setting.curDoc == null) {
         return;
       }
@@ -113,10 +98,7 @@ export class DocViewPage implements OnInit {
   }
 
   async draw() {
-    //console.log("***draw1 this.retryCnt=" + this.retryCnt);
     try {
-      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-      //const darkMode = prefersDark.matches;
       this.toolbarElement = this.tb1.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
@@ -151,9 +133,6 @@ export class DocViewPage implements OnInit {
 
   async resize() {
     try {
-      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-      //const darkMode = prefersDark.matches;
-
       this.toolbarElement = this.tb1.nativeElement;
       this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
@@ -203,8 +182,6 @@ export class DocViewPage implements OnInit {
 
   async contents_change() {
     try {
-      //const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-      //const darkMode = prefersDark.matches;
       let height: number;
       if (this.contents == "2") {
         if (this.bs.isIos) {

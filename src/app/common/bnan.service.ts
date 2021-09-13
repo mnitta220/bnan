@@ -88,23 +88,12 @@ export class BnanService {
       this._idb = new AppDatabase();
 
       const info = await Device.getInfo();
-      if (typeof this.setting.zoom == "undefined") {
+      if (this.setting.version < "1.11") {
+        this.setting.version = Define.VERSION;
         this.setting.zoom = 1;
+        this.updateSetting();
       }
       this.setFontSize();
-      /*
-      if (info.platform == "ios" || info.platform == "android") {
-        if (typeof this.setting.zoom !== "undefined") {
-          this.setting.zoom = 1;
-        }
-        var options: SetOptions = {
-          value: this.setting.zoom
-        }
-        TextZoom.set(options)
-        //this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
-        //this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
-      }
-      */
     }
 
     await this.getPlatform();
@@ -439,88 +428,92 @@ export class BnanService {
 
   setFontSize() {
     let input = 12;
-    let btnTxt = 11;
+    let btnTxt = 13;
     let toolBtnTxt1 = 36;
     let toolBtnTxt2 = 28;
     let toolBtnPad1 = 5;
     let toolBtnPad2 = 10;
-    let btnHeight = 35;
-    let uP = 13;
-    let uH2 = 14;
-    let uH3 = 13.5;
+    let btnHeight = 44;
+    let uP = 14;
+    let uH2 = 15;
+    let uH3 = 14.5;
+    let uHrMar = 10;
 
     switch (this.setting.zoom) {
       case 0:
         input = 11;
-        btnTxt = 10;
-        btnHeight = 32;
+        btnTxt = 12;
+        btnHeight = 40;
         toolBtnTxt1 = 35;
         toolBtnTxt2 = 27;
         toolBtnPad1 = 5;
         toolBtnPad2 = 10;
-        uP = 12;
-        uH2 = 13;
-        uH3 = 12.5;
+        uP = 13;
+        uH2 = 14;
+        uH3 = 13.5;
         break;
       case 2:
         input = 13;
-        btnTxt = 12;
-        btnHeight = 36;
+        btnTxt = 15;
+        btnHeight = 46;
         toolBtnTxt1 = 37;
         toolBtnTxt2 = 29;
         toolBtnPad1 = 5;
         toolBtnPad2 = 10;
-        uP = 14;
-        uH2 = 16;
-        uH3 = 15;
-        break;
-      case 3:
-        input = 14;
-        btnTxt = 13;
-        btnHeight = 39;
-        toolBtnTxt1 = 38;
-        toolBtnTxt2 = 30;
-        toolBtnPad1 = 5;
-        toolBtnPad2 = 11;
-        uP = 15;
-        uH2 = 17;
-        uH3 = 16;
-        break;
-      case 4:
-        input = 15;
-        btnTxt = 14;
-        btnHeight = 42;
-        toolBtnTxt1 = 39;
-        toolBtnTxt2 = 31;
-        toolBtnPad1 = 5;
-        toolBtnPad2 = 11;
         uP = 16;
         uH2 = 18;
         uH3 = 17;
         break;
-      case 5:
-        input = 17;
-        btnTxt = 16;
-        btnHeight = 46;
-        toolBtnTxt1 = 40;
-        toolBtnTxt2 = 32;
+      case 3:
+        input = 15;
+        btnTxt = 17;
+        btnHeight = 50;
+        toolBtnTxt1 = 38;
+        toolBtnTxt2 = 30;
         toolBtnPad1 = 5;
         toolBtnPad2 = 11;
         uP = 18;
         uH2 = 20;
         uH3 = 19;
         break;
-      case 6:
-        input = 19;
-        btnTxt = 18;
-        btnHeight = 52;
-        toolBtnTxt1 = 41;
-        toolBtnTxt2 = 33;
+      case 4:
+        input = 17;
+        btnTxt = 19;
+        btnHeight = 54;
+        toolBtnTxt1 = 39;
+        toolBtnTxt2 = 31;
         toolBtnPad1 = 5;
         toolBtnPad2 = 11;
         uP = 20;
         uH2 = 22;
         uH3 = 21;
+        uHrMar = 12;
+        break;
+      case 5:
+        input = 19;
+        btnTxt = 21;
+        btnHeight = 58;
+        toolBtnTxt1 = 40;
+        toolBtnTxt2 = 32;
+        toolBtnPad1 = 5;
+        toolBtnPad2 = 11;
+        uP = 22;
+        uH2 = 24;
+        uH3 = 23;
+        uHrMar = 13;
+        break;
+      case 6:
+        input = 21;
+        btnTxt = 23;
+        btnHeight = 63;
+        toolBtnTxt1 = 41;
+        toolBtnTxt2 = 33;
+        toolBtnPad1 = 5;
+        toolBtnPad2 = 11;
+        uP = 24;
+        uH2 = 26;
+        uH3 = 25;
+        uHrMar = 14;
         break;
     }
 
@@ -565,7 +558,7 @@ export class BnanService {
     };
     this.styleUsageHr = {
       "border-bottom": "1px solid gray",
-      "margin": "10px 0",
+      "margin": `${uHrMar}px 0`,
       "width": "100%"
     };
     this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
@@ -573,6 +566,7 @@ export class BnanService {
   }
 
   zoomText(val: number) {
+    //console.log("***zoomText: this.setting.zoom=" + this.setting.zoom + ", val=" + val);
     if (typeof this.setting.zoom === "undefined") {
       this.setting.zoom = 1;
     }
@@ -583,13 +577,6 @@ export class BnanService {
     }
     this.setting.zoom += val;
     this.setFontSize();
-    /*
-    var options: SetOptions = {
-      value: this.setting.zoom
-    }
-    TextZoom.set(options)
-    console.log("****zoomText value=" + options.value);
-    */
     this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
     this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
 

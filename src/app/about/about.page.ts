@@ -14,7 +14,7 @@ export class AboutPage implements OnInit {
   device = "";
   os = "";
 
-  constructor(private router: Router, private bs: BnanService) { }
+  constructor(private router: Router, public bs: BnanService) { }
 
   ngOnInit() {
     this.getDev();
