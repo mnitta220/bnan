@@ -30,12 +30,14 @@ export class DocViewPage implements OnInit {
     color: "white",
   };
 
+  /*
   stCv1 = {
     width: "100%",
     height: `${Define.INIT_HEIGHT}px`,
     overflow: "hidden",
     margin: "2px 4px 0 2px",
   };
+  */
 
   constructor(
     private router: Router,
@@ -74,6 +76,7 @@ export class DocViewPage implements OnInit {
       }
 
       this.bs.selectedIndex = Define.PG_VIEW;
+      this.bs.docViewPage = this;
       this.title = this.bs.setting.curDoc.title;
 
       this.toolbarElement = this.tb1.nativeElement;
@@ -87,8 +90,8 @@ export class DocViewPage implements OnInit {
 
       this.canvasElement1.width = this.bs.frWidth;
       this.canvasElement1.height = this.bs.setting.height;
-      this.stCv1.width = `${this.bs.frWidth}px`;
-      this.stCv1.height = `${this.bs.setting.height}px`;
+      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.height = `${this.bs.setting.height}px`;
       this.retryCnt = 0;
       this.draw();
     } catch (e) {
@@ -104,8 +107,8 @@ export class DocViewPage implements OnInit {
       this.canvasElement1 = this.canvas1.nativeElement;
       this.canvasElement1.width = this.bs.frWidth;
       this.canvasElement1.height = this.bs.setting.height;
-      this.stCv1.width = `${this.bs.frWidth}px`;
-      this.stCv1.height = `${this.bs.setting.height}px`;
+      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.height = `${this.bs.setting.height}px`;
 
       (await this.bs.wasm).draw_doc(
         this.bs.frWidth,
@@ -148,9 +151,33 @@ export class DocViewPage implements OnInit {
       } else {
         height = this.bs.setting.height;
       }
+
+      height -= 16;
+
+      switch (this.bs.setting.zoom) {
+        case 0:
+          height += 4;
+          break;
+        case 2:
+          height -= 9;
+          break;
+        case 3:
+          height -= 17;
+          break;
+        case 4:
+          height -= 21;
+          break;
+        case 5:
+          height -= 26;
+          break;
+        case 6:
+          height -= 32;
+          break;
+      }
+
       this.canvasElement1.height = height;
-      this.stCv1.height = `${height}px`;
-      this.stCv1.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.height = `${height}px`;
+      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
       this.cheight = height;
 
       (await this.bs.wasm).resize(
@@ -181,6 +208,7 @@ export class DocViewPage implements OnInit {
   }
 
   async contents_change() {
+    //console.log("***contents_change()");
     try {
       let height: number;
       if (this.contents == "2") {
@@ -192,8 +220,32 @@ export class DocViewPage implements OnInit {
       } else {
         height = this.bs.setting.height;
       }
+
+      height -= 16;
+
+      switch (this.bs.setting.zoom) {
+        case 0:
+          height += 4;
+          break;
+        case 2:
+          height -= 9;
+          break;
+        case 3:
+          height -= 17;
+          break;
+        case 4:
+          height -= 21;
+          break;
+        case 5:
+          height -= 26;
+          break;
+        case 6:
+          height -= 32;
+          break;
+      }
+
       this.canvasElement1.height = height;
-      this.stCv1.height = `${height}px`;
+      this.bs.styleCanvas.height = `${height}px`;
 
       (await this.bs.wasm).tab_change(parseInt(this.contents), this.bs.frWidth, height, this.darkMode);
 

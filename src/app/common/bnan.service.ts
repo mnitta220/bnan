@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Device } from '@capacitor/device';
 import { Storage } from '@capacitor/storage';
-//import { TextZoom, SetOptions } from '@capacitor/text-zoom';
 import { Define } from "./define";
 import { Setting } from "./setting";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
+import { DocViewPage } from "../doc-view/doc-view.page";
 
 const SETTING_KEY = "bnan";
 
@@ -43,6 +43,13 @@ export class BnanService {
   styleUsageH2: any;
   styleUsageH3: any;
   styleUsageHr: any;
+  styleCanvas = {
+    width: "100%",
+    height: `${Define.INIT_HEIGHT}px`,
+    overflow: "hidden",
+    margin: "2px 4px 0 2px",
+  };
+  docViewPage: DocViewPage;
 
   constructor() { }
 
@@ -91,7 +98,7 @@ export class BnanService {
       if (this.setting.version < "1.11") {
         this.setting.version = Define.VERSION;
         this.setting.zoom = 1;
-        this.updateSetting();
+        await this.updateSetting();
       }
       this.setFontSize();
     }
@@ -113,17 +120,6 @@ export class BnanService {
     const info = await Device.getInfo();
     this.setting.zoom = 1;
     this.setFontSize();
-    /*
-    if (info.platform == "ios" || info.platform == "android") {
-      this.setting.zoom = 1;
-      var options: SetOptions = {
-        value: this.setting.zoom
-      }
-      TextZoom.set(options)
-      //this.disableZoomDown = false;
-      //this.disableZoomUp = false;
-    }
-    */
 
     await this.updateSetting();
     this.showCurrent = false;
@@ -433,7 +429,7 @@ export class BnanService {
     let toolBtnTxt2 = 28;
     let toolBtnPad1 = 5;
     let toolBtnPad2 = 10;
-    let btnHeight = 44;
+    let btnHeight = 50;
     let uP = 14;
     let uH2 = 15;
     let uH3 = 14.5;
@@ -443,7 +439,7 @@ export class BnanService {
       case 0:
         input = 11;
         btnTxt = 12;
-        btnHeight = 40;
+        btnHeight = 46;
         toolBtnTxt1 = 35;
         toolBtnTxt2 = 27;
         toolBtnPad1 = 5;
@@ -455,7 +451,7 @@ export class BnanService {
       case 2:
         input = 13;
         btnTxt = 15;
-        btnHeight = 46;
+        btnHeight = 54;
         toolBtnTxt1 = 37;
         toolBtnTxt2 = 29;
         toolBtnPad1 = 5;
@@ -467,7 +463,7 @@ export class BnanService {
       case 3:
         input = 15;
         btnTxt = 17;
-        btnHeight = 50;
+        btnHeight = 58;
         toolBtnTxt1 = 38;
         toolBtnTxt2 = 30;
         toolBtnPad1 = 5;
@@ -479,7 +475,7 @@ export class BnanService {
       case 4:
         input = 17;
         btnTxt = 19;
-        btnHeight = 54;
+        btnHeight = 60;
         toolBtnTxt1 = 39;
         toolBtnTxt2 = 31;
         toolBtnPad1 = 5;
@@ -492,7 +488,7 @@ export class BnanService {
       case 5:
         input = 19;
         btnTxt = 21;
-        btnHeight = 58;
+        btnHeight = 62;
         toolBtnTxt1 = 40;
         toolBtnTxt2 = 32;
         toolBtnPad1 = 5;
@@ -505,7 +501,7 @@ export class BnanService {
       case 6:
         input = 21;
         btnTxt = 23;
-        btnHeight = 63;
+        btnHeight = 65;
         toolBtnTxt1 = 41;
         toolBtnTxt2 = 33;
         toolBtnPad1 = 5;
@@ -563,9 +559,13 @@ export class BnanService {
     };
     this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
     this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
+
+    if (this.selectedIndex == Define.PG_VIEW && this.docViewPage != null) {
+      this.docViewPage.contentsChanged();
+    }
   }
 
-  zoomText(val: number) {
+  async zoomText(val: number) {
     //console.log("***zoomText: this.setting.zoom=" + this.setting.zoom + ", val=" + val);
     if (typeof this.setting.zoom === "undefined") {
       this.setting.zoom = 1;
@@ -580,6 +580,6 @@ export class BnanService {
     this.disableZoomDown = (this.setting.zoom <= Define.ZOOM_MIN);
     this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
 
-    this.updateSetting();
+    await this.updateSetting();
   }
 }
