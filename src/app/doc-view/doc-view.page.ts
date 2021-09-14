@@ -387,6 +387,14 @@ export class DocViewPage implements OnInit {
           (await this.bs.wasm).black_step(5);
           break;
 
+        case "6": // 次の段・節に進む
+          (await this.bs.wasm).black_step(6);
+          break;
+
+        case "7": // 前の段・節に戻る
+          (await this.bs.wasm).black_step(7);
+          break;
+
         case "fp": // 枠拡大
           this.bs.setting.height += 30;
           await this.bs.updateSetting();

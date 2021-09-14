@@ -82,6 +82,18 @@
             (click)="pushed('5')"
           ></ion-icon>
           <ion-icon
+            *ngIf="contents == '0'"
+            name="arrow-forward-circle-outline"
+            [ngStyle]="bs.styleToolBtn1"
+            (click)="pushed('6')"
+          ></ion-icon>
+          <ion-icon
+            *ngIf="contents == '0'"
+            name="arrow-back-circle-outline"
+            [ngStyle]="bs.styleToolBtn1"
+            (click)="pushed('7')"
+          ></ion-icon>
+          <ion-icon
             name="add-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fp')"

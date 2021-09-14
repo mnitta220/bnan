@@ -429,7 +429,7 @@ export class BnanService {
     let toolBtnTxt2 = 28;
     let toolBtnPad1 = 5;
     let toolBtnPad2 = 10;
-    let btnHeight = 50;
+    let btnHeight = 42;
     let uP = 14;
     let uH2 = 15;
     let uH3 = 14.5;
@@ -439,7 +439,7 @@ export class BnanService {
       case 0:
         input = 11;
         btnTxt = 12;
-        btnHeight = 46;
+        btnHeight = 38;
         toolBtnTxt1 = 35;
         toolBtnTxt2 = 27;
         toolBtnPad1 = 5;
@@ -451,7 +451,7 @@ export class BnanService {
       case 2:
         input = 13;
         btnTxt = 15;
-        btnHeight = 54;
+        btnHeight = 45;
         toolBtnTxt1 = 37;
         toolBtnTxt2 = 29;
         toolBtnPad1 = 5;
@@ -463,7 +463,7 @@ export class BnanService {
       case 3:
         input = 15;
         btnTxt = 17;
-        btnHeight = 58;
+        btnHeight = 49;
         toolBtnTxt1 = 38;
         toolBtnTxt2 = 30;
         toolBtnPad1 = 5;
@@ -475,7 +475,7 @@ export class BnanService {
       case 4:
         input = 17;
         btnTxt = 19;
-        btnHeight = 60;
+        btnHeight = 51;
         toolBtnTxt1 = 39;
         toolBtnTxt2 = 31;
         toolBtnPad1 = 5;
@@ -488,7 +488,7 @@ export class BnanService {
       case 5:
         input = 19;
         btnTxt = 21;
-        btnHeight = 62;
+        btnHeight = 53;
         toolBtnTxt1 = 40;
         toolBtnTxt2 = 32;
         toolBtnPad1 = 5;
@@ -501,7 +501,7 @@ export class BnanService {
       case 6:
         input = 21;
         btnTxt = 23;
-        btnHeight = 65;
+        btnHeight = 56;
         toolBtnTxt1 = 41;
         toolBtnTxt2 = 33;
         toolBtnPad1 = 5;
