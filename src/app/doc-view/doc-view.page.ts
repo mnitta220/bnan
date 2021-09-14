@@ -152,7 +152,7 @@ export class DocViewPage implements OnInit {
         height = this.bs.setting.height;
       }
 
-      height -= 16;
+      height -= 8;
 
       switch (this.bs.setting.zoom) {
         case 0:
@@ -162,16 +162,16 @@ export class DocViewPage implements OnInit {
           height -= 9;
           break;
         case 3:
-          height -= 17;
+          height -= 16;
           break;
         case 4:
-          height -= 21;
+          height -= 19;
           break;
         case 5:
-          height -= 26;
+          height -= 23;
           break;
         case 6:
-          height -= 32;
+          height -= 28;
           break;
       }
 
@@ -221,7 +221,7 @@ export class DocViewPage implements OnInit {
         height = this.bs.setting.height;
       }
 
-      height -= 16;
+      height -= 8;
 
       switch (this.bs.setting.zoom) {
         case 0:
@@ -231,16 +231,16 @@ export class DocViewPage implements OnInit {
           height -= 9;
           break;
         case 3:
-          height -= 17;
+          height -= 16;
           break;
         case 4:
-          height -= 21;
+          height -= 19;
           break;
         case 5:
-          height -= 26;
+          height -= 23;
           break;
         case 6:
-          height -= 32;
+          height -= 28;
           break;
       }
 

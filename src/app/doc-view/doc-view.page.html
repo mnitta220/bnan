@@ -15,13 +15,13 @@
       [(ngModel)]="contents"
       (ionChange)="contentsChanged()"
     >
-      <ion-segment-button [ngStyle]="bs.styleBtn" value="0">
+      <ion-segment-button value="0">
         <ion-label [ngStyle]="bs.styleInput">本文</ion-label>
       </ion-segment-button>
-      <ion-segment-button [ngStyle]="bs.styleBtn" value="1">
+      <ion-segment-button value="1">
         <ion-label [ngStyle]="bs.styleInput">目次</ion-label>
       </ion-segment-button>
-      <ion-segment-button [ngStyle]="bs.styleBtn" value="2">
+      <ion-segment-button value="2">
         <ion-label [ngStyle]="bs.styleInput">{{ wbname }}</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -32,10 +32,10 @@
       [(ngModel)]="mode"
       (ionChange)="modeChanged()"
     >
-      <ion-segment-button [ngStyle]="bs.styleBtn" value="1">
+      <ion-segment-button value="1">
         <ion-label [ngStyle]="bs.styleInput">全表示</ion-label>
       </ion-segment-button>
-      <ion-segment-button [ngStyle]="bs.styleBtn" value="2">
+      <ion-segment-button value="2">
         <ion-label [ngStyle]="bs.styleInput">黒塗り</ion-label>
       </ion-segment-button>
     </ion-segment>
