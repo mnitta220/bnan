@@ -368,31 +368,31 @@ export class DocViewPage implements OnInit {
     try {
       switch (btn) {
         case "1": // 1区切り進む
-          (await this.bs.wasm).black_step(1);
+          (await this.bs.wasm).tool_func(1);
           break;
 
         case "2": // 1区切り戻る
-          (await this.bs.wasm).black_step(2);
+          (await this.bs.wasm).tool_func(2);
           break;
 
         case "3": // 1単語進む
-          (await this.bs.wasm).black_step(3);
+          (await this.bs.wasm).tool_func(3);
           break;
 
         case "4": // 末尾に進む
-          (await this.bs.wasm).black_step(4);
+          (await this.bs.wasm).tool_func(4);
           break;
 
         case "5": // 先頭に戻る
-          (await this.bs.wasm).black_step(5);
+          (await this.bs.wasm).tool_func(5);
           break;
 
         case "6": // 次の段・節に進む
-          (await this.bs.wasm).black_step(6);
+          (await this.bs.wasm).tool_func(6);
           break;
 
         case "7": // 前の段・節に戻る
-          (await this.bs.wasm).black_step(7);
+          (await this.bs.wasm).tool_func(7);
           break;
 
         case "fp": // 枠拡大
