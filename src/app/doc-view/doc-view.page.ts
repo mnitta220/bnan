@@ -148,31 +148,31 @@ export class DocViewPage implements OnInit {
         } else {
           height = window.innerHeight - 165;
         }
+
+        height -= 8;
+
+        switch (this.bs.setting.zoom) {
+          case 0:
+            height += 4;
+            break;
+          case 2:
+            height -= 9;
+            break;
+          case 3:
+            height -= 16;
+            break;
+          case 4:
+            height -= 19;
+            break;
+          case 5:
+            height -= 23;
+            break;
+          case 6:
+            height -= 28;
+            break;
+        }
       } else {
         height = this.bs.setting.height;
-      }
-
-      height -= 8;
-
-      switch (this.bs.setting.zoom) {
-        case 0:
-          height += 4;
-          break;
-        case 2:
-          height -= 9;
-          break;
-        case 3:
-          height -= 16;
-          break;
-        case 4:
-          height -= 19;
-          break;
-        case 5:
-          height -= 23;
-          break;
-        case 6:
-          height -= 28;
-          break;
       }
 
       this.canvasElement1.height = height;
@@ -217,31 +217,31 @@ export class DocViewPage implements OnInit {
         } else {
           height = window.innerHeight - 165;
         }
+
+        height -= 8;
+
+        switch (this.bs.setting.zoom) {
+          case 0:
+            height += 4;
+            break;
+          case 2:
+            height -= 9;
+            break;
+          case 3:
+            height -= 16;
+            break;
+          case 4:
+            height -= 19;
+            break;
+          case 5:
+            height -= 23;
+            break;
+          case 6:
+            height -= 28;
+            break;
+        }
       } else {
         height = this.bs.setting.height;
-      }
-
-      height -= 8;
-
-      switch (this.bs.setting.zoom) {
-        case 0:
-          height += 4;
-          break;
-        case 2:
-          height -= 9;
-          break;
-        case 3:
-          height -= 16;
-          break;
-        case 4:
-          height -= 19;
-          break;
-        case 5:
-          height -= 23;
-          break;
-        case 6:
-          height -= 28;
-          break;
       }
 
       this.canvasElement1.height = height;
