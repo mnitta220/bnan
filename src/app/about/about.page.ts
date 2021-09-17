@@ -39,6 +39,8 @@ export class AboutPage implements OnInit {
       if (result) {
         await this.bs.initSetting();
         window.alert("データが初期化されました。");
+        this.bs.setting.showUsage = true;
+        this.bs.updateSetting();
       }
     } catch (e) {
       this.bs.logs.push("AboutPage.initialize Error! " + e);

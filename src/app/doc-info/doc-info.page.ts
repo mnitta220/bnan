@@ -73,7 +73,7 @@ export class DocInfoPage implements OnInit {
 
   async saveProc() {
     try {
-      if (this.bs.setting.curDoc == null || this.bs.setting.curDoc.id == -1) {
+      if (this.bs.isNewDoc) {
         await this.bs.newDoc(
           this.name,
           this.format(),

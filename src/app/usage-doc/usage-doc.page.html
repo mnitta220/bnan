@@ -38,13 +38,13 @@
       文中に「/」(スラッシュ)を入力すると、文書表示画面で黒塗り表示した際に、その位置が黒塗りの区切りとなります。
     </p>
     <p [ngStyle]="bs.styleUsageP">例：</p>
-    <div class="source">
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
       カムパネルラが手をあげました。/それから四、五人手をあげました。/
     </div>
     <p [ngStyle]="bs.styleUsageP">
       と入力すると、黒塗りの区切りが「/」の位置になります。
     </p>
-    <div class="source">
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
       カムパネルラが手をあげました。<span
         style="background-color: #484848; color: #484848"
         >それから四、五人手をあげました。</span
@@ -58,21 +58,23 @@
     <p [ngStyle]="bs.styleUsageP">
       見出しをつけるには、行頭に「#」記号を付けます。見出しは６段階まで設定することができます。見出しをつけると、文書の区切りとなり、目次に表示されます。見出しは、文書表示画面で黒塗り表示されません。
     </p>
-    <div class="source"># 見出し1</div>
-    <div class="source">## 見出し2</div>
-    <div class="source">### 見出し3</div>
-    <div class="source">#### 見出し4</div>
-    <div class="source">##### 見出し5</div>
-    <div class="source">###### 見出し6</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source"># 見出し1</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">## 見出し2</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">### 見出し3</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">#### 見出し4</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">##### 見出し5</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">###### 見出し6</div>
     <p><br /></p>
     <h3 [ngStyle]="bs.styleUsageH3">■ ルビ</h3>
     <p [ngStyle]="bs.styleUsageP">
       漢字にルビ（ふりがな）を振るには、漢字の次に「《」を入力してルビを入力し、その次に「》」を入力します。
     </p>
     <p [ngStyle]="bs.styleUsageP">例：</p>
-    <div class="source">宮沢《みやざわ》賢治《けんじ》</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
+      宮沢《みやざわ》賢治《けんじ》
+    </div>
     <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
-    <div class="source">
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
       <ruby>
         宮沢
         <rt>みやざわ</rt> </ruby
@@ -87,9 +89,11 @@
       漢字が続いている箇所でルビを振る文字を限定するには、限定する箇所の前に、「｜」（全角縦棒）または「|」（半角縦棒）を入力します。
     </p>
     <p [ngStyle]="bs.styleUsageP">例：</p>
-    <div class="source">石川｜啄木《たくぼく》</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
+      石川｜啄木《たくぼく》
+    </div>
     <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
-    <div class="source">
+    <div [ngStyle]="bs.styleUsageLiA" class="source">
       石川
       <ruby>
         啄木
@@ -106,10 +110,10 @@
       行頭に「《》」があれば、その行は中寄せとなります。
     </p>
     <p [ngStyle]="bs.styleUsageP">例：</p>
-    <div class="source">《》 中寄せ</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">《》 中寄せ</div>
     <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
-      <p style="text-align: center">中寄せ</p>
+      <p [ngStyle]="bs.styleUsageLiA" style="text-align: center">中寄せ</p>
     </div>
     <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
     <p><br /></p>
@@ -118,10 +122,10 @@
       行頭に「》」があれば、その行は、横書き表示なら右寄せ、縦書き表示なら下寄せとなります。
     </p>
     <p [ngStyle]="bs.styleUsageP">例：</p>
-    <div class="source">》右寄せ</div>
+    <div [ngStyle]="bs.styleUsageLiA" class="source">》右寄せ</div>
     <p [ngStyle]="bs.styleUsageP">と入力すると、</p>
     <div class="source">
-      <p style="text-align: right">右寄せ</p>
+      <p [ngStyle]="bs.styleUsageLiA" style="text-align: right">右寄せ</p>
     </div>
     <p [ngStyle]="bs.styleUsageP">と表示されます。</p>
     <p><br /><br /></p>

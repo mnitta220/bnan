@@ -42,6 +42,7 @@ export class DocListPage implements OnInit {
   async selectDoc(index: number) {
     //console.log("***selectDoc id=" + this.docs[index].id);
     try {
+      this.bs.isNewDoc = false;
       await this.bs.setCurrentDoc(this.docs[index].id).then(() => {
         this.router.navigate(["/doc-view"]);
       });
