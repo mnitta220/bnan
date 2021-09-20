@@ -27,7 +27,7 @@ export class BnanService {
   isMac = false;
   isWin = false;
   frWidth: number;
-  contents = Define.TAB_TEXT;
+  tab = Define.TAB_TEXT;
   mode = Define.KURO_ALL;
   showCurrent = false;
   currentName = "";
@@ -227,7 +227,7 @@ export class BnanService {
       }
 
       this.setting.curDoc.dt = AppDatabase.getDt();
-      this.contents = Define.TAB_TEXT;
+      this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
@@ -285,7 +285,7 @@ export class BnanService {
 
       this.setting.curDoc = doc;
       this.curText = text;
-      this.contents = Define.TAB_TEXT;
+      this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this.updateSetting();
@@ -348,7 +348,7 @@ export class BnanService {
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.curText = text;
-      this.contents = Define.TAB_TEXT;
+      this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
@@ -561,7 +561,7 @@ export class BnanService {
     this.disableZoomUp = (this.setting.zoom >= Define.ZOOM_MAX);
 
     if (this.selectedIndex == Define.PG_VIEW && this.docViewPage != null) {
-      this.docViewPage.contentsChanged();
+      this.docViewPage.tabChanged();
     }
   }
 

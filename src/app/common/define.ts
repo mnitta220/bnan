@@ -6,6 +6,7 @@ export class Define {
   static TAB_TEXT = "0"; // 本文
   static TAB_CONTENTS = "1"; // 目次
   static TAB_BOARD = "2"; // 白板
+  static TAB_BOX = "3"; // Box
   static KURO_ALL = "1"; // 全表示
   static KURO_BLACK = "2"; // 黒塗り
   static INIT_HEIGHT = 360;

@@ -46,12 +46,12 @@ export class DocViewPage implements OnInit {
   ) { }
 
   @Input()
-  set contents(contents: string) {
-    this.bs.contents = contents;
+  set tab(tab: string) {
+    this.bs.tab = tab;
   }
 
-  get contents() {
-    return this.bs.contents;
+  get tab() {
+    return this.bs.tab;
   }
 
   @Input()
@@ -142,37 +142,42 @@ export class DocViewPage implements OnInit {
       this.canvasElement1.width = this.bs.frWidth;
 
       let height: number;
-      if (this.contents == "2") {
-        if (this.bs.isIos) {
-          height = window.innerHeight - 224;
-        } else {
-          height = window.innerHeight - 165;
-        }
+      switch (this.tab) {
+        case Define.TAB_BOARD:
+          if (this.bs.isIos) {
+            height = window.innerHeight - 224;
+          } else {
+            height = window.innerHeight - 165;
+          }
 
-        height -= 8;
+          height -= 8;
 
-        switch (this.bs.setting.zoom) {
-          case 0:
-            height += 4;
-            break;
-          case 2:
-            height -= 9;
-            break;
-          case 3:
-            height -= 16;
-            break;
-          case 4:
-            height -= 19;
-            break;
-          case 5:
-            height -= 23;
-            break;
-          case 6:
-            height -= 28;
-            break;
-        }
-      } else {
-        height = this.bs.setting.height;
+          switch (this.bs.setting.zoom) {
+            case 0:
+              height += 4;
+              break;
+            case 2:
+              height -= 9;
+              break;
+            case 3:
+              height -= 16;
+              break;
+            case 4:
+              height -= 19;
+              break;
+            case 5:
+              height -= 23;
+              break;
+            case 6:
+              height -= 28;
+              break;
+          }
+          break;
+        case Define.TAB_BOX:
+          height = 700;
+          break;
+        default:
+          height = this.bs.setting.height;
       }
 
       this.canvasElement1.height = height;
@@ -203,59 +208,64 @@ export class DocViewPage implements OnInit {
     }
   }
 
-  contentsChanged() {
-    this.contents_change();
+  tabChanged() {
+    this.tab_change();
   }
 
-  async contents_change() {
-    //console.log("***contents_change()");
+  async tab_change() {
+    console.log("***tab_change() tab=" + this.tab);
     try {
       let height: number;
-      if (this.contents == "2") {
-        if (this.bs.isIos) {
-          height = window.innerHeight - 224;
-        } else {
-          height = window.innerHeight - 165;
-        }
+      switch (this.tab) {
+        case Define.TAB_BOARD:
+          if (this.bs.isIos) {
+            height = window.innerHeight - 224;
+          } else {
+            height = window.innerHeight - 165;
+          }
 
-        height -= 8;
+          height -= 8;
 
-        switch (this.bs.setting.zoom) {
-          case 0:
-            height += 4;
-            break;
-          case 2:
-            height -= 9;
-            break;
-          case 3:
-            height -= 16;
-            break;
-          case 4:
-            height -= 19;
-            break;
-          case 5:
-            height -= 23;
-            break;
-          case 6:
-            height -= 28;
-            break;
-        }
-      } else {
-        height = this.bs.setting.height;
+          switch (this.bs.setting.zoom) {
+            case 0:
+              height += 4;
+              break;
+            case 2:
+              height -= 9;
+              break;
+            case 3:
+              height -= 16;
+              break;
+            case 4:
+              height -= 19;
+              break;
+            case 5:
+              height -= 23;
+              break;
+            case 6:
+              height -= 28;
+              break;
+          }
+          break;
+        case Define.TAB_BOX:
+          height = 700;
+          break;
+        default:
+          height = this.bs.setting.height;
       }
 
       this.canvasElement1.height = height;
       this.bs.styleCanvas.height = `${height}px`;
 
-      (await this.bs.wasm).tab_change(parseInt(this.contents), this.bs.frWidth, height, this.darkMode);
+      (await this.bs.wasm).tab_change(parseInt(this.tab), this.bs.frWidth, height, this.darkMode);
 
-      if (this.contents != "2" && height != this.cheight) {
+      if (this.tab != Define.TAB_BOARD && height != this.cheight) {
         setTimeout(() => {
           this.resize();
         }, 800);
       }
     } catch (e) {
-      this.bs.logs.push("DocViewPage.contents_change Error! " + e);
+      this.bs.logs.push("DocViewPage.tab_change Error! " + e);
       this.router.navigate(["/error"]);
     }
   }
@@ -266,7 +276,7 @@ export class DocViewPage implements OnInit {
 
   async mode_change() {
     try {
-      (await this.bs.wasm).mode_change(this.mode == "1" ? false : true);
+      (await this.bs.wasm).mode_change(this.mode == Define.KURO_ALL ? false : true);
     } catch (e) {
       this.bs.logs.push("DocViewPage.mode_change Error! " + e);
       this.router.navigate(["/error"]);
@@ -346,7 +356,7 @@ export class DocViewPage implements OnInit {
 
       if (r > -2) {
         // 目次選択
-        this.contents = "0";
+        this.tab = Define.TAB_TEXT;
         this.bs.updateCurrent(r);
       }
     } catch (e) {
