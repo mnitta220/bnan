@@ -226,6 +226,8 @@ export class BnanService {
         this.curText += c.text;
       }
 
+      (await this.wasm).build_box();
+
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;

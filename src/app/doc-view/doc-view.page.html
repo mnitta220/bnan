@@ -22,14 +22,14 @@
         <ion-label [ngStyle]="bs.styleInput">目次</ion-label>
       </ion-segment-button>
       <ion-segment-button value="2">
-        <ion-label [ngStyle]="bs.styleInput">{{ wbname }}</ion-label>
+        <ion-label [ngStyle]="bs.styleInput">Box</ion-label>
       </ion-segment-button>
       <ion-segment-button value="3">
-        <ion-label [ngStyle]="bs.styleInput">Box</ion-label>
+        <ion-label [ngStyle]="bs.styleInput">{{ wbname }}</ion-label>
       </ion-segment-button>
     </ion-segment>
     <ion-segment
-      *ngIf="tab == '0'"
+      *ngIf="tab == '0' || tab == '2'"
       style="margin: 6px 0 8px 0"
       mode="ios"
       [(ngModel)]="mode"
@@ -54,7 +54,7 @@
       (touchend)="touchEnd($event)"
     ></canvas>
     <div #tb1>
-      <div *ngIf="tab == '0' || tab == '1'">
+      <div *ngIf="tab == '0' || tab == '1' || tab == '2'">
         <div class="tb">
           <ion-icon
             *ngIf="tab == '0' && mode == '2'"
@@ -111,7 +111,7 @@
           <ion-icon slot="start" name="create"></ion-icon>&nbsp;更新・変更する
         </ion-button>
       </div>
-      <section *ngIf="tab == '2'">
+      <section *ngIf="tab == '3'">
         <ion-button
           [ngStyle]="bs.styleBtn"
           style="width: calc(50% - 5px)"
