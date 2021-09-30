@@ -213,7 +213,7 @@ export class DocViewPage implements OnInit {
   }
 
   async tab_change() {
-    console.log("***tab_change() tab=" + this.tab);
+    //console.log("***tab_change() tab=" + this.tab);
     try {
       let height: number;
       switch (this.tab) {
