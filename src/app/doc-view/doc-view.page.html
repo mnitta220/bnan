@@ -57,19 +57,19 @@
       <div *ngIf="tab == '0' || tab == '1' || tab == '2'">
         <div class="tb">
           <ion-icon
-            *ngIf="tab == '0' && mode == '2'"
+            *ngIf="(tab == '0' && mode == '2') || tab == '2'"
             name="caret-forward"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('1')"
           ></ion-icon>
           <ion-icon
-            *ngIf="tab == '0' && mode == '2'"
+            *ngIf="(tab == '0' && mode == '2') || tab == '2'"
             name="caret-back"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('2')"
           ></ion-icon>
           <ion-icon
-            *ngIf="tab == '0' && mode == '2'"
+            *ngIf="(tab == '0' && mode == '2') || tab == '2'"
             name="chevron-forward"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('3')"
@@ -85,13 +85,13 @@
             (click)="pushed('5')"
           ></ion-icon>
           <ion-icon
-            *ngIf="tab == '0'"
+            *ngIf="tab == '0' || tab == '2'"
             name="arrow-forward-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('6')"
           ></ion-icon>
           <ion-icon
-            *ngIf="tab == '0'"
+            *ngIf="tab == '0' || tab == '2'"
             name="arrow-back-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('7')"
