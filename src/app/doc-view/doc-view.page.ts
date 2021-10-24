@@ -110,7 +110,15 @@ export class DocViewPage implements OnInit {
       this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
       this.bs.styleCanvas.height = `${this.bs.setting.height}px`;
 
+      /*
       (await this.bs.wasm).draw_doc(
+        this.bs.frWidth,
+        this.bs.setting.height,
+        this.darkMode,
+        this.bs.isAndroid
+      );
+      */
+      this.bs.wman.drawDoc(
         this.bs.frWidth,
         this.bs.setting.height,
         this.darkMode,
@@ -185,7 +193,14 @@ export class DocViewPage implements OnInit {
       this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
       this.cheight = height;
 
+      /*
       (await this.bs.wasm).resize(
+        this.bs.frWidth,
+        height,
+        this.darkMode,
+      );
+      */
+      this.bs.wman.reSize(
         this.bs.frWidth,
         height,
         this.darkMode,
@@ -257,7 +272,8 @@ export class DocViewPage implements OnInit {
       this.canvasElement1.height = height;
       this.bs.styleCanvas.height = `${height}px`;
 
-      (await this.bs.wasm).tab_change(parseInt(this.tab), this.bs.frWidth, height, this.darkMode);
+      //(await this.bs.wasm).tab_change(parseInt(this.tab), this.bs.frWidth, height, this.darkMode);
+      this.bs.wman.tabChange(parseInt(this.tab), this.bs.frWidth, height, this.darkMode);
 
       if (this.tab != Define.TAB_BOARD && height != this.cheight) {
         setTimeout(() => {
@@ -276,7 +292,8 @@ export class DocViewPage implements OnInit {
 
   async mode_change() {
     try {
-      (await this.bs.wasm).mode_change(this.mode == Define.KURO_ALL ? false : true);
+      //(await this.bs.wasm).mode_change(this.mode == Define.KURO_ALL ? false : true);
+      this.bs.wman.modeChange(this.mode == Define.KURO_ALL ? false : true);
     } catch (e) {
       this.bs.logs.push("DocViewPage.mode_change Error! " + e);
       this.router.navigate(["/error"]);
@@ -299,7 +316,13 @@ export class DocViewPage implements OnInit {
     try {
       let canvasPosition = this.canvasElement1.getBoundingClientRect();
 
+      /*
       (await this.bs.wasm).touch_start(
+        ev.pageX - canvasPosition.x,
+        ev.pageY - canvasPosition.y
+      );
+      */
+      this.bs.wman.touchStart(
         ev.pageX - canvasPosition.x,
         ev.pageY - canvasPosition.y
       );
@@ -331,7 +354,13 @@ export class DocViewPage implements OnInit {
     try {
       let canvasPosition = this.canvasElement1.getBoundingClientRect();
 
+      /*
       (await this.bs.wasm).touch_move(
+        ev.pageX - canvasPosition.x,
+        ev.pageY - canvasPosition.y
+      );
+      */
+      this.bs.wman.touchMove(
         ev.pageX - canvasPosition.x,
         ev.pageY - canvasPosition.y
       );
@@ -352,7 +381,8 @@ export class DocViewPage implements OnInit {
 
   async endDrawing(ev) {
     try {
-      let r = (await this.bs.wasm).touch_end();
+      //let r = (await this.bs.wasm).touch_end();
+      let r = this.bs.wman.touchEnd();
 
       if (r > -2) {
         // 目次選択
@@ -378,31 +408,40 @@ export class DocViewPage implements OnInit {
     try {
       switch (btn) {
         case "1": // 1区切り進む
-          (await this.bs.wasm).tool_func(1);
+          //(await this.bs.wasm).tool_func(1);
+          this.bs.wman.toolFunc(1);
           break;
 
         case "2": // 1区切り戻る
-          (await this.bs.wasm).tool_func(2);
+          //(await this.bs.wasm).tool_func(2);
+          this.bs.wman.toolFunc(2);
           break;
 
         case "3": // 1単語進む
-          (await this.bs.wasm).tool_func(3);
+          //(await this.bs.wasm).tool_func(3);
+          this.bs.wman.toolFunc(3);
           break;
 
         case "4": // 末尾に進む
-          (await this.bs.wasm).tool_func(4);
+          //(await this.bs.wasm).tool_func(4);
+          this.bs.wman.toolFunc(4);
           break;
 
         case "5": // 先頭に戻る
-          (await this.bs.wasm).tool_func(5);
+          //(await this.bs.wasm).tool_func(5);
+          this.bs.wman.toolFunc(5);
           break;
 
         case "6": // 次の段・節に進む
-          (await this.bs.wasm).tool_func(6);
+          //(await this.bs.wasm).tool_func(6);
+          this.bs.wman.toolFunc(6);
+          this.bs.updateCurrent(this.bs.wman.getSection());
           break;
 
         case "7": // 前の段・節に戻る
-          (await this.bs.wasm).tool_func(7);
+          //(await this.bs.wasm).tool_func(7);
+          this.bs.wman.toolFunc(7);
+          this.bs.updateCurrent(this.bs.wman.getSection());
           break;
 
         case "fp": // 枠拡大
@@ -439,13 +478,15 @@ export class DocViewPage implements OnInit {
 
   async strokeBack() {
     try {
-      (await this.bs.wasm).stroke_back();
+      //(await this.bs.wasm).stroke_back();
+      this.bs.wman.strokeBack();
     } catch (e) { }
   }
 
   async strokeClear() {
     try {
-      (await this.bs.wasm).stroke_clear();
+      //(await this.bs.wasm).stroke_clear();
+      this.bs.wman.strokeClear();
     } catch (e) { }
   }
 }

@@ -3,6 +3,7 @@ import { Device } from '@capacitor/device';
 import { Storage } from '@capacitor/storage';
 import { Define } from "./define";
 import { Setting } from "./setting";
+import { WasmManager } from "./wasm-manager";
 import { AppDatabase, IDoc, Doc, Contents } from "./idb";
 import { DocViewPage } from "../doc-view/doc-view.page";
 
@@ -13,7 +14,8 @@ const SETTING_KEY = "bnan";
 })
 export class BnanService {
   selectedIndex = 0;
-  wasm: any;
+  //wasm: any;
+  wman: WasmManager;
   setting: Setting = null;
   private _idb: AppDatabase;
   docList: IDoc[] = null;
@@ -55,20 +57,40 @@ export class BnanService {
 
   async getSetting() {
     //console.log("***getSetting");
+
     try {
+      this.wman = new WasmManager();
+      //console.log("***2");
+      await this.wman.wasmInit();
+      //console.log("***3");
+    } catch (e) {
+      console.log(e);
+      this.logs.push(e);
+      throw Error(
+        "この機器は、WebAssemblyに対応していないため、このアプリを使うことができません。"
+      );
+    }
+
+    /*
+    try {
+      //let r2 = (await wasm2).ping(100);
+      //console.log("***2 r2=" + r2);
       // wasm疎通確認
-      this.wasm = import("bnanw");
+      this.wasm = import("@mnitta220/bnanw");
+      //this.wasm = import("bnanw");
       let r = (await this.wasm).ping(100);
 
       if (r != 101) {
         throw Error("wasm.ping returns: " + r);
       }
+
     } catch (e) {
       this.logs.push(e);
       throw Error(
         "この機器は、WebAssemblyに対応していないため、このアプリを使うことができません。"
       );
     }
+    */
 
     if (!window.indexedDB) {
       throw Error(
@@ -141,7 +163,8 @@ export class BnanService {
         this.touchDevice = true;
 
         // Androidの場合、Googleフォントを使用する。
-        (await this.wasm).load_font();
+        //(await this.wasm).load_font();
+        this.wman.loadFont();
         break;
     }
   }
@@ -199,7 +222,16 @@ export class BnanService {
           );
         });
 
+      /*
       (await this.wasm).set_doc(
+        this.setting.curDoc.id,
+        this.setting.curDoc.title,
+        this.setting.curDoc.vertical,
+        this.setting.curDoc.fontSize,
+        this.setting.curDoc.current
+      );
+      */
+      this.wman.setDoc(
         this.setting.curDoc.id,
         this.setting.curDoc.title,
         this.setting.curDoc.vertical,
@@ -215,7 +247,8 @@ export class BnanService {
       let first = true;
 
       for (let c of cons) {
-        (await this.wasm).set_source(c.seq, c.text);
+        //(await this.wasm).set_source(c.seq, c.text);
+        this.wman.setSource(c.seq, c.text);
 
         if (first) {
           first = false;
@@ -226,7 +259,8 @@ export class BnanService {
         this.curText += c.text;
       }
 
-      (await this.wasm).build_tree();
+      //(await this.wasm).build_tree();
+      this.wman.buildTree();
 
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.tab = Define.TAB_TEXT;
@@ -268,7 +302,16 @@ export class BnanService {
         doc.id = id;
       });
 
+      /*
       (await this.wasm).set_doc(
+        doc.id,
+        doc.title,
+        doc.vertical,
+        doc.fontSize,
+        -1
+      );
+      */
+      this.wman.setDoc(
         doc.id,
         doc.title,
         doc.vertical,
@@ -281,7 +324,8 @@ export class BnanService {
       for (let l of lines) {
         con = new Contents(doc.id, 0, seq, l);
         await this._idb.contents.add(con);
-        (await this.wasm).set_source(seq, con.text);
+        //(await this.wasm).set_source(seq, con.text);
+        this.wman.setSource(seq, con.text);
         seq++;
       }
 
@@ -323,7 +367,16 @@ export class BnanService {
       const lines = text.split("\n");
       let con: Contents = null;
 
+      /*
       (await this.wasm).set_doc(
+        this.setting.curDoc.id,
+        title,
+        vertical,
+        fontSize,
+        this.setting.curDoc.current
+      );
+      */
+      this.wman.setDoc(
         this.setting.curDoc.id,
         title,
         vertical,
@@ -340,7 +393,8 @@ export class BnanService {
       for (let l of lines) {
         con = new Contents(this.setting.curDoc.id, newVer, seq, l);
         await this._idb.contents.add(con);
-        (await this.wasm).set_source(seq, con.text);
+        //(await this.wasm).set_source(seq, con.text);
+        this.wman.setSource(seq, con.text);
         seq++;
       }
 
