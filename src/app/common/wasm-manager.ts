@@ -5,6 +5,7 @@ export class WasmManager {
   //wasm: any;
 
   async wasmInit() {
+    //console.log("***wasmInit");
     await init();
 
     let r = ping(100);
