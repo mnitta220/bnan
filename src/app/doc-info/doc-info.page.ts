@@ -26,7 +26,7 @@ export class DocInfoPage implements OnInit {
     this.setDoc();
   }
 
-  setDoc() {
+  async setDoc() {
     try {
       if (this.bs.isNewDoc) {
         this.title = "新規文書";
@@ -38,7 +38,8 @@ export class DocInfoPage implements OnInit {
       } else {
         this.title = this.bs.setting.curDoc.title;
         this.name = this.title;
-        this.text = this.bs.curText;
+        this.text = "";
+        this.bs.getCurText(this.text);
         this.sz = "" + this.bs.setting.curDoc.fontSize;
         this.vertical =
           this.bs.setting.curDoc.vertical == Define.MODE_V ? "2" : "1";

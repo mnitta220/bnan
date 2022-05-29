@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { BnanService } from "../common/bnan.service";
 
 @Component({
@@ -9,13 +10,19 @@ import { BnanService } from "../common/bnan.service";
 export class ErrorPage implements OnInit {
   message = "";
 
-  constructor(private bs: BnanService) {}
+  constructor(private router: Router, private bs: BnanService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     if (this.bs.logs.length > 0) {
       this.message = this.bs.logs[this.bs.logs.length - 1];
+      if (this.message.indexOf("undefined") > 0) {
+        if (this.bs.retryCount < 3) {
+          this.bs.retryCount++;
+          this.router.navigate(["/init"]);
+        }
+      }
     } else {
       this.message = "";
     }

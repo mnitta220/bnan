@@ -382,6 +382,7 @@ export interface IContents {
   ver: number;
   seq: number;
   text: string;
+  type?: number;
 }
 
 export class Doc implements IDoc {
@@ -440,12 +441,24 @@ export class Contents implements IContents {
   ver: number;
   seq: number;
   text: string;
+  type?: number;
 
   constructor(docId: number, ver: number, seq: number, text: string) {
     this.docId = docId;
     this.ver = ver;
     this.seq = seq;
     this.text = text;
+    this.type = 0;
+    for (let i = 0; i < text.length; i++) {
+      if (text.charAt(i) == '#') {
+        this.type++;
+        if (this.type == 6) {
+          break;
+        }
+      } else {
+        break;
+      }
+    }
   }
 
   toString(): string {

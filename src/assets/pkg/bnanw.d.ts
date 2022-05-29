@@ -48,6 +48,17 @@ export function load_font(): void;
 */
 export function set_doc(id: number, title: string, vertical: number, font_size: number, current: number): void;
 /**
+* 段落をセットする
+*
+* # 引数
+* ## current
+*
+* # 戻り値
+* なし
+* @param {number} current
+*/
+export function set_section(current: number): void;
+/**
 * 文書の行をセットする
 *
 * # 引数
@@ -233,27 +244,29 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly main: () => void;
-  readonly ping: (a: number) => number;
-  readonly load_font: () => void;
-  readonly set_doc: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
-  readonly set_source: (a: number, b: number, c: number) => void;
-  readonly build_tree: () => void;
-  readonly draw_doc: (a: number, b: number, c: number, d: number) => void;
-  readonly resize: (a: number, b: number, c: number) => void;
-  readonly tab_change: (a: number, b: number, c: number, d: number) => number;
+  readonly ping: (a: number, b: number) => void;
+  readonly load_font: (a: number) => void;
+  readonly set_doc: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
+  readonly set_section: (a: number, b: number) => void;
+  readonly set_source: (a: number, b: number, c: number, d: number) => void;
+  readonly build_tree: (a: number) => void;
+  readonly draw_doc: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly resize: (a: number, b: number, c: number, d: number) => void;
+  readonly tab_change: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly get_section: () => number;
-  readonly touch_start: (a: number, b: number) => void;
-  readonly touch_move: (a: number, b: number) => void;
-  readonly touch_end: () => number;
-  readonly mode_change: (a: number) => void;
-  readonly tool_func: (a: number) => void;
-  readonly stroke_back: () => void;
-  readonly stroke_clear: () => void;
+  readonly touch_start: (a: number, b: number, c: number) => void;
+  readonly touch_move: (a: number, b: number, c: number) => void;
+  readonly touch_end: (a: number) => void;
+  readonly mode_change: (a: number, b: number) => void;
+  readonly tool_func: (a: number, b: number) => void;
+  readonly stroke_back: (a: number) => void;
+  readonly stroke_clear: (a: number) => void;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h4d1070035a525042: (a: number, b: number) => void;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hc77844e69a053a3a: (a: number, b: number, c: number) => void;
+  readonly _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h66d382ba16f90344: (a: number, b: number) => void;
+  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hf4f0a00cfef81533: (a: number, b: number, c: number) => void;
+  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_exn_store: (a: number) => void;
   readonly __wbindgen_start: () => void;
 }

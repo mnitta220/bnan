@@ -14,12 +14,11 @@ const SETTING_KEY = "bnan";
 })
 export class BnanService {
   selectedIndex = 0;
-  //wasm: any;
   wman: WasmManager;
   setting: Setting = null;
   private _idb: AppDatabase;
   docList: IDoc[] = null;
-  curText = "";
+  //curText = "";
   isNewDoc = false;
   logs: string[] = [];
   touchDevice: boolean = false;
@@ -52,6 +51,7 @@ export class BnanService {
     margin: "2px 4px 0 2px",
   };
   docViewPage: DocViewPage;
+  retryCount = 0;
 
   constructor() { }
 
@@ -70,27 +70,6 @@ export class BnanService {
         "この機器は、WebAssemblyに対応していないため、このアプリを使うことができません。"
       );
     }
-
-    /*
-    try {
-      //let r2 = (await wasm2).ping(100);
-      //console.log("***2 r2=" + r2);
-      // wasm疎通確認
-      this.wasm = import("@mnitta220/bnanw");
-      //this.wasm = import("bnanw");
-      let r = (await this.wasm).ping(100);
-
-      if (r != 101) {
-        throw Error("wasm.ping returns: " + r);
-      }
-
-    } catch (e) {
-      this.logs.push(e);
-      throw Error(
-        "この機器は、WebAssemblyに対応していないため、このアプリを使うことができません。"
-      );
-    }
-    */
 
     if (!window.indexedDB) {
       throw Error(
@@ -201,6 +180,28 @@ export class BnanService {
     }
   }
 
+  async getCurText(curText: string) {
+    try {
+      let cons = await this._idb.contents
+        .where({ docId: this.setting.curDoc.id, ver: this.setting.curDoc.ver })
+        .sortBy("seq");
+
+      let first = true;
+
+      for (let c of cons) {
+        if (first) {
+          first = false;
+        } else {
+          curText += "\n";
+        }
+
+        curText += c.text;
+      }
+    } catch (e) {
+      throw Error(e);
+    }
+  }
+
   async setCurrentDoc(id: number) {
     //console.log("***setCurrentDoc1: id=" + id);
     try {
@@ -222,15 +223,6 @@ export class BnanService {
           );
         });
 
-      /*
-      (await this.wasm).set_doc(
-        this.setting.curDoc.id,
-        this.setting.curDoc.title,
-        this.setting.curDoc.vertical,
-        this.setting.curDoc.fontSize,
-        this.setting.curDoc.current
-      );
-      */
       this.wman.setDoc(
         this.setting.curDoc.id,
         this.setting.curDoc.title,
@@ -243,24 +235,77 @@ export class BnanService {
         .where({ docId: this.setting.curDoc.id, ver: this.setting.curDoc.ver })
         .sortBy("seq");
 
-      this.curText = "";
-      let first = true;
+      //this.curText = "";
+      //let first = true;
+      let isOut = false;
+      let step = 0;
+      let type = 0;
 
       for (let c of cons) {
-        //(await this.wasm).set_source(c.seq, c.text);
-        this.wman.setSource(c.seq, c.text);
-
-        if (first) {
-          first = false;
-        } else {
-          this.curText += "\n";
+        if (!c.type) {
+          c.type = 0;
+          for (let i = 0; i < c.text.length; i++) {
+            if (c.text.charAt(i) == '#') {
+              c.type++;
+              if (c.type == 6) {
+                break;
+              }
+            } else {
+              break;
+            }
+          }
+          await this._idb.contents.where({
+            docId: this.setting.curDoc.id,
+            ver: this.setting.curDoc.ver,
+            seq: c.seq
+          }).modify({ type: c.type });
         }
 
-        this.curText += c.text;
+        isOut = false;
+        switch (step) {
+          case 0:
+            if (c.seq >= this.setting.curDoc.current) {
+              isOut = true;
+              type = c.type;
+              step = 1;
+            } else if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+          case 1:
+            if (c.type == 0) {
+              isOut = true;
+            } else {
+              if (type == 0) {
+                step = 2;
+              } else if (c.type <= type) {
+                step = 2;
+              } else {
+                isOut = true;
+              }
+            }
+            type = c.type;
+            break;
+          default:
+            if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+        }
+        if (isOut) {
+          this.wman.setSource(c.seq, c.text);
+        }
+
+        //if (first) {
+        //first = false;
+        //} else {
+        //this.curText += "\n";
+        //}
+
+        //this.curText += c.text;
       }
 
-      //(await this.wasm).build_tree();
-      this.wman.buildTree();
+      //this.wman.buildTree();
 
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.tab = Define.TAB_TEXT;
@@ -302,15 +347,6 @@ export class BnanService {
         doc.id = id;
       });
 
-      /*
-      (await this.wasm).set_doc(
-        doc.id,
-        doc.title,
-        doc.vertical,
-        doc.fontSize,
-        -1
-      );
-      */
       this.wman.setDoc(
         doc.id,
         doc.title,
@@ -324,13 +360,14 @@ export class BnanService {
       for (let l of lines) {
         con = new Contents(doc.id, 0, seq, l);
         await this._idb.contents.add(con);
-        //(await this.wasm).set_source(seq, con.text);
-        this.wman.setSource(seq, con.text);
+        if (con.type > 0) {
+          this.wman.setSource(seq, con.text);
+        }
         seq++;
       }
 
       this.setting.curDoc = doc;
-      this.curText = text;
+      //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
@@ -367,15 +404,6 @@ export class BnanService {
       const lines = text.split("\n");
       let con: Contents = null;
 
-      /*
-      (await this.wasm).set_doc(
-        this.setting.curDoc.id,
-        title,
-        vertical,
-        fontSize,
-        this.setting.curDoc.current
-      );
-      */
       this.wman.setDoc(
         this.setting.curDoc.id,
         title,
@@ -393,8 +421,9 @@ export class BnanService {
       for (let l of lines) {
         con = new Contents(this.setting.curDoc.id, newVer, seq, l);
         await this._idb.contents.add(con);
-        //(await this.wasm).set_source(seq, con.text);
-        this.wman.setSource(seq, con.text);
+        if (con.type > 0) {
+          this.wman.setSource(seq, con.text);
+        }
         seq++;
       }
 
@@ -403,7 +432,7 @@ export class BnanService {
       this.setting.curDoc.vertical = vertical;
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
-      this.curText = text;
+      //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.mode = Define.KURO_ALL;
 
@@ -439,7 +468,7 @@ export class BnanService {
         .delete();
 
       this.setting.curDoc = null;
-      this.curText = "";
+      //this.curText = "";
       this.showCurrent = false;
       this.currentName = "";
 
@@ -463,6 +492,55 @@ export class BnanService {
         this.logs.push("idb put error: " + error);
         throw new Error("idb put error!");
       });
+
+      this.wman.setSection(
+        this.setting.curDoc.current
+      );
+
+      let cons = await this._idb.contents
+        .where({ docId: this.setting.curDoc.id, ver: this.setting.curDoc.ver })
+        .sortBy("seq");
+
+      let isOut = false;
+      let step = 0;
+      let type = 0;
+
+      for (let c of cons) {
+        isOut = false;
+        switch (step) {
+          case 0:
+            if (c.seq >= this.setting.curDoc.current) {
+              isOut = true;
+              type = c.type;
+              step = 1;
+            } else if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+          case 1:
+            if (c.type == 0) {
+              isOut = true;
+            } else {
+              if (type == 0) {
+                step = 2;
+              } else if (c.type <= type) {
+                step = 2;
+              } else {
+                isOut = true;
+              }
+            }
+            type = c.type;
+            break;
+          default:
+            if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+        }
+        if (isOut) {
+          this.wman.setSource(c.seq, c.text);
+        }
+      }
     } catch (e) {
       throw Error(e);
     }

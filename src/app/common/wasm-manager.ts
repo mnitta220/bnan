@@ -1,11 +1,11 @@
 //import init, { ping } from "../../../../bnanw/pkg/bnanw.js";
-import init, { ping, set_doc, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, tool_func, stroke_back, stroke_clear, get_section } from "../../assets/pkg/bnanw.js";
+import init, { ping, set_doc, set_section, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, tool_func, stroke_back, stroke_clear, get_section } from "../../assets/pkg/bnanw.js";
 
 export class WasmManager {
   //wasm: any;
 
   async wasmInit() {
-    //console.log("***wasmInit");
+    // console.log("***wasmInit");
     await init();
 
     let r = ping(100);
@@ -33,6 +33,20 @@ export class WasmManager {
   setDoc(id: number, title: string, vertical: number, font_size: number, current: number): void {
     //console.log("***WasmManager.setDoc");
     set_doc(id, title, vertical, font_size, current);
+  }
+
+  /**
+  * 段落をセットする
+  *
+  * # 引数
+  * ## current
+  *
+  * # 戻り値
+  * なし
+  */
+  setSection(current: number): void {
+    //console.log("***WasmManager.setDoc");
+    set_section(current);
   }
 
   /**
