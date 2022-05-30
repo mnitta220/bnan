@@ -29,7 +29,8 @@ export class BnanService {
   isWin = false;
   frWidth: number;
   tab = Define.TAB_TEXT;
-  mode = Define.KURO_ALL;
+  modeText = Define.KURO_ALL;
+  modeContent = Define.KURO_ALL;
   showCurrent = false;
   currentName = "";
   disableZoomDown = false;
@@ -309,7 +310,7 @@ export class BnanService {
 
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.tab = Define.TAB_TEXT;
-      this.mode = Define.KURO_ALL;
+      this.modeText = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
         alert(error);
@@ -369,7 +370,7 @@ export class BnanService {
       this.setting.curDoc = doc;
       //this.curText = text;
       this.tab = Define.TAB_TEXT;
-      this.mode = Define.KURO_ALL;
+      this.modeText = Define.KURO_ALL;
 
       await this.updateSetting();
       this.showCurrent = true;
@@ -434,7 +435,7 @@ export class BnanService {
       this.setting.curDoc.dt = AppDatabase.getDt();
       //this.curText = text;
       this.tab = Define.TAB_TEXT;
-      this.mode = Define.KURO_ALL;
+      this.modeText = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
         alert(error);

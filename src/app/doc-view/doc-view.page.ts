@@ -55,12 +55,21 @@ export class DocViewPage implements OnInit {
   }
 
   @Input()
-  set mode(mode: string) {
-    this.bs.mode = mode;
+  set modeText(mode: string) {
+    this.bs.modeText = mode;
   }
 
-  get mode() {
-    return this.bs.mode;
+  get modeText() {
+    return this.bs.modeText;
+  }
+
+  @Input()
+  set modeContent(mode: string) {
+    this.bs.modeContent = mode;
+  }
+
+  get modeContent() {
+    return this.bs.modeContent;
   }
 
   ngOnInit() {
@@ -277,7 +286,14 @@ export class DocViewPage implements OnInit {
 
   async mode_change() {
     try {
-      this.bs.wman.modeChange(this.mode == Define.KURO_ALL ? false : true);
+      switch (this.tab) {
+        case Define.TAB_TEXT:
+          this.bs.wman.modeChange(this.modeText == Define.KURO_ALL ? false : true);
+          break;
+        case Define.TAB_CONTENTS:
+          this.bs.wman.modeChange(this.modeContent == Define.KURO_ALL ? false : true);
+          break;
+      }
     } catch (e) {
       this.bs.logs.push("DocViewPage.mode_change Error! " + e);
       this.router.navigate(["/error"]);
@@ -359,9 +375,10 @@ export class DocViewPage implements OnInit {
         // 目次選択
         this.tab = Define.TAB_TEXT;
         this.bs.updateCurrent(r);
-        this.retryCnt = 0;
-        this.draw();
-        this.bs.retryCount = 0;
+
+        setTimeout(() => {
+          this.draw();
+        }, 100);
       }
     } catch (e) {
       this.bs.logs.push("DocViewPage.endDrawing Error! " + e);

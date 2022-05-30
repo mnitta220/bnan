@@ -31,10 +31,24 @@
       </ion-segment-button>
     </ion-segment>
     <ion-segment
-      *ngIf="tab == '0' || tab == '1' || tab == '2'"
+      *ngIf="tab == '0'"
       style="margin: 6px 0 8px 0"
       mode="ios"
-      [(ngModel)]="mode"
+      [(ngModel)]="modeText"
+      (ionChange)="modeChanged()"
+    >
+      <ion-segment-button value="1">
+        <ion-label [ngStyle]="bs.styleInput">全表示</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label [ngStyle]="bs.styleInput">黒塗り</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-segment
+      *ngIf="tab == '1'"
+      style="margin: 6px 0 8px 0"
+      mode="ios"
+      [(ngModel)]="modeContent"
       (ionChange)="modeChanged()"
     >
       <ion-segment-button value="1">
@@ -56,22 +70,22 @@
       (touchend)="touchEnd($event)"
     ></canvas>
     <div #tb1>
-      <div *ngIf="tab == '0' || tab == '1' || tab == '2'">
+      <div *ngIf="tab == '0' || tab == '1'">
         <div class="tb">
           <ion-icon
-            *ngIf="((tab == '0' || tab == '1') && mode == '2') || tab == '2'"
+            *ngIf="(tab == '0' && modeText == '2') || (tab == '1' && modeContent == '2')"
             name="caret-forward"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('1')"
           ></ion-icon>
           <ion-icon
-            *ngIf="((tab == '0' || tab == '1') && mode == '2') || tab == '2'"
+            *ngIf="(tab == '0' && modeText == '2') || (tab == '1' && modeContent == '2')"
             name="caret-back"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('2')"
           ></ion-icon>
           <ion-icon
-            *ngIf="((tab == '0' || tab == '1') && mode == '2') || tab == '2'"
+            *ngIf="(tab == '0' && modeText == '2') || (tab == '1' && modeContent == '2')"
             name="chevron-forward"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('3')"
@@ -113,6 +127,7 @@
           <ion-icon slot="start" name="create"></ion-icon>&nbsp;更新・変更する
         </ion-button>
       </div>
+
       <section *ngIf="tab == '3'">
         <ion-button
           [ngStyle]="bs.styleBtn"
