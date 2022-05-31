@@ -18,7 +18,7 @@ export class BnanService {
   setting: Setting = null;
   private _idb: AppDatabase;
   docList: IDoc[] = null;
-  //curText = "";
+  curText = "";
   isNewDoc = false;
   logs: string[] = [];
   touchDevice: boolean = false;
@@ -181,7 +181,9 @@ export class BnanService {
     }
   }
 
-  async getCurText(curText: string) {
+  async getCurText() {
+    console.log("***getCurText1");
+    this.curText = '';
     try {
       let cons = await this._idb.contents
         .where({ docId: this.setting.curDoc.id, ver: this.setting.curDoc.ver })
@@ -193,11 +195,12 @@ export class BnanService {
         if (first) {
           first = false;
         } else {
-          curText += "\n";
+          this.curText += "\n";
         }
 
-        curText += c.text;
+        this.curText += c.text;
       }
+      console.log("***getCurText2:" + this.curText);
     } catch (e) {
       throw Error(e);
     }
@@ -357,20 +360,50 @@ export class BnanService {
       );
 
       let seq = 0;
+      let isOut = false;
+      let step = 0;
+      let type = 0;
 
       for (let l of lines) {
         con = new Contents(doc.id, 0, seq, l);
         await this._idb.contents.add(con);
-        if (con.type > 0) {
-          this.wman.setSource(seq, con.text);
+
+        isOut = false;
+        switch (step) {
+          case 0:
+            isOut = true;
+            type = con.type;
+            step = 1;
+            break;
+          case 1:
+            if (con.type > 0) {
+              if (type == 0) {
+                step = 2;
+              } else if (con.type <= type) {
+                step = 2;
+              }
+            }
+            isOut = true;
+            type = con.type;
+            break;
+          default:
+            if (con.type > 0) {
+              isOut = true;
+            }
+            break;
+        }
+        if (isOut) {
+          this.wman.setSource(con.seq, con.text);
         }
         seq++;
       }
 
       this.setting.curDoc = doc;
+      this.setting.curDoc.current = -1;
       //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.modeText = Define.KURO_ALL;
+      this.modeContent = Define.KURO_ALL;
 
       await this.updateSetting();
       this.showCurrent = true;
@@ -410,7 +443,8 @@ export class BnanService {
         title,
         vertical,
         fontSize,
-        this.setting.curDoc.current
+        -1
+        //this.setting.curDoc.current
       );
 
       if (this._idb == null) {
@@ -418,12 +452,40 @@ export class BnanService {
       }
 
       let seq = 0;
+      let isOut = false;
+      let step = 0;
+      let type = 0;
 
       for (let l of lines) {
         con = new Contents(this.setting.curDoc.id, newVer, seq, l);
         await this._idb.contents.add(con);
-        if (con.type > 0) {
-          this.wman.setSource(seq, con.text);
+
+        isOut = false;
+        switch (step) {
+          case 0:
+            isOut = true;
+            type = con.type;
+            step = 1;
+            break;
+          case 1:
+            if (con.type > 0) {
+              if (type == 0) {
+                step = 2;
+              } else if (con.type <= type) {
+                step = 2;
+              }
+            }
+            isOut = true;
+            type = con.type;
+            break;
+          default:
+            if (con.type > 0) {
+              isOut = true;
+            }
+            break;
+        }
+        if (isOut) {
+          this.wman.setSource(con.seq, con.text);
         }
         seq++;
       }
@@ -433,6 +495,7 @@ export class BnanService {
       this.setting.curDoc.vertical = vertical;
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
+      this.setting.curDoc.current = -1;
       //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.modeText = Define.KURO_ALL;
@@ -495,7 +558,7 @@ export class BnanService {
       });
 
       this.wman.setSection(
-        this.setting.curDoc.current
+        current
       );
 
       let cons = await this._idb.contents
@@ -510,7 +573,7 @@ export class BnanService {
         isOut = false;
         switch (step) {
           case 0:
-            if (c.seq >= this.setting.curDoc.current) {
+            if (c.seq >= current) {
               isOut = true;
               type = c.type;
               step = 1;
@@ -526,9 +589,8 @@ export class BnanService {
                 step = 2;
               } else if (c.type <= type) {
                 step = 2;
-              } else {
-                isOut = true;
               }
+              isOut = true;
             }
             type = c.type;
             break;
@@ -538,6 +600,153 @@ export class BnanService {
             }
             break;
         }
+        if (isOut) {
+          this.wman.setSource(c.seq, c.text);
+        }
+      }
+    } catch (e) {
+      throw Error(e);
+    }
+  }
+
+  async nextSection(isNext: boolean) {
+    //console.log("***updateCurrent: current=" + current);
+    try {
+      if (this._idb == null) {
+        this._idb = new AppDatabase();
+      }
+      let current = -1;
+      let step = 0;
+      let type = 0;
+
+      let cons = await this._idb.contents
+        .where({ docId: this.setting.curDoc.id, ver: this.setting.curDoc.ver })
+        .sortBy("seq");
+
+      let idx = this.setting.curDoc.current;
+      if (idx == -1) {
+        idx = 0;
+      }
+      if (isNext) {
+        for (let i = idx; i < cons.length; i++) {
+          const c = cons[i];
+          switch (step) {
+            case 0:
+              if (i == idx) {
+                step = 1;
+                type = c.type;
+              }
+              break;
+            case 1:
+              if (c.type > 0) {
+                if (type == 0) {
+                  step = 2;
+                  current = i;
+                } else if (c.type <= type) {
+                  step = 2;
+                  current = i;
+                }
+              }
+              type = c.type;
+              break;
+          }
+          if (step == 2) {
+            break;
+          }
+        }
+
+        if (current == -1) {
+          return;
+        }
+      } else {
+        for (let i = idx; i >= 0; i--) {
+          const c = cons[i];
+          switch (step) {
+            case 0:
+              if (i == idx) {
+                step = 1;
+                type = c.type;
+              }
+              break;
+            case 1:
+              if (c.type > 0) {
+                if (type == 0) {
+                  step = 2;
+                  current = i;
+                } else if (c.type <= type) {
+                  step = 2;
+                  current = i;
+                }
+              }
+              type = c.type;
+              break;
+            case 2:
+              if (c.type == 0) {
+                step = 3;
+              } else {
+                if (c.type < type) {
+                  current = i;
+                }
+              }
+          }
+          if (step == 3) {
+            break;
+          }
+        }
+
+        if (step < 2) {
+          current = -1;
+        }
+      }
+
+      this.setting.curDoc.current = current;
+
+      await this._idb.docs.put(this.setting.curDoc).catch((error) => {
+        alert(error);
+        this.logs.push("idb put error: " + error);
+        throw new Error("idb put error!");
+      });
+
+      this.wman.setSection(
+        current
+      );
+
+      let isOut = false;
+      step = 0;
+      type = 0;
+
+      for (let c of cons) {
+        isOut = false;
+        switch (step) {
+          case 0:
+            if (c.seq >= current) {
+              isOut = true;
+              type = c.type;
+              step = 1;
+            } else if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+          case 1:
+            if (c.type == 0) {
+              isOut = true;
+            } else {
+              if (type == 0) {
+                step = 2;
+              } else if (c.type <= type) {
+                step = 2;
+              }
+              isOut = true;
+            }
+            type = c.type;
+            break;
+          default:
+            if (c.type > 0) {
+              isOut = true;
+            }
+            break;
+        }
+
         if (isOut) {
           this.wman.setSource(c.seq, c.text);
         }

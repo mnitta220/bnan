@@ -38,9 +38,9 @@ export class DocInfoPage implements OnInit {
       } else {
         this.title = this.bs.setting.curDoc.title;
         this.name = this.title;
-        this.text = "";
-        this.bs.getCurText(this.text);
-        this.sz = "" + this.bs.setting.curDoc.fontSize;
+        await this.bs.getCurText();
+        this.text = this.bs.curText;
+        this.sz = `${this.bs.setting.curDoc.fontSize}`;
         this.vertical =
           this.bs.setting.curDoc.vertical == Define.MODE_V ? "2" : "1";
         this.showDelete = true;

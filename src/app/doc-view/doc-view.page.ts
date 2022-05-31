@@ -419,13 +419,23 @@ export class DocViewPage implements OnInit {
           break;
 
         case "6": // 次の段・節に進む
-          this.bs.wman.toolFunc(6);
-          this.bs.updateCurrent(this.bs.wman.getSection());
+          //this.bs.wman.toolFunc(6);
+          //this.bs.updateCurrent(this.bs.wman.getSection());
+          this.bs.nextSection(true);
+
+          setTimeout(() => {
+            this.draw();
+          }, 100);
           break;
 
         case "7": // 前の段・節に戻る
-          this.bs.wman.toolFunc(7);
-          this.bs.updateCurrent(this.bs.wman.getSection());
+          //this.bs.wman.toolFunc(7);
+          //this.bs.updateCurrent(this.bs.wman.getSection());
+          this.bs.nextSection(false);
+
+          setTimeout(() => {
+            this.draw();
+          }, 100);
           break;
 
         case "fp": // 枠拡大
