@@ -30,15 +30,6 @@ export class DocViewPage implements OnInit {
     color: "white",
   };
 
-  /*
-  stCv1 = {
-    width: "100%",
-    height: `${Define.INIT_HEIGHT}px`,
-    overflow: "hidden",
-    margin: "2px 4px 0 2px",
-  };
-  */
-
   constructor(
     private router: Router,
     public changeDetectorRef: ChangeDetectorRef,
@@ -371,14 +362,19 @@ export class DocViewPage implements OnInit {
     try {
       let r = this.bs.wman.touchEnd();
 
-      if (r > -2) {
-        // 目次選択
-        this.tab = Define.TAB_TEXT;
-        this.bs.updateCurrent(r);
+      if (this.tab == Define.TAB_CONTENTS) {
+        if (r > -2) {
+          // 目次選択
+          this.tab = Define.TAB_TEXT;
+          this.bs.updateCurrent(r);
 
-        setTimeout(() => {
-          this.draw();
-        }, 100);
+          setTimeout(() => {
+            this.draw();
+          }, 100);
+        } else if (this.modeContent == Define.KURO_BLACK) {
+          // 1区切り進む
+          this.bs.wman.toolFunc(1);
+        }
       }
     } catch (e) {
       this.bs.logs.push("DocViewPage.endDrawing Error! " + e);

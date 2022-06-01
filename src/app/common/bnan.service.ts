@@ -182,7 +182,7 @@ export class BnanService {
   }
 
   async getCurText() {
-    console.log("***getCurText1");
+    //console.log("***getCurText1");
     this.curText = '';
     try {
       let cons = await this._idb.contents
@@ -200,7 +200,7 @@ export class BnanService {
 
         this.curText += c.text;
       }
-      console.log("***getCurText2:" + this.curText);
+      //console.log("***getCurText2:" + this.curText);
     } catch (e) {
       throw Error(e);
     }
@@ -299,21 +299,12 @@ export class BnanService {
         if (isOut) {
           this.wman.setSource(c.seq, c.text);
         }
-
-        //if (first) {
-        //first = false;
-        //} else {
-        //this.curText += "\n";
-        //}
-
-        //this.curText += c.text;
       }
-
-      //this.wman.buildTree();
 
       this.setting.curDoc.dt = AppDatabase.getDt();
       this.tab = Define.TAB_TEXT;
       this.modeText = Define.KURO_ALL;
+      this.modeContent = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
         alert(error);

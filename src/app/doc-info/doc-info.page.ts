@@ -89,6 +89,9 @@ export class DocInfoPage implements OnInit {
           parseInt(this.sz)
         );
       }
+      //await this.bs.setCurrentDoc(this.docs[index].id).then(() => {
+      //  this.router.navigate(["/doc-view"]);
+      //});
     } catch (e) {
       this.bs.logs.push("DocInfoPage.saveProc Error! " + e);
       this.router.navigate(["/error"]);
