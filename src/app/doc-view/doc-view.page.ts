@@ -371,9 +371,9 @@ export class DocViewPage implements OnInit {
           setTimeout(() => {
             this.draw();
           }, 100);
-        } else if (this.modeContent == Define.KURO_BLACK) {
+        } else if (this.modeContent == Define.KURO_BLACK && r == -3) {
           // 1区切り進む
-          this.bs.wman.toolFunc(1);
+          //this.bs.wman.toolFunc(1);
         }
       }
     } catch (e) {
