@@ -191,6 +191,40 @@ export function touch_move(x: number, y: number): void;
 */
 export function touch_end(): number;
 /**
+* シングルクリック
+*
+* # 引数
+* ## x
+* ## y
+*
+* # 戻り値
+* - -3 : 正常終了
+* - -1 : Top選択
+* - 0以上 : セクション選択
+* - それ以外 : 異常終了
+* @param {number} x
+* @param {number} y
+* @returns {number}
+*/
+export function single_click(x: number, y: number): number;
+/**
+* ダブルクリック
+*
+* # 引数
+* ## x
+* ## y
+*
+* # 戻り値
+* - -3 : 正常終了
+* - -1 : Top選択
+* - 0以上 : セクション選択
+* - それ以外 : 異常終了
+* @param {number} x
+* @param {number} y
+* @returns {number}
+*/
+export function double_click(x: number, y: number): number;
+/**
 * 黒塗りモードを変更する
 *
 * # 引数
@@ -257,6 +291,8 @@ export interface InitOutput {
   readonly touch_start: (a: number, b: number, c: number) => void;
   readonly touch_move: (a: number, b: number, c: number) => void;
   readonly touch_end: (a: number) => void;
+  readonly single_click: (a: number, b: number, c: number) => void;
+  readonly double_click: (a: number, b: number, c: number) => void;
   readonly mode_change: (a: number, b: number) => void;
   readonly tool_func: (a: number, b: number) => void;
   readonly stroke_back: (a: number) => void;
@@ -264,7 +300,6 @@ export interface InitOutput {
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h66d382ba16f90344: (a: number, b: number) => void;
   readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hf4f0a00cfef81533: (a: number, b: number, c: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_exn_store: (a: number) => void;

@@ -198,11 +198,7 @@ function makeMutClosure(arg0, arg1, dtor, f) {
 
     return real;
 }
-function __wbg_adapter_16(arg0, arg1) {
-    wasm._dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h66d382ba16f90344(arg0, arg1);
-}
-
-function __wbg_adapter_19(arg0, arg1, arg2) {
+function __wbg_adapter_16(arg0, arg1, arg2) {
     wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hf4f0a00cfef81533(arg0, arg1, addHeapObject(arg2));
 }
 
@@ -570,6 +566,70 @@ export function touch_end() {
 }
 
 /**
+* シングルクリック
+*
+* # 引数
+* ## x
+* ## y
+*
+* # 戻り値
+* - -3 : 正常終了
+* - -1 : Top選択
+* - 0以上 : セクション選択
+* - それ以外 : 異常終了
+* @param {number} x
+* @param {number} y
+* @returns {number}
+*/
+export function single_click(x, y) {
+    try {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        wasm.single_click(retptr, x, y);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        if (r2) {
+            throw takeObject(r1);
+        }
+        return r0;
+    } finally {
+        wasm.__wbindgen_add_to_stack_pointer(16);
+    }
+}
+
+/**
+* ダブルクリック
+*
+* # 引数
+* ## x
+* ## y
+*
+* # 戻り値
+* - -3 : 正常終了
+* - -1 : Top選択
+* - 0以上 : セクション選択
+* - それ以外 : 異常終了
+* @param {number} x
+* @param {number} y
+* @returns {number}
+*/
+export function double_click(x, y) {
+    try {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        wasm.double_click(retptr, x, y);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        if (r2) {
+            throw takeObject(r1);
+        }
+        return r0;
+    } finally {
+        wasm.__wbindgen_add_to_stack_pointer(16);
+    }
+}
+
+/**
 * 黒塗りモードを変更する
 *
 * # 引数
@@ -734,10 +794,6 @@ async function init(input) {
             return true;
         }
         const ret = false;
-        return ret;
-    };
-    imports.wbg.__wbg_setTimeout_2504348a5dfd69b5 = function (arg0, arg1) {
-        const ret = setTimeout(getObject(arg0), arg1 >>> 0);
         return ret;
     };
     imports.wbg.__wbg_instanceof_Window_0e6c0f1096d66c3c = function (arg0) {
@@ -936,12 +992,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function (arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper96 = function (arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 19, __wbg_adapter_16);
-        return addHeapObject(ret);
-    };
     imports.wbg.__wbindgen_closure_wrapper221 = function (arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 45, __wbg_adapter_19);
+        const ret = makeMutClosure(arg0, arg1, 38, __wbg_adapter_16);
         return addHeapObject(ret);
     };
 

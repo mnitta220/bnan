@@ -1,5 +1,5 @@
 //import init, { ping } from "../../../../bnanw/pkg/bnanw.js";
-import init, { ping, set_doc, set_section, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, tool_func, stroke_back, stroke_clear, get_section } from "../../assets/pkg/bnanw.js";
+import init, { ping, set_doc, set_section, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, single_click, double_click, tool_func, stroke_back, stroke_clear, get_section } from "../../assets/pkg/bnanw.js";
 
 export class WasmManager {
   //wasm: any;
@@ -217,6 +217,42 @@ export class WasmManager {
   */
   touchEnd(): number {
     return touch_end();
+  }
+
+  /**
+  * シングルクリック
+  *
+  * # 引数
+  * ## x
+  * ## y
+  *
+  * # 戻り値
+  * - -3 : 正常終了
+  * - -1 : Top選択
+  * - 0以上 : セクション選択
+  * - それ以外 : 異常終了
+  * @returns {number}
+  */
+  singleClick(x: number, y: number): number {
+    return single_click(x, y);
+  }
+
+  /**
+  * ダブルクリック
+  *
+  * # 引数
+  * ## x
+  * ## y
+  *
+  * # 戻り値
+  * - -3 : 正常終了
+  * - -1 : Top選択
+  * - 0以上 : セクション選択
+  * - それ以外 : 異常終了
+  * @returns {number}
+  */
+  doubleClick(x: number, y: number): number {
+    return double_click(x, y);
   }
 
   /**
