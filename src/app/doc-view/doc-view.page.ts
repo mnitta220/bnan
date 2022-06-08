@@ -371,9 +371,7 @@ export class DocViewPage implements OnInit {
     try {
       const now = (new Date()).getTime();
       if ((now - this.tapStart) < 500) {
-        //console.log(`******diff=${now - this.tapStart}`);
         if ((now - this.tap1) < 800) {
-          //console.log(`*****double tap`);
           this.tap1 = 0;
           if (this.tab == Define.TAB_TEXT && this.modeText == Define.KURO_BLACK ||
             this.tab == Define.TAB_CONTENTS && this.modeContent == Define.KURO_BLACK) {
@@ -382,14 +380,11 @@ export class DocViewPage implements OnInit {
         } else {
           this.tap1 = now;
           setTimeout(() => {
-            //const now2 = (new Date()).getTime();
             if (this.tap1 > 0) {
-              //console.log(`*****single tap`);
               this.tap1 = 0;
               switch (this.tab) {
                 case Define.TAB_CONTENTS:
                   const ret = this.bs.wman.singleClick(this.clickX, this.clickY);
-                  //console.log(`*****single tap ret=${ret}`);
                   if (ret > -2) {
                     // 目次選択
                     this.tab = Define.TAB_TEXT;
@@ -398,6 +393,9 @@ export class DocViewPage implements OnInit {
                     setTimeout(() => {
                       this.draw();
                     }, 100);
+                  } else if (this.modeContent == Define.KURO_BLACK) {
+                    // 1区切り進む
+                    this.bs.wman.toolFunc(1);
                   }
                   break;
                 case Define.TAB_TEXT:
@@ -413,31 +411,6 @@ export class DocViewPage implements OnInit {
       }
 
       let r = this.bs.wman.touchEnd();
-
-      /*
-      if (this.tab == Define.TAB_CONTENTS) {
-        if (r > -2) {
-          // 目次選択
-          this.tab = Define.TAB_TEXT;
-          this.bs.updateCurrent(r);
-
-          setTimeout(() => {
-            this.draw();
-          }, 100);
-          //} else if (this.modeContent == Define.KURO_BLACK && r == -3) {
-          // 1区切り進む
-          //this.bs.wman.toolFunc(1);
-        }
-      }
-      */
-      /*
-      this.bs.wman.touchEnd2().then(r => {
-        console.log(`touchEnd2: ret=${r}`);
-      }).catch(e => {
-        this.bs.logs.push("DocViewPage.endDrawing Error! " + e);
-        this.router.navigate(["/error"]);
-      });
-      */
     } catch (e) {
       this.bs.logs.push("DocViewPage.endDrawing Error! " + e);
       this.router.navigate(["/error"]);

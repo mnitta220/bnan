@@ -61,9 +61,7 @@ export class BnanService {
 
     try {
       this.wman = new WasmManager();
-      //console.log("***2");
       await this.wman.wasmInit();
-      //console.log("***3");
     } catch (e) {
       console.log(e);
       this.logs.push(e);
@@ -200,7 +198,6 @@ export class BnanService {
 
         this.curText += c.text;
       }
-      //console.log("***getCurText2:" + this.curText);
     } catch (e) {
       throw Error(e);
     }
@@ -277,17 +274,12 @@ export class BnanService {
             }
             break;
           case 1:
-            if (c.type == 0) {
-              isOut = true;
-            } else {
-              if (type == 0) {
+            if (c.type > 0) {
+              if (type == 0 || c.type <= type) {
                 step = 2;
-              } else if (c.type <= type) {
-                step = 2;
-              } else {
-                isOut = true;
               }
             }
+            isOut = true;
             type = c.type;
             break;
           default:
