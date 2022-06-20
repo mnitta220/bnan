@@ -482,6 +482,7 @@ export class BnanService {
       //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.modeText = Define.KURO_ALL;
+      this.modeContent = Define.KURO_ALL;
 
       await this._idb.docs.put(this.setting.curDoc).catch((error) => {
         alert(error);

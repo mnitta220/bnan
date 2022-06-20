@@ -29,6 +29,8 @@ export class DocViewPage implements OnInit {
   private tap1 = 0;
   private clickX = 0;
   private clickY = 0;
+  private clickX1 = 0;
+  private clickY1 = 0;
 
   stF = {
     color: "white",
@@ -190,11 +192,21 @@ export class DocViewPage implements OnInit {
       this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
       this.cheight = height;
 
+
+      this.bs.wman.drawDoc(
+        this.bs.frWidth,
+        this.bs.setting.height,
+        this.darkMode,
+        this.bs.isAndroid
+      );
+
+      /*
       this.bs.wman.reSize(
         this.bs.frWidth,
         height,
         this.darkMode,
       );
+      */
 
       this.changeDetectorRef.detectChanges();
     } catch (e) {
@@ -311,8 +323,8 @@ export class DocViewPage implements OnInit {
     try {
       this.tapStart = (new Date()).getTime();
       let canvasPosition = this.canvasElement1.getBoundingClientRect();
-      this.clickX = ev.pageX - canvasPosition.x;
-      this.clickY = ev.pageY - canvasPosition.y;
+      this.clickX1 = this.clickX = ev.pageX - canvasPosition.x;
+      this.clickY1 = this.clickY = ev.pageY - canvasPosition.y;
 
       this.bs.wman.touchStart(
         this.clickX,
@@ -375,35 +387,39 @@ export class DocViewPage implements OnInit {
           this.tap1 = 0;
           if (this.tab == Define.TAB_TEXT && this.modeText == Define.KURO_BLACK ||
             this.tab == Define.TAB_CONTENTS && this.modeContent == Define.KURO_BLACK) {
-            this.bs.wman.doubleClick(this.clickX, this.clickY);
+            if (Math.abs(this.clickX - this.clickX1) < 10 && Math.abs(this.clickY - this.clickY1) < 10) {
+              this.bs.wman.doubleClick(this.clickX, this.clickY);
+            }
           }
         } else {
           this.tap1 = now;
           setTimeout(() => {
             if (this.tap1 > 0) {
               this.tap1 = 0;
-              switch (this.tab) {
-                case Define.TAB_CONTENTS:
-                  const ret = this.bs.wman.singleClick(this.clickX, this.clickY);
-                  if (ret > -2) {
-                    // 目次選択
-                    this.tab = Define.TAB_TEXT;
-                    this.bs.updateCurrent(ret);
+              if (Math.abs(this.clickX - this.clickX1) < 10 && Math.abs(this.clickY - this.clickY1) < 10) {
+                switch (this.tab) {
+                  case Define.TAB_CONTENTS:
+                    const ret = this.bs.wman.singleClick(this.clickX, this.clickY);
+                    if (ret > -2) {
+                      // 目次選択
+                      this.tab = Define.TAB_TEXT;
+                      this.bs.updateCurrent(ret);
 
-                    setTimeout(() => {
-                      this.draw();
-                    }, 100);
-                  } else if (this.modeContent == Define.KURO_BLACK) {
-                    // 1区切り進む
-                    this.bs.wman.toolFunc(1);
-                  }
-                  break;
-                case Define.TAB_TEXT:
-                  if (this.modeText == Define.KURO_BLACK) {
-                    // 1区切り進む
-                    this.bs.wman.toolFunc(1);
-                  }
-                  break;
+                      setTimeout(() => {
+                        this.draw();
+                      }, 100);
+                    } else if (this.modeContent == Define.KURO_BLACK) {
+                      // 1区切り進む
+                      this.bs.wman.toolFunc(1);
+                    }
+                    break;
+                  case Define.TAB_TEXT:
+                    if (this.modeText == Define.KURO_BLACK) {
+                      // 1区切り進む
+                      this.bs.wman.toolFunc(1);
+                    }
+                    break;
+                }
               }
             }
           }, 600);
