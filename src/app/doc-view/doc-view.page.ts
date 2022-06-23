@@ -193,20 +193,11 @@ export class DocViewPage implements OnInit {
       this.cheight = height;
 
 
-      this.bs.wman.drawDoc(
-        this.bs.frWidth,
-        this.bs.setting.height,
-        this.darkMode,
-        this.bs.isAndroid
-      );
-
-      /*
       this.bs.wman.reSize(
         this.bs.frWidth,
         height,
         this.darkMode,
       );
-      */
 
       this.changeDetectorRef.detectChanges();
     } catch (e) {
@@ -323,8 +314,8 @@ export class DocViewPage implements OnInit {
     try {
       this.tapStart = (new Date()).getTime();
       let canvasPosition = this.canvasElement1.getBoundingClientRect();
-      this.clickX1 = this.clickX = ev.pageX - canvasPosition.x;
-      this.clickY1 = this.clickY = ev.pageY - canvasPosition.y;
+      this.clickX = ev.pageX - canvasPosition.x;
+      this.clickY = ev.pageY - canvasPosition.y;
 
       this.bs.wman.touchStart(
         this.clickX,
@@ -393,10 +384,12 @@ export class DocViewPage implements OnInit {
           }
         } else {
           this.tap1 = now;
+          this.clickX1 = this.clickX;
+          this.clickY1 = this.clickY;
           setTimeout(() => {
             if (this.tap1 > 0) {
               this.tap1 = 0;
-              if (Math.abs(this.clickX - this.clickX1) < 10 && Math.abs(this.clickY - this.clickY1) < 10) {
+              if (Math.abs(this.clickX - this.clickX1) < 5 && Math.abs(this.clickY - this.clickY1) < 5) {
                 switch (this.tab) {
                   case Define.TAB_CONTENTS:
                     const ret = this.bs.wman.singleClick(this.clickX, this.clickY);

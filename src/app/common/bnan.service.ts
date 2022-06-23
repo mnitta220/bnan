@@ -420,14 +420,19 @@ export class BnanService {
 
       const lines = text.split("\n");
       let con: Contents = null;
+      if (lines.length <= this.setting.curDoc.current) {
+        this.setting.curDoc.current = -1;
+      }
+      if (this.setting.curDoc.current > -1 && lines[this.setting.curDoc.current].charAt(0) != '#') {
+        this.setting.curDoc.current = -1;
+      }
 
       this.wman.setDoc(
         this.setting.curDoc.id,
         title,
         vertical,
         fontSize,
-        -1
-        //this.setting.curDoc.current
+        this.setting.curDoc.current
       );
 
       if (this._idb == null) {
@@ -446,19 +451,25 @@ export class BnanService {
         isOut = false;
         switch (step) {
           case 0:
-            isOut = true;
-            type = con.type;
-            step = 1;
+            if (seq >= this.setting.curDoc.current) {
+              isOut = true;
+              type = con.type;
+              step = 1;
+            } else if (con.type > 0) {
+              isOut = true;
+            }
             break;
           case 1:
-            if (con.type > 0) {
+            if (con.type == 0) {
+              isOut = true;
+            } else {
               if (type == 0) {
                 step = 2;
               } else if (con.type <= type) {
                 step = 2;
               }
+              isOut = true;
             }
-            isOut = true;
             type = con.type;
             break;
           default:
@@ -467,6 +478,7 @@ export class BnanService {
             }
             break;
         }
+
         if (isOut) {
           this.wman.setSource(con.seq, con.text);
         }
@@ -478,8 +490,6 @@ export class BnanService {
       this.setting.curDoc.vertical = vertical;
       this.setting.curDoc.fontSize = fontSize;
       this.setting.curDoc.dt = AppDatabase.getDt();
-      this.setting.curDoc.current = -1;
-      //this.curText = text;
       this.tab = Define.TAB_TEXT;
       this.modeText = Define.KURO_ALL;
       this.modeContent = Define.KURO_ALL;
@@ -495,6 +505,7 @@ export class BnanService {
         .delete();
       this.showCurrent = true;
       this.currentName = this.setting.curDoc.title;
+      await this.updateSetting();
     } catch (e) {
       throw Error(e);
     }
