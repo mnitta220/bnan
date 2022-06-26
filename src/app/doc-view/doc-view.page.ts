@@ -29,6 +29,8 @@ export class DocViewPage implements OnInit {
   private tap1 = 0;
   private clickX = 0;
   private clickY = 0;
+  private clickStartX = 0;
+  private clickStartY = 0;
   private clickX1 = 0;
   private clickY1 = 0;
 
@@ -314,8 +316,8 @@ export class DocViewPage implements OnInit {
     try {
       this.tapStart = (new Date()).getTime();
       let canvasPosition = this.canvasElement1.getBoundingClientRect();
-      this.clickX = ev.pageX - canvasPosition.x;
-      this.clickY = ev.pageY - canvasPosition.y;
+      this.clickStartX = this.clickX = ev.pageX - canvasPosition.x;
+      this.clickStartY = this.clickY = ev.pageY - canvasPosition.y;
 
       this.bs.wman.touchStart(
         this.clickX,
@@ -389,7 +391,7 @@ export class DocViewPage implements OnInit {
           setTimeout(() => {
             if (this.tap1 > 0) {
               this.tap1 = 0;
-              if (Math.abs(this.clickX - this.clickX1) < 5 && Math.abs(this.clickY - this.clickY1) < 5) {
+              if (Math.abs(this.clickX - this.clickStartX) < 5 && Math.abs(this.clickY - this.clickStartY) < 5) {
                 switch (this.tab) {
                   case Define.TAB_CONTENTS:
                     const ret = this.bs.wman.singleClick(this.clickX, this.clickY);

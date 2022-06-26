@@ -1,6 +1,6 @@
 export class Define {
   static PRODUCT_ID = "com.github.mnitta220.bnan";
-  static VERSION = "1.15";
+  static VERSION = "1.16";
   static MODE_H = 1;
   static MODE_V = 2;
   static TAB_TEXT = "0"; // 本文
