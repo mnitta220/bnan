@@ -32,6 +32,8 @@ export class BnanService {
   modeText = Define.KURO_ALL;
   modeContent = Define.KURO_ALL;
   showCurrent = false;
+  hideText = false;
+  hideContent = false;
   currentName = "";
   disableZoomDown = false;
   disableZoomUp = false;
@@ -39,6 +41,7 @@ export class BnanService {
   styleBtn: any;
   styleToolBtn1: any;
   styleToolBtn2: any;
+  styleToolBtn3: any;
   styleUsageP: any;
   styleUsageLiA: any;
   styleUsageH1: any;
@@ -868,6 +871,12 @@ export class BnanService {
       "font-size": `${toolBtnTxt2}pt`,
       "padding": `${toolBtnPad2}px`,
       "color": "white"
+    };
+    this.styleToolBtn3 = {
+      "font-size": `${toolBtnTxt2}pt`,
+      "padding": `${toolBtnPad2}px`,
+      "color": "#555",
+      "background-color": "#ffffff40"
     };
     this.styleUsageP = {
       "font-size": `${uP}pt`,

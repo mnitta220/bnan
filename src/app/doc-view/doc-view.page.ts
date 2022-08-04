@@ -71,6 +71,24 @@ export class DocViewPage implements OnInit {
     return this.bs.modeContent;
   }
 
+  @Input()
+  set hideText(hide: boolean) {
+    this.bs.hideText = hide;
+  }
+
+  get hideText() {
+    return this.bs.hideText;
+  }
+
+  @Input()
+  set hideContent(hide: boolean) {
+    this.bs.hideContent = hide;
+  }
+
+  get hideContent() {
+    return this.bs.hideContent;
+  }
+
   ngOnInit() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
     this.darkMode = prefersDark.matches;
@@ -493,6 +511,17 @@ export class DocViewPage implements OnInit {
             await this.bs.updateSetting();
             this.retryCnt = 0;
             await this.resize();
+          }
+          break;
+
+        case "8":
+          switch (this.tab) {
+            case Define.TAB_TEXT:
+              this.bs.hideText = !this.bs.hideText;
+              break;
+            case Define.TAB_CONTENTS:
+              this.bs.hideContent = !this.bs.hideContent;
+              break;
           }
           break;
       }

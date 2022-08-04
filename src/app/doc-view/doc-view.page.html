@@ -73,13 +73,11 @@
       <div *ngIf="tab == '0' || tab == '1'">
         <div class="tb">
           <ion-icon
-            *ngIf="(tab == '0' && modeText == '2') || (tab == '1' && modeContent == '2')"
             name="caret-forward"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('1')"
           ></ion-icon>
           <ion-icon
-            *ngIf="(tab == '0' && modeText == '2') || (tab == '1' && modeContent == '2')"
             name="caret-back"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('2')"
@@ -121,6 +119,18 @@
             name="remove-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fm')"
+          ></ion-icon>
+          <ion-icon
+            *ngIf="(tab == '0' && modeText == '1' && hideText == false) || (tab == '1' && modeContent == '1' && hideContent == false)"
+            name="scan-outline"
+            [ngStyle]="bs.styleToolBtn2"
+            (click)="pushed('8')"
+          ></ion-icon>
+          <ion-icon
+            *ngIf="(tab == '0' && modeText == '1' && hideText == true) || (tab == '1' && modeContent == '1' && hideContent == true)"
+            name="scan-outline"
+            [ngStyle]="bs.styleToolBtn3"
+            (click)="pushed('8')"
           ></ion-icon>
         </div>
         <ion-button [ngStyle]="bs.styleBtn" expand="block" (click)="change()">
