@@ -670,6 +670,7 @@ export function mode_change(black) {
 * # 戻り値
 * なし
 * @param {number} step
+* @returns {number}
 */
 export function tool_func(step) {
     try {
@@ -677,9 +678,11 @@ export function tool_func(step) {
         wasm.tool_func(retptr, step);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
-        if (r1) {
-            throw takeObject(r0);
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        if (r2) {
+            throw takeObject(r1);
         }
+        return r0;
     } finally {
         wasm.__wbindgen_add_to_stack_pointer(16);
     }

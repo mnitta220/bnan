@@ -875,8 +875,8 @@ export class BnanService {
     this.styleToolBtn3 = {
       "font-size": `${toolBtnTxt2}pt`,
       "padding": `${toolBtnPad2}px`,
-      "color": "#555",
-      "background-color": "#ffffff40"
+      "color": "#404040",
+      "background-color": "#ffffff28"
     };
     this.styleUsageP = {
       "font-size": `${uP}pt`,

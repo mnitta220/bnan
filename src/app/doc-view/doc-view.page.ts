@@ -515,6 +515,7 @@ export class DocViewPage implements OnInit {
           break;
 
         case "8":
+          this.bs.wman.toolFunc(8);
           switch (this.tab) {
             case Define.TAB_TEXT:
               this.bs.hideText = !this.bs.hideText;

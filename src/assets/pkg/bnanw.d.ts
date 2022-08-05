@@ -252,8 +252,9 @@ export function mode_change(black: boolean): void;
 * # 戻り値
 * なし
 * @param {number} step
+* @returns {number}
 */
-export function tool_func(step: number): void;
+export function tool_func(step: number): number;
 /**
 * 白板・戻る
 *
