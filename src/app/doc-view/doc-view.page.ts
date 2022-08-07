@@ -427,10 +427,8 @@ export class DocViewPage implements OnInit {
                     }
                     break;
                   case Define.TAB_TEXT:
-                    if (this.modeText == Define.KURO_BLACK) {
-                      // 1区切り進む
-                      this.bs.wman.toolFunc(1);
-                    }
+                    // 1区切り進む
+                    this.bs.wman.toolFunc(1);
                     break;
                 }
               }
