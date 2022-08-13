@@ -19,6 +19,7 @@ export function single_click(a: number, b: number, c: number): void;
 export function double_click(a: number, b: number, c: number): void;
 export function mode_change(a: number, b: number): void;
 export function tool_func(a: number, b: number): void;
+export function hide(a: number, b: number): void;
 export function stroke_back(a: number): void;
 export function stroke_clear(a: number): void;
 export function __wbindgen_malloc(a: number): number;

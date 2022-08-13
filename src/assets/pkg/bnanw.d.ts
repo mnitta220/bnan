@@ -256,6 +256,21 @@ export function mode_change(black: boolean): void;
 */
 export function tool_func(step: number): number;
 /**
+* 表示/非表示を切り替える
+*
+* # 引数
+*
+* ## is_hide
+* - 1 : 非表示
+* - 0 : 表示
+*
+* # 戻り値
+* なし
+* @param {number} is_hide
+* @returns {number}
+*/
+export function hide(is_hide: number): number;
+/**
 * 白板・戻る
 *
 * # 引数
@@ -296,6 +311,7 @@ export interface InitOutput {
   readonly double_click: (a: number, b: number, c: number) => void;
   readonly mode_change: (a: number, b: number) => void;
   readonly tool_func: (a: number, b: number) => void;
+  readonly hide: (a: number, b: number) => void;
   readonly stroke_back: (a: number) => void;
   readonly stroke_clear: (a: number) => void;
   readonly __wbindgen_malloc: (a: number) => number;

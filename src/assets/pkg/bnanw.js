@@ -689,6 +689,36 @@ export function tool_func(step) {
 }
 
 /**
+* 表示/非表示を切り替える
+*
+* # 引数
+*
+* ## is_hide
+* - 1 : 非表示
+* - 0 : 表示
+*
+* # 戻り値
+* なし
+* @param {number} is_hide
+* @returns {number}
+*/
+export function hide(is_hide) {
+    try {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        wasm.hide(retptr, is_hide);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        if (r2) {
+            throw takeObject(r1);
+        }
+        return r0;
+    } finally {
+        wasm.__wbindgen_add_to_stack_pointer(16);
+    }
+}
+
+/**
 * 白板・戻る
 *
 * # 引数
@@ -856,6 +886,9 @@ async function init(input) {
             return isLikeNone(ret) ? 0 : addHeapObject(ret);
         }, arguments)
     };
+    imports.wbg.__wbg_log_e8ba7b992c7ad0eb = function (arg0) {
+        console.log(getObject(arg0));
+    };
     imports.wbg.__wbg_instanceof_CanvasRenderingContext2d_405495bb0ea92c4f = function (arg0) {
         const ret = getObject(arg0) instanceof CanvasRenderingContext2D;
         return ret;
@@ -992,8 +1025,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function (arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper218 = function (arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 38, __wbg_adapter_16);
+    imports.wbg.__wbindgen_closure_wrapper222 = function (arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 39, __wbg_adapter_16);
         return addHeapObject(ret);
     };
 

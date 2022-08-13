@@ -1,5 +1,5 @@
 //import init, { ping } from "../../../../bnanw/pkg/bnanw.js";
-import init, { ping, set_doc, set_section, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, single_click, double_click, tool_func, stroke_back, stroke_clear, get_section } from "../../assets/pkg/bnanw.js";
+import init, { ping, set_doc, set_section, set_source, build_tree, load_font, draw_doc, resize, tab_change, mode_change, touch_start, touch_move, touch_end, single_click, double_click, tool_func, stroke_back, stroke_clear, get_section, hide } from "../../assets/pkg/bnanw.js";
 
 export class WasmManager {
   //wasm: any;
@@ -274,6 +274,22 @@ export class WasmManager {
   */
   toolFunc(step: number) {
     tool_func(step);
+  }
+
+  /**
+  * 表示/非表示を切り替える
+  *
+  * # 引数
+  *
+  * ## is_hide
+  * - 1 : 非表示
+  * - 0 : 表示
+  *
+  * # 戻り値
+  * なし
+  */
+  hide(isHide: number) {
+    hide(isHide);
   }
 
   /**
