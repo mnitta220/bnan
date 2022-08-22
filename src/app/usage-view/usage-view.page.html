@@ -61,15 +61,27 @@
     <div class="btns">
       <table>
         <tr>
-          <td style="width: 46px">
+          <td style="width: 46px" rowspan="2">
             <img src="assets/png/btn03.png" width="32px" height="32px" />
           </td>
+          <td [ngStyle]="bs.styleUsageLiA">
+            〔全表示〕<br />１画面分、次に移動します。<br />テキスト欄をタップすることによっても、次に移動します。
+          </td>
+        </tr>
+        <tr>
           <td [ngStyle]="bs.styleUsageLiA">
             〔黒塗り〕<br />黒塗りの区切りを、次の「/」に移動します。<br />テキスト欄をタップすることによっても、次に移動します。
           </td>
         </tr>
         <tr>
-          <td><img src="assets/png/btn04.png" width="31px" height="31px" /></td>
+          <td rowspan="2">
+            <img src="assets/png/btn04.png" width="31px" height="31px" />
+          </td>
+          <td [ngStyle]="bs.styleUsageLiA">
+            〔全表示〕<br />１画面分、前に移動します。
+          </td>
+        </tr>
+        <tr>
           <td [ngStyle]="bs.styleUsageLiA">
             〔黒塗り〕<br />黒塗りの区切りを、前の「/」に移動します。
           </td>
@@ -106,6 +118,18 @@
           <td><img src="assets/png/btn10.png" width="31px" height="31px" /></td>
           <td [ngStyle]="bs.styleUsageLiA">テキスト欄の高さを小さくします。</td>
         </tr>
+        <tr>
+          <td><img src="assets/png/btn13.png" width="31px" height="31px" /></td>
+          <td [ngStyle]="bs.styleUsageLiA">
+            〔全表示〕<br />テキストの文字を非表示にします。
+          </td>
+        </tr>
+        <tr>
+          <td><img src="assets/png/btn14.png" width="31px" height="31px" /></td>
+          <td [ngStyle]="bs.styleUsageLiA">
+            〔全表示〕<br />テキストの文字を表示します。
+          </td>
+        </tr>
       </table>
     </div>
     <p [ngStyle]="bs.styleUsageP">
@@ -117,6 +141,27 @@
     <h2 [ngStyle]="bs.styleUsageH2">「更新・変更する」ボタン</h2>
     <p [ngStyle]="bs.styleUsageP">
       「更新・変更する」ボタンを押すと、文書登録画面に遷移します。
+    </p>
+    <p><br /><br /></p>
+    <hr [ngStyle]="bs.styleUsageHr" />
+    <h2 [ngStyle]="bs.styleUsageH2">ページまるごと暗記</h2>
+    <p [ngStyle]="bs.styleUsageP">
+      画面に表示されているページを、まるごと暗記するトレーニングを行うことができます。<br />
+      「全表示」の時に、<img
+        src="assets/png/btn13.png"
+        width="28px"
+        height="28px"
+      />
+      を押すと文字が非表示になり、<img
+        src="assets/png/btn14.png"
+        width="28px"
+        height="28px"
+      />
+      を押すと文字が表示されます。<br />
+      表示／非表示を切り替えて、ページ全体を、心のカメラで写真を撮るように、映像として記憶するトレーニングを行います。<br />
+      見たものをそのまま映像として記憶できる能力のことを、「映像記憶」や「フォトグラフィックメモリー」などといいます。この能力を大人になっても持っている人は、非常に少ないそうです。<br />
+      このアプリで、ページをまるごと暗記するトレーニングを行うことはできますが、<b>この能力を取得することができる人は少ない</b>だろうと思います。<br />
+      ページまるごと暗記ができそうにない人は、黒塗りでの暗記をおすすめいたします。
     </p>
     <p><br /><br /></p>
     <hr [ngStyle]="bs.styleUsageHr" />

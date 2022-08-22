@@ -886,9 +886,6 @@ async function init(input) {
             return isLikeNone(ret) ? 0 : addHeapObject(ret);
         }, arguments)
     };
-    imports.wbg.__wbg_log_e8ba7b992c7ad0eb = function (arg0) {
-        console.log(getObject(arg0));
-    };
     imports.wbg.__wbg_instanceof_CanvasRenderingContext2d_405495bb0ea92c4f = function (arg0) {
         const ret = getObject(arg0) instanceof CanvasRenderingContext2D;
         return ret;
@@ -1025,8 +1022,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function (arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper222 = function (arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 39, __wbg_adapter_16);
+    imports.wbg.__wbindgen_closure_wrapper220 = function (arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 38, __wbg_adapter_16);
         return addHeapObject(ret);
     };
 
