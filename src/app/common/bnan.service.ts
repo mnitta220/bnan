@@ -54,6 +54,21 @@ export class BnanService {
     overflow: "hidden",
     margin: "2px 4px 0 2px",
   };
+  styleSvgBtn1 = {
+    color: "white",
+    width: "42px",
+    height: "42px",
+    padding: "8px",
+    marginBottom: "3px"
+  };
+  styleSvgBtn2 = {
+    color: "#404040",
+    backgroundColor: "#ffffff28",
+    width: "42px",
+    height: "42px",
+    padding: "8px",
+    marginBottom: "3px"
+  };
   docViewPage: DocViewPage;
   retryCount = 0;
 

@@ -121,6 +121,16 @@
             (click)="pushed('fm')"
           ></ion-icon>
           <ion-icon
+            src="assets/icon/block.svg"
+            [ngStyle]="bs.styleSvgBtn1"
+            (click)="pushed('8')"
+          ></ion-icon>
+          <ion-icon
+            src="assets/icon/block.svg"
+            [ngStyle]="bs.styleSvgBtn2"
+            (click)="pushed('8')"
+          ></ion-icon>
+          <ion-icon
             *ngIf="(tab == '0' && modeText == '1' && hideText == false) || (tab == '1' && modeContent == '1' && hideContent == false)"
             name="contrast-outline"
             [ngStyle]="bs.styleToolBtn2"
