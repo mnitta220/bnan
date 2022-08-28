@@ -278,13 +278,14 @@ export function load_font() {
 * @param {number} vertical
 * @param {number} font_size
 * @param {number} current
+* @param {boolean} is_hide_block
 */
-export function set_doc(id, title, vertical, font_size, current) {
+export function set_doc(id, title, vertical, font_size, current, is_hide_block) {
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
         const ptr0 = passStringToWasm0(title, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        wasm.set_doc(retptr, id, ptr0, len0, vertical, font_size, current);
+        wasm.set_doc(retptr, id, ptr0, len0, vertical, font_size, current, is_hide_block);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         if (r1) {
@@ -666,6 +667,8 @@ export function mode_change(black) {
 * - 5 : 先頭に戻る
 * - 6 : 次の段・節に進む
 * - 7 : 前の段・節に戻る
+* - 9 : 原稿用紙非表示
+* - 10 : 原稿用紙表示
 *
 * # 戻り値
 * なし
@@ -860,10 +863,6 @@ async function init(input) {
         const ret = getObject(arg0) instanceof HTMLCanvasElement;
         return ret;
     };
-    imports.wbg.__wbg_width_20b7a9ebdd5f4232 = function(arg0) {
-        const ret = getObject(arg0).width;
-        return ret;
-    };
     imports.wbg.__wbg_setwidth_654d8adcd4979eed = function(arg0, arg1) {
         getObject(arg0).width = arg1 >>> 0;
     };
@@ -878,9 +877,6 @@ async function init(input) {
         const ret = getObject(arg0).getContext(getStringFromWasm0(arg1, arg2));
         return isLikeNone(ret) ? 0 : addHeapObject(ret);
     }, arguments) };
-    imports.wbg.__wbg_log_e8ba7b992c7ad0eb = function(arg0) {
-        console.log(getObject(arg0));
-    };
     imports.wbg.__wbg_instanceof_CanvasRenderingContext2d_405495bb0ea92c4f = function(arg0) {
         const ret = getObject(arg0) instanceof CanvasRenderingContext2D;
         return ret;
@@ -999,8 +995,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper220 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 40, __wbg_adapter_16);
+    imports.wbg.__wbindgen_closure_wrapper217 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 36, __wbg_adapter_16);
         return addHeapObject(ret);
     };
 

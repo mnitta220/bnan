@@ -30,9 +30,9 @@ export class WasmManager {
   * # 戻り値
   * なし
   */
-  setDoc(id: number, title: string, vertical: number, font_size: number, current: number): void {
+  setDoc(id: number, title: string, vertical: number, font_size: number, current: number, isHideBlock: boolean): void {
     //console.log("***WasmManager.setDoc");
-    set_doc(id, title, vertical, font_size, current);
+    set_doc(id, title, vertical, font_size, current, isHideBlock);
   }
 
   /**

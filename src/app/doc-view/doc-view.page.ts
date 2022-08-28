@@ -81,6 +81,15 @@ export class DocViewPage implements OnInit {
   }
 
   @Input()
+  set hideBlock(hide: boolean) {
+    this.bs.setting.hideBlock = hide;
+  }
+
+  get hideBlock() {
+    return this.bs.setting.hideBlock;
+  }
+
+  @Input()
   set hideContent(hide: boolean) {
     this.bs.hideContent = hide;
   }
@@ -106,7 +115,11 @@ export class DocViewPage implements OnInit {
       this.title = this.bs.setting.curDoc.title;
 
       this.toolbarElement = this.tb1.nativeElement;
-      this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
+      if (this.bs.setting.width > 100 && this.bs.setting.width < this.toolbarElement.getBoundingClientRect().width) {
+        //this.bs.frWidth = this.bs.setting.width;
+      } else {
+        this.bs.setting.width = this.toolbarElement.getBoundingClientRect().width;
+      }
       this.canvasElement1 = this.canvas1.nativeElement;
       let ct = this.canvasElement1.getContext("2d");
 
@@ -114,9 +127,9 @@ export class DocViewPage implements OnInit {
         throw new Error("Canvas.getContext failed.");
       }
 
-      this.canvasElement1.width = this.bs.frWidth;
+      this.canvasElement1.width = this.bs.setting.width;
       this.canvasElement1.height = this.bs.setting.height;
-      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.width = `${this.bs.setting.width}px`;
       this.bs.styleCanvas.height = `${this.bs.setting.height}px`;
       this.retryCnt = 0;
       this.draw();
@@ -130,15 +143,15 @@ export class DocViewPage implements OnInit {
   async draw() {
     try {
       this.toolbarElement = this.tb1.nativeElement;
-      this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
+      //this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
-      this.canvasElement1.width = this.bs.frWidth;
+      this.canvasElement1.width = this.bs.setting.width;
       this.canvasElement1.height = this.bs.setting.height;
-      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.width = `${this.bs.setting.width}px`;
       this.bs.styleCanvas.height = `${this.bs.setting.height}px`;
 
       this.bs.wman.drawDoc(
-        this.bs.frWidth,
+        this.bs.setting.width,
         this.bs.setting.height,
         this.darkMode,
         this.bs.isAndroid
@@ -164,9 +177,13 @@ export class DocViewPage implements OnInit {
   async resize() {
     try {
       this.toolbarElement = this.tb1.nativeElement;
-      this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
+      //this.bs.frWidth = this.toolbarElement.getBoundingClientRect().width;
       this.canvasElement1 = this.canvas1.nativeElement;
-      this.canvasElement1.width = this.bs.frWidth;
+      if (this.bs.setting.width == -1 || this.bs.setting.width > this.toolbarElement.getBoundingClientRect().width) {
+        this.canvasElement1.width = this.toolbarElement.getBoundingClientRect().width;
+      } else {
+        this.canvasElement1.width = this.bs.setting.width;
+      }
 
       let height: number;
       switch (this.tab) {
@@ -209,12 +226,12 @@ export class DocViewPage implements OnInit {
 
       this.canvasElement1.height = height;
       this.bs.styleCanvas.height = `${height}px`;
-      this.bs.styleCanvas.width = `${this.bs.frWidth}px`;
+      this.bs.styleCanvas.width = `${this.bs.setting.width}px`;
       this.cheight = height;
 
 
       this.bs.wman.reSize(
-        this.bs.frWidth,
+        this.bs.setting.width,
         height,
         this.darkMode,
       );
@@ -285,7 +302,7 @@ export class DocViewPage implements OnInit {
       this.canvasElement1.height = height;
       this.bs.styleCanvas.height = `${height}px`;
 
-      this.bs.wman.tabChange(parseInt(this.tab), this.bs.frWidth, height, this.darkMode);
+      this.bs.wman.tabChange(parseInt(this.tab), this.bs.setting.width, height, this.darkMode);
 
       if (this.tab != Define.TAB_BOARD && height != this.cheight) {
         setTimeout(() => {
@@ -497,18 +514,42 @@ export class DocViewPage implements OnInit {
           break;
 
         case "fp": // 枠拡大
-          this.bs.setting.height += 30;
-          await this.bs.updateSetting();
-          this.retryCnt = 0;
-          await this.resize();
-          break;
-
-        case "fm": // 枠縮小
-          if (this.bs.setting.height > 300) {
-            this.bs.setting.height -= 30;
+          if (this.bs.setting.hideBlock) {
+            if (this.bs.setting.width > -1) {
+              this.bs.setting.width += 30;
+              if (this.bs.setting.width > this.toolbarElement.getBoundingClientRect().width) {
+                this.bs.setting.width = this.toolbarElement.getBoundingClientRect().width;
+              }
+              await this.bs.updateSetting();
+              this.retryCnt = 0;
+              await this.resize();
+            }
+          } else {
+            this.bs.setting.height += 30;
             await this.bs.updateSetting();
             this.retryCnt = 0;
             await this.resize();
+          }
+          break;
+
+        case "fm": // 枠縮小
+          if (this.bs.setting.hideBlock) {
+            if (this.bs.setting.width == -1) {
+              this.bs.setting.width = this.toolbarElement.getBoundingClientRect().width;
+            }
+            if (this.bs.setting.width > 300) {
+              this.bs.setting.width -= 30;
+              await this.bs.updateSetting();
+              this.retryCnt = 0;
+              await this.resize();
+            }
+          } else {
+            if (this.bs.setting.height > 300) {
+              this.bs.setting.height -= 30;
+              await this.bs.updateSetting();
+              this.retryCnt = 0;
+              await this.resize();
+            }
           }
           break;
 
@@ -523,6 +564,18 @@ export class DocViewPage implements OnInit {
               this.bs.wman.hide(this.bs.hideContent ? 1 : 0);
               break;
           }
+          break;
+
+        case "9": // 原稿用紙非表示
+          this.bs.setting.hideBlock = true;
+          await this.bs.updateSetting();
+          this.bs.wman.toolFunc(9);
+          break;
+
+        case "10": // 原稿用紙表示
+          this.bs.setting.hideBlock = false;
+          await this.bs.updateSetting();
+          this.bs.wman.toolFunc(10);
           break;
       }
     } catch (e) {

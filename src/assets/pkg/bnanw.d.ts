@@ -45,8 +45,9 @@ export function load_font(): void;
 * @param {number} vertical
 * @param {number} font_size
 * @param {number} current
+* @param {boolean} is_hide_block
 */
-export function set_doc(id: number, title: string, vertical: number, font_size: number, current: number): void;
+export function set_doc(id: number, title: string, vertical: number, font_size: number, current: number, is_hide_block: boolean): void;
 /**
 * 段落をセットする
 *
@@ -248,6 +249,8 @@ export function mode_change(black: boolean): void;
 * - 5 : 先頭に戻る
 * - 6 : 次の段・節に進む
 * - 7 : 前の段・節に戻る
+* - 9 : 原稿用紙非表示
+* - 10 : 原稿用紙表示
 *
 * # 戻り値
 * なし
@@ -296,7 +299,7 @@ export interface InitOutput {
   readonly main: () => void;
   readonly ping: (a: number, b: number) => void;
   readonly load_font: (a: number) => void;
-  readonly set_doc: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
+  readonly set_doc: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => void;
   readonly set_section: (a: number, b: number) => void;
   readonly set_source: (a: number, b: number, c: number, d: number) => void;
   readonly build_tree: (a: number) => void;

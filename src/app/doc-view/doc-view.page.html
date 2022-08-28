@@ -111,6 +111,18 @@
             (click)="pushed('7')"
           ></ion-icon>
           <ion-icon
+            *ngIf="hideBlock == false"
+            src="assets/icon/block.svg"
+            [ngStyle]="bs.styleSvgBtn1"
+            (click)="pushed('9')"
+          ></ion-icon>
+          <ion-icon
+            *ngIf="hideBlock == true"
+            src="assets/icon/block.svg"
+            [ngStyle]="bs.styleSvgBtn2"
+            (click)="pushed('10')"
+          ></ion-icon>
+          <ion-icon
             name="add-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fp')"
@@ -119,16 +131,6 @@
             name="remove-circle-outline"
             [ngStyle]="bs.styleToolBtn1"
             (click)="pushed('fm')"
-          ></ion-icon>
-          <ion-icon
-            src="assets/icon/block.svg"
-            [ngStyle]="bs.styleSvgBtn1"
-            (click)="pushed('8')"
-          ></ion-icon>
-          <ion-icon
-            src="assets/icon/block.svg"
-            [ngStyle]="bs.styleSvgBtn2"
-            (click)="pushed('8')"
           ></ion-icon>
           <ion-icon
             *ngIf="(tab == '0' && modeText == '1' && hideText == false) || (tab == '1' && modeContent == '1' && hideContent == false)"

@@ -27,7 +27,7 @@ export class BnanService {
   isElectron = false;
   isMac = false;
   isWin = false;
-  frWidth: number;
+  //frWidth: number;
   tab = Define.TAB_TEXT;
   modeText = Define.KURO_ALL;
   modeContent = Define.KURO_ALL;
@@ -63,7 +63,7 @@ export class BnanService {
   };
   styleSvgBtn2 = {
     color: "#404040",
-    backgroundColor: "#ffffff28",
+    backgroundColor: "#ffffff32",
     width: "42px",
     height: "42px",
     padding: "8px",
@@ -118,6 +118,12 @@ export class BnanService {
         this.setting.zoom = 1;
         await this.updateSetting();
       }
+      if (this.setting.version < "2.00") {
+        this.setting.version = Define.VERSION;
+        this.setting.width = -1;
+        this.setting.hideBlock = false;
+        await this.updateSetting();
+      }
       this.setFontSize();
     }
 
@@ -134,9 +140,11 @@ export class BnanService {
     this.setting = new Setting();
     this.setting.version = Define.VERSION;
     this.setting.height = Define.INIT_HEIGHT;
+    this.setting.width = -1;
 
     const info = await Device.getInfo();
     this.setting.zoom = 1;
+    this.setting.hideBlock = false;
     this.setFontSize();
 
     await this.updateSetting();
@@ -247,7 +255,8 @@ export class BnanService {
         this.setting.curDoc.title,
         this.setting.curDoc.vertical,
         this.setting.curDoc.fontSize,
-        this.setting.curDoc.current
+        this.setting.curDoc.current,
+        this.setting.hideBlock
       );
 
       let cons = await this._idb.contents
@@ -357,7 +366,8 @@ export class BnanService {
         doc.title,
         doc.vertical,
         doc.fontSize,
-        -1
+        -1,
+        this.setting.hideBlock
       );
 
       let seq = 0;
@@ -450,7 +460,8 @@ export class BnanService {
         title,
         vertical,
         fontSize,
-        this.setting.curDoc.current
+        this.setting.curDoc.current,
+        this.setting.hideBlock
       );
 
       if (this._idb == null) {

@@ -4,7 +4,7 @@ export const memory: WebAssembly.Memory;
 export function main(): void;
 export function ping(a: number, b: number): void;
 export function load_font(a: number): void;
-export function set_doc(a: number, b: number, c: number, d: number, e: number, f: number, g: number): void;
+export function set_doc(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number): void;
 export function set_section(a: number, b: number): void;
 export function set_source(a: number, b: number, c: number, d: number): void;
 export function build_tree(a: number): void;
