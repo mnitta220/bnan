@@ -1,7 +1,7 @@
-import Dexie from "dexie";
-import { Define } from "./define";
+import Dexie from 'dexie';
+import { Define } from './define';
 
-const DB_NAME = "bnandb1";
+const DB_NAME = 'bnandb1';
 
 export class AppDatabase extends Dexie {
   docs: Dexie.Table<IDoc, number>;
@@ -11,12 +11,12 @@ export class AppDatabase extends Dexie {
     super(DB_NAME);
 
     this.version(2).stores({
-      docs: "++id, title, dt",
-      contents: "[docId+ver+seq], [docId+ver], docId",
+      docs: '++id, title, dt',
+      contents: '[docId+ver+seq], [docId+ver], docId',
     });
 
-    this.docs = this.table("docs");
-    this.contents = this.table("contents");
+    this.docs = this.table('docs');
+    this.contents = this.table('contents');
   }
 
   async loadSample() {
@@ -24,13 +24,13 @@ export class AppDatabase extends Dexie {
     try {
       // サンプル文書を登録
       let doc = new Doc(
-        "サンプル文書", // title
+        'サンプル文書', // title
         0, // ver
         Define.MODE_V, // vertical
         20, // fontSize
         -1, // current
         AppDatabase.getDt(), // dt
-        "" // json
+        '' // json
       );
 
       this.docs.add(doc).then((id) => {
@@ -108,12 +108,12 @@ export class AppDatabase extends Dexie {
 　カムパネルラが手をあげました。/それから四、五人手をあげました。/ジョバンニも手をあげようとして、/急《いそ》いでそのままやめました。/たしかにあれがみんな星だと、/いつか雑誌《ざっし》で読んだのでしたが、/このごろはジョバンニはまるで毎日教室でもねむく、/本を読むひまも読む本もないので、/なんだかどんなこともよくわからないという気持《きも》ちがするのでした。/
 （以下略）`;
 
-        const lines = text.split("\n");
+        const lines = text.split('\n');
         let seq = 0;
-        let con: Contents = null;
+        //let con: Contents = null;
 
         for (let l of lines) {
-          con = new Contents(doc.id, 0, seq, l);
+          let con = new Contents(doc.id, 0, seq, l);
           this.contents.add(con);
           seq++;
         }
@@ -342,26 +342,26 @@ export class AppDatabase extends Dexie {
       });
       */
     } catch (e) {
-      throw Error("AppDatabase.loadSample error: " + e);
+      throw Error('AppDatabase.loadSample error: ' + e);
     }
   }
 
   static async deleteDb() {
     try {
       await Dexie.delete(DB_NAME);
-    } catch (e) { }
+    } catch (e) {}
   }
 
   static getDt(): string {
     let date = new Date();
     let dt =
       date.getFullYear() +
-      ("0" + (date.getMonth() + 1)).slice(-2) +
-      ("0" + date.getDate()).slice(-2) +
-      ("0" + date.getHours()).slice(-2) +
-      ("0" + date.getMinutes()).slice(-2) +
-      ("0" + date.getSeconds()).slice(-2) +
-      ("00" + date.getMilliseconds()).slice(-3);
+      ('0' + (date.getMonth() + 1)).slice(-2) +
+      ('0' + date.getDate()).slice(-2) +
+      ('0' + date.getHours()).slice(-2) +
+      ('0' + date.getMinutes()).slice(-2) +
+      ('0' + date.getSeconds()).slice(-2) +
+      ('00' + date.getMilliseconds()).slice(-3);
     return dt;
   }
 }
@@ -386,7 +386,7 @@ export interface IContents {
 }
 
 export class Doc implements IDoc {
-  id: number;
+  id?: number;
   title: string;
   ver: number;
   vertical: number;
@@ -413,25 +413,26 @@ export class Doc implements IDoc {
     this.dt = dt;
     this.json = json;
     if (id) this.id = id;
+    //this.id = id ?? 0;
   }
 
   toString(): string {
     return (
-      "Doc [id:" +
+      'Doc [id:' +
       this.id +
-      ", title:" +
+      ', title:' +
       this.title +
-      ", ver:" +
+      ', ver:' +
       this.ver +
-      ", vertical:" +
+      ', vertical:' +
       this.vertical +
-      ", fontSize:" +
+      ', fontSize:' +
       this.fontSize +
-      ", current:" +
+      ', current:' +
       this.current +
-      ", dt:" +
+      ', dt:' +
       this.dt +
-      "]"
+      ']'
     );
   }
 }
@@ -463,16 +464,16 @@ export class Contents implements IContents {
 
   toString(): string {
     return (
-      "Contents [id:" +
-      ", docId:" +
+      'Contents [id:' +
+      ', docId:' +
       this.docId +
-      ", ver:" +
+      ', ver:' +
       this.ver +
-      ", seq:" +
+      ', seq:' +
       this.seq +
-      ", text:" +
+      ', text:' +
       this.text +
-      "]"
+      ']'
     );
   }
 }

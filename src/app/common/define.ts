@@ -1,14 +1,14 @@
 export class Define {
-  static PRODUCT_ID = "com.github.mnitta220.bnan";
-  static VERSION = "1.16";
+  static PRODUCT_ID = 'com.github.mnitta220.bnan';
+  static VERSION = '1.17';
   static MODE_H = 1;
   static MODE_V = 2;
-  static TAB_TEXT = "0"; // 本文
-  static TAB_CONTENTS = "1"; // 目次
-  static TAB_BOX = "2"; // Box
-  static TAB_BOARD = "3"; // 白板
-  static KURO_ALL = "1"; // 全表示
-  static KURO_BLACK = "2"; // 黒塗り
+  static TAB_TEXT = '0'; // 本文
+  static TAB_CONTENTS = '1'; // 目次
+  static TAB_BOX = '2'; // Box
+  static TAB_BOARD = '3'; // 白板
+  static KURO_ALL = '1'; // 全表示
+  static KURO_BLACK = '2'; // 黒塗り
   static INIT_HEIGHT = 360;
   static PG_LIST = 0; // 文書一覧画面
   static PG_VIEW = 1; // 文書表示画面

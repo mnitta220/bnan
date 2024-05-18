@@ -1,10 +1,10 @@
-import { Doc } from "./idb";
+import { Doc } from './idb';
 
 export class Setting {
-  version: string;
+  version?: string;
   showUsage: boolean = false;
-  curDoc: Doc = null;
-  height: number;
-  zoom: number;
+  curDoc: Doc | null = null;
+  height: number = 0;
+  zoom: number = 0;
   //admob: boolean = false;
 }

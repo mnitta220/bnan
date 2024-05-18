@@ -1,20 +1,18 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 //import { ToastController } from "@ionic/angular";
 import { Clipboard } from '@capacitor/clipboard';
-import { BnanService } from "../common/bnan.service";
+import { BnanService } from '../common/bnan.service';
 
 @Component({
-  selector: "app-log",
-  templateUrl: "./log.page.html",
-  styleUrls: ["./log.page.scss"],
+  selector: 'app-log',
+  templateUrl: './log.page.html',
+  styleUrls: ['./log.page.scss'],
 })
-export class LogPage implements OnInit {
-  constructor(/*private tc: ToastController,*/ private bs: BnanService) { }
-
-  ngOnInit() { }
+export class LogPage {
+  constructor(private bs: BnanService) {}
 
   ionViewWillEnter() {
-    this.logs.push("LogPage.ionViewWillEnter");
+    this.logs.push('LogPage.ionViewWillEnter');
   }
 
   @Input()
@@ -27,14 +25,14 @@ export class LogPage implements OnInit {
   }
 
   copy() {
-    let log = "=====\n";
+    let log = '=====\n';
     for (let i = 0; i < this.bs.logs.length; i++) {
-      log += this.bs.logs[i] + "\n=====\n";
+      log += this.bs.logs[i] + '\n=====\n';
     }
     Clipboard.write({
       string: log,
     })
-      .then(() => window.alert("クリップボードにコピーしました。"))
+      .then(() => window.alert('クリップボードにコピーしました。'))
       //.then(() => this.copyToast())
       .catch((error) => {
         alert(`${error.message}`);
@@ -55,11 +53,11 @@ export class LogPage implements OnInit {
   */
 
   async initialize() {
-    const result = window.confirm("データを初期化してもよろしいですか？");
+    const result = window.confirm('データを初期化してもよろしいですか？');
 
     if (result) {
       await this.bs.dropAll();
-      window.alert("データが初期化されました。アプリを終了してください。");
+      window.alert('データが初期化されました。アプリを終了してください。');
     }
   }
 }
